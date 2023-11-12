@@ -124,6 +124,19 @@ class WrongPath : public MazeElement
         }
 };
 
+class End : public MazeElement 
+{
+    public:
+        string getDescription() const override 
+        {
+            return "End"; // Description of the Wrong Path element
+        }
+        char getSymbol() const override 
+        { 
+            return 'E';          // Character symbol for Wrong Path
+        }
+};
+
 class OutOfBounds : public MazeElement {
     public:
         string getDescription() const override {
@@ -161,6 +174,16 @@ class Maze {
                     }
                 }
             }
+            vector<pair<int, int>> endPositions = { {14, 14}, {14, 13}, {13, 14}, {13, 13} };
+            for (const auto& pos : endPositions)
+            {
+                setMazeElement(pos.first, pos.second, new End());
+            }
+            vector<pair<int, int>> startPositions = {{1, 1}, {1, 2}, {2, 1}, {2, 2}};
+            for (const auto& pos : startPositions) 
+            {
+                setMazeElement(pos.first, pos.second, new Start());
+            }
             //cout << "Maze has been successfully initialized" << endl<<endl; // Works
         }
 
@@ -195,7 +218,7 @@ class Maze {
                 cout << endl;
             }
         }
-        void setMazeElement(int x, int y, MazeElement* newElement) 
+        void setMazeElement(int y, int x, MazeElement* newElement) 
         {
             if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
             {
@@ -215,25 +238,88 @@ class Maze {
 
 int main() {
     Maze myMaze(5);
-        // myMaze.printMaze();
+    //myMaze.printMaze();
 
     // Test Ceck if i can chance cells It works // TODO Test OutOfBounds
     // cout << endl;
     // cout << endl;
-    // for (int y = 1; y <= 2; ++y) {
-    //     myMaze.setMazeElement(3, y, new Path());
-    // }
+    int scale =1;
+    myMaze.setMazeElement( 1, 3*scale, new Path());
+    myMaze.setMazeElement( 2, 3*scale, new Path());
+    myMaze.setMazeElement( 3*scale ,13 , new Path());
+    myMaze.setMazeElement( 3*scale ,14 , new Path());
+    myMaze.setMazeElement( 4 ,3*scale , new Path());
+    myMaze.setMazeElement( 5 ,3*scale , new Path());    
+    myMaze.setMazeElement( 13 ,3*scale , new Path());
+    myMaze.setMazeElement( 14 ,3*scale , new Path());
+    scale +=1;
+    myMaze.setMazeElement( 1, 3*scale, new Path());
+    myMaze.setMazeElement( 2, 3*scale, new Path());
+    myMaze.setMazeElement( 3*scale ,13 , new Path());
+    myMaze.setMazeElement( 3*scale ,14 , new Path());
+    myMaze.setMazeElement( 4 ,3*scale , new Path());
+    myMaze.setMazeElement( 5 ,3*scale , new Path());
+    myMaze.setMazeElement( 3*scale ,1 , new Path());
+    myMaze.setMazeElement( 3*scale ,2 , new Path());
+    myMaze.setMazeElement( 13 ,3*scale , new Path());
+    myMaze.setMazeElement( 14 ,3*scale , new Path());
+    myMaze.setMazeElement( 7 ,3*scale , new Path());
+    myMaze.setMazeElement( 8 ,3*scale , new Path());   
+    myMaze.setMazeElement( 10, 3*scale, new Path());
+    myMaze.setMazeElement( 11, 3*scale, new Path());
+    scale +=1;
+    myMaze.setMazeElement( 1, 3*scale, new Path());
+    myMaze.setMazeElement( 2, 3*scale, new Path());
+    myMaze.setMazeElement( 3*scale ,13 , new Path());
+    myMaze.setMazeElement( 3*scale ,14 , new Path());
+    myMaze.setMazeElement( 4 ,3*scale , new Path());
+    myMaze.setMazeElement( 5 ,3*scale , new Path());    
+    myMaze.setMazeElement( 3*scale ,1 , new Path());
+    myMaze.setMazeElement( 3*scale ,2 , new Path());   
+    myMaze.setMazeElement( 13 ,3*scale , new Path());
+    myMaze.setMazeElement( 14 ,3*scale , new Path());
+    myMaze.setMazeElement( 3*scale ,10 , new Path());
+    myMaze.setMazeElement( 3*scale ,11 , new Path());
+    myMaze.setMazeElement( 7 ,3*scale , new Path());
+    myMaze.setMazeElement( 8 ,3*scale , new Path());
+    myMaze.setMazeElement( 3*scale ,4 , new Path());
+    myMaze.setMazeElement( 3*scale ,5 , new Path());
+    scale +=1;
+    myMaze.setMazeElement( 1, 3*scale, new Path());
+    myMaze.setMazeElement( 2, 3*scale, new Path());
+    myMaze.setMazeElement( 3*scale ,13 , new Path());
+    myMaze.setMazeElement( 3*scale ,14 , new Path());
+    myMaze.setMazeElement( 4 ,3*scale , new Path());
+    myMaze.setMazeElement( 5 ,3*scale , new Path());
+    myMaze.setMazeElement( 3*scale ,1 , new Path());
+    myMaze.setMazeElement( 3*scale ,2 , new Path());
+    myMaze.setMazeElement( 3*scale ,10 , new Path());
+    myMaze.setMazeElement( 3*scale ,11 , new Path());
+
+// Snail :
+// ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+// ⬛🟩🟩⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛
+// ⬛🟩🟩⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛
+// ⬛⬜⬜⬛⬜⬜⬛⬛⬛⬛⬛⬛⬛⬜⬜⬛
+// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬜⬜⬜⬛⬜⬜⬛
+// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬜⬜⬜⬛⬜⬜⬛
+// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛
+// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛
+// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛
+// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬛⬛⬛⬜⬜⬛
+// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬜⬜⬜⬜⬜⬜⬛
+// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬜⬜⬜⬜⬜⬜⬛
+// ⬛⬜⬜⬛⬜⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+// ⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🟥🟥⬛
+// ⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🟥🟥⬛
+// ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+
     // myMaze.printMaze();
     // cout << endl;
     // cout << endl;
-    // vector<pair<int, int>> startPositions = {{1, 1}, {1, 2}, {2, 1}, {2, 2}};
-    // for (const auto& pos : startPositions) {
-    //     myMaze.setMazeElement(pos.first, pos.second, new Start());
-    // }
+
 
     myMaze.printMaze();
-    cout << endl;
-    cout << endl;
     return 0;
 }
 
