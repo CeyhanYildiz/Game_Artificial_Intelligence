@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <string>
+#include <cstdlib> // Required for rand() and srand()
+#include <ctime>   // Required for time()
 
 using namespace std;
 
@@ -237,84 +239,25 @@ class Maze {
 };
 
 int main() {
-    int size = 7;
+
+    srand(time(0));
+
+    int size = 5;
     int RealSize = (size * 3) + 1 ;
     Maze myMaze(size);
-    int scale =1;
-    
-    // myMaze.setMazeElement( 1, 3*scale, new Path());
-    // myMaze.setMazeElement( 2, 3*scale, new Path());
-    // myMaze.setMazeElement( 3*scale ,13 , new Path());
-    // myMaze.setMazeElement( 3*scale ,14 , new Path());
-    // myMaze.setMazeElement( 4 ,3*scale , new Path());
-    // myMaze.setMazeElement( 5 ,3*scale , new Path());    
-    // myMaze.setMazeElement( 13 ,3*scale , new Path());
-    // myMaze.setMazeElement( 14 ,3*scale , new Path());
-    // scale +=1;
-    // myMaze.setMazeElement( 1, 3*scale, new Path());
-    // myMaze.setMazeElement( 2, 3*scale, new Path());
-    // myMaze.setMazeElement( 3*scale ,13 , new Path());
-    // myMaze.setMazeElement( 3*scale ,14 , new Path());
-    // myMaze.setMazeElement( 4 ,3*scale , new Path());
-    // myMaze.setMazeElement( 5 ,3*scale , new Path());
-    // myMaze.setMazeElement( 3*scale ,1 , new Path());
-    // myMaze.setMazeElement( 3*scale ,2 , new Path());
-    // myMaze.setMazeElement( 13 ,3*scale , new Path());
-    // myMaze.setMazeElement( 14 ,3*scale , new Path());
-    // myMaze.setMazeElement( 7 ,3*scale , new Path());
-    // myMaze.setMazeElement( 8 ,3*scale , new Path());   
-    // myMaze.setMazeElement( 10, 3*scale, new Path());
-    // myMaze.setMazeElement( 11, 3*scale, new Path());
-    // scale +=1;
-    // myMaze.setMazeElement( 1, 3*scale, new Path());
-    // myMaze.setMazeElement( 2, 3*scale, new Path());
-    // myMaze.setMazeElement( 3*scale ,13 , new Path());
-    // myMaze.setMazeElement( 3*scale ,14 , new Path());
-    // myMaze.setMazeElement( 4 ,3*scale , new Path());
-    // myMaze.setMazeElement( 5 ,3*scale , new Path());    
-    // myMaze.setMazeElement( 3*scale ,1 , new Path());
-    // myMaze.setMazeElement( 3*scale ,2 , new Path());   
-    // myMaze.setMazeElement( 13 ,3*scale , new Path());
-    // myMaze.setMazeElement( 14 ,3*scale , new Path());
-    // myMaze.setMazeElement( 3*scale ,10 , new Path());
-    // myMaze.setMazeElement( 3*scale ,11 , new Path());
-    // myMaze.setMazeElement( 7 ,3*scale , new Path());
-    // myMaze.setMazeElement( 8 ,3*scale , new Path());
-    // myMaze.setMazeElement( 3*scale ,4 , new Path());
-    // myMaze.setMazeElement( 3*scale ,5 , new Path());
-    // scale +=1;
-    // myMaze.setMazeElement( 1, 3*scale, new Path());
-    // myMaze.setMazeElement( 2, 3*scale, new Path());
-    // myMaze.setMazeElement( 3*scale ,13 , new Path());
-    // myMaze.setMazeElement( 3*scale ,14 , new Path());
-    // myMaze.setMazeElement( 4 ,3*scale , new Path());
-    // myMaze.setMazeElement( 5 ,3*scale , new Path());
-    // myMaze.setMazeElement( 3*scale ,1 , new Path());
-    // myMaze.setMazeElement( 3*scale ,2 , new Path());
-    // myMaze.setMazeElement( 3*scale ,10 , new Path());
-    // myMaze.setMazeElement( 3*scale ,11 , new Path());
 
-// Snail :
-// ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-// ⬛🟩🟩⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛
-// ⬛🟩🟩⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛
-// ⬛⬜⬜⬛⬜⬜⬛⬛⬛⬛⬛⬛⬛⬜⬜⬛
-// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬜⬜⬜⬛⬜⬜⬛
-// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬜⬜⬜⬛⬜⬜⬛
-// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛
-// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛
-// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛
-// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬛⬛⬛⬛⬜⬜⬛
-// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬜⬜⬜⬜⬜⬜⬛
-// ⬛⬜⬜⬛⬜⬜⬛⬜⬜⬜⬜⬜⬜⬜⬜⬛
-// ⬛⬜⬜⬛⬜⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-// ⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🟥🟥⬛
-// ⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜🟥🟥⬛
-// ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+    int random_number = rand() % 2 + 1;
 
-    // myMaze.printMaze();
-    // cout << endl;
-    // cout << endl;
+    if ( random_number == 1)
+    {
+        myMaze.setMazeElement( 1, 3, new Path());
+        myMaze.setMazeElement( 2, 3, new Path());
+    }
+    else
+    {
+        myMaze.setMazeElement( 3, 1, new Path());
+        myMaze.setMazeElement( 3, 2, new Path());
+    }
 
 
     myMaze.printMaze();
