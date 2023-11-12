@@ -44,81 +44,90 @@ Ceyhan:
 */
 
 // Base class
-class MazeElement {
-public:
-    virtual char getSymbol() const = 0;  // Pure virtual function
-    virtual ~MazeElement() {}  // Virtual destructor
+class MazeElement 
+{
+    public:
+        virtual char getSymbol() const = 0;  // Pure virtual function
+        virtual ~MazeElement() {}  // Virtual destructor
 };
 
 // Derived classes
-class Wall : public MazeElement {
-public:
-    char getSymbol() const override { return 'W'; }
+class Wall : public MazeElement 
+{
+    public:
+        char getSymbol() const override { return 'W'; }
 };
 
-class Path : public MazeElement {
-public:
-    char getSymbol() const override { return 'P'; }
+class Path : public MazeElement 
+{
+    public:
+        char getSymbol() const override { return 'P'; }
 };
 
-class Checkpoint : public MazeElement {
-public:
-    char getSymbol() const override { return 'C'; }
+class Checkpoint : public MazeElement 
+{
+    public:
+        char getSymbol() const override { return 'C'; }
 };
 
 
 
-void printBlockSymbol(const MazeElement& element) {
-    switch (element.getSymbol()) {
-        case 'P': cout << "⬜"; break;
-        case 'W': cout << "⬛"; break;
-        case 'C': cout << "🟦"; break;
-        case 'S': cout << "🟩"; break;
-        case 'E': cout << "🟥"; break;
-        case 'w': cout << "🟨"; break;
-        // ... handle other cases
-        default:
-            cout << "Invalid value\n";
-    }
-}
+void printBlockSymbol(const MazeElement& element);
 
 
-int main() {
-    const int sizeMaze =  4 ;
-    const int count = (sizeMaze*3)+1;
-    const int CellSize_2x2 = 3;
+int main() 
+{
+    const int sizeMaze = 4; // sizeMaze x sizeMaze 
 
-    // Using a raw pointer array for the maze
-    MazeElement*** Maze = new MazeElement**[count];
+    // Using std::vector for the maze
+    vector<vector<MazeElement*>> Maze((sizeMaze * 3) + 1, vector<MazeElement*>((sizeMaze * 3) + 1));
 
-    for (int x = 0; x < count; x++) {
-        Maze[x] = new MazeElement*[count];
-        for (int y = 0; y < count; y++) {
-            if (y % CellSize_2x2 == 0 || x % CellSize_2x2 == 0) {
+    for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
+    {
+        for (int y = 0; y < (sizeMaze * 3) + 1; y++) 
+        {
+            if (y % 3 == 0 || x % 3 == 0) 
+            {
                 Maze[x][y] = new Wall();
-            } else {
+            } else 
+            {
                 Maze[x][y] = new Path();
             }
         }
     }
 
     // Printing the maze
-    for (int x = 0; x < count; x++) {
-        for (int y = 0; y < count; y++) {
+    for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
+    {
+        for (int y = 0; y < (sizeMaze * 3) + 1; y++) 
+        {
             printBlockSymbol(*Maze[x][y]);
         }
         cout << endl;
     }
 
-    // Properly deallocating memory
-    for (int x = 0; x < count; x++) {
-        for (int y = 0; y < count; y++) {
+    // Deallocating memory
+    for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
+    {
+        for (int y = 0; y < (sizeMaze * 3) + 1; y++) 
+        {
             delete Maze[x][y];
         }
-        delete[] Maze[x];
     }
-    delete[] Maze;
-
     return 0;
 }
 
+void printBlockSymbol(const MazeElement& element) 
+{
+    switch (element.getSymbol()) 
+    {
+        case 'P': cout << "⬜"; break;
+        case 'W': cout << "⬛"; break;
+        case 'C': cout << "🟦"; break;
+        case 'S': cout << "🟩"; break;
+        case 'E': cout << "🟥"; break;
+        case 'w': cout << "🟨"; break;
+        default:
+            cout << "Invalid value\n";
+    }
+}
