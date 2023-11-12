@@ -46,7 +46,7 @@ class Wall
 
 int main()
 {
-    cout << "⬜⬛🟦🟩🟥🟨" << endl; // VS Code Works for printing
+    cout << "⬜⬛🟦🟩🟥🟨⬜⬛🟦🟩🟥🟨" << endl; // VS Code Works for printing
     return 0;
 }
 
