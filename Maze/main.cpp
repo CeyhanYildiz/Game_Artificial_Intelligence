@@ -84,7 +84,8 @@ void printBlockSymbol(const MazeElement& element) {
 
 
 int main() {
-    const int count = 25;
+    const int sizeMaze =  4 ;
+    const int count = (sizeMaze*3)+1;
     const int CellSize_2x2 = 3;
 
     // Using a raw pointer array for the maze
