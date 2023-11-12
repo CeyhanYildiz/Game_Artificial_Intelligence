@@ -237,13 +237,11 @@ class Maze {
 };
 
 int main() {
-    Maze myMaze(5);
-    //myMaze.printMaze();
-
-    // Test Ceck if i can chance cells It works // TODO Test OutOfBounds
-    // cout << endl;
-    // cout << endl;
+    int size = 5;
+    int RealSize = (size * 3) + 1 ;
+    Maze myMaze(size);
     int scale =1;
+    
     myMaze.setMazeElement( 1, 3*scale, new Path());
     myMaze.setMazeElement( 2, 3*scale, new Path());
     myMaze.setMazeElement( 3*scale ,13 , new Path());
