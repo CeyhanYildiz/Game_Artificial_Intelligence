@@ -174,7 +174,7 @@ class Maze {
                     }
                 }
             }
-            vector<pair<int, int>> endPositions = { {14, 14}, {14, 13}, {13, 14}, {13, 13} };
+            vector<pair<int, int>> endPositions = { {(size * 3) + 1 - 2, (size * 3) + 1 - 2}, {(size * 3) + 1 - 2, (size * 3) + 1 - 3}, {(size * 3) + 1 - 3, (size * 3) + 1 - 2}, {(size * 3) + 1 - 3, (size * 3) + 1 - 3} };
             for (const auto& pos : endPositions)
             {
                 setMazeElement(pos.first, pos.second, new End());
@@ -237,62 +237,62 @@ class Maze {
 };
 
 int main() {
-    int size = 5;
+    int size = 7;
     int RealSize = (size * 3) + 1 ;
     Maze myMaze(size);
     int scale =1;
     
-    myMaze.setMazeElement( 1, 3*scale, new Path());
-    myMaze.setMazeElement( 2, 3*scale, new Path());
-    myMaze.setMazeElement( 3*scale ,13 , new Path());
-    myMaze.setMazeElement( 3*scale ,14 , new Path());
-    myMaze.setMazeElement( 4 ,3*scale , new Path());
-    myMaze.setMazeElement( 5 ,3*scale , new Path());    
-    myMaze.setMazeElement( 13 ,3*scale , new Path());
-    myMaze.setMazeElement( 14 ,3*scale , new Path());
-    scale +=1;
-    myMaze.setMazeElement( 1, 3*scale, new Path());
-    myMaze.setMazeElement( 2, 3*scale, new Path());
-    myMaze.setMazeElement( 3*scale ,13 , new Path());
-    myMaze.setMazeElement( 3*scale ,14 , new Path());
-    myMaze.setMazeElement( 4 ,3*scale , new Path());
-    myMaze.setMazeElement( 5 ,3*scale , new Path());
-    myMaze.setMazeElement( 3*scale ,1 , new Path());
-    myMaze.setMazeElement( 3*scale ,2 , new Path());
-    myMaze.setMazeElement( 13 ,3*scale , new Path());
-    myMaze.setMazeElement( 14 ,3*scale , new Path());
-    myMaze.setMazeElement( 7 ,3*scale , new Path());
-    myMaze.setMazeElement( 8 ,3*scale , new Path());   
-    myMaze.setMazeElement( 10, 3*scale, new Path());
-    myMaze.setMazeElement( 11, 3*scale, new Path());
-    scale +=1;
-    myMaze.setMazeElement( 1, 3*scale, new Path());
-    myMaze.setMazeElement( 2, 3*scale, new Path());
-    myMaze.setMazeElement( 3*scale ,13 , new Path());
-    myMaze.setMazeElement( 3*scale ,14 , new Path());
-    myMaze.setMazeElement( 4 ,3*scale , new Path());
-    myMaze.setMazeElement( 5 ,3*scale , new Path());    
-    myMaze.setMazeElement( 3*scale ,1 , new Path());
-    myMaze.setMazeElement( 3*scale ,2 , new Path());   
-    myMaze.setMazeElement( 13 ,3*scale , new Path());
-    myMaze.setMazeElement( 14 ,3*scale , new Path());
-    myMaze.setMazeElement( 3*scale ,10 , new Path());
-    myMaze.setMazeElement( 3*scale ,11 , new Path());
-    myMaze.setMazeElement( 7 ,3*scale , new Path());
-    myMaze.setMazeElement( 8 ,3*scale , new Path());
-    myMaze.setMazeElement( 3*scale ,4 , new Path());
-    myMaze.setMazeElement( 3*scale ,5 , new Path());
-    scale +=1;
-    myMaze.setMazeElement( 1, 3*scale, new Path());
-    myMaze.setMazeElement( 2, 3*scale, new Path());
-    myMaze.setMazeElement( 3*scale ,13 , new Path());
-    myMaze.setMazeElement( 3*scale ,14 , new Path());
-    myMaze.setMazeElement( 4 ,3*scale , new Path());
-    myMaze.setMazeElement( 5 ,3*scale , new Path());
-    myMaze.setMazeElement( 3*scale ,1 , new Path());
-    myMaze.setMazeElement( 3*scale ,2 , new Path());
-    myMaze.setMazeElement( 3*scale ,10 , new Path());
-    myMaze.setMazeElement( 3*scale ,11 , new Path());
+    // myMaze.setMazeElement( 1, 3*scale, new Path());
+    // myMaze.setMazeElement( 2, 3*scale, new Path());
+    // myMaze.setMazeElement( 3*scale ,13 , new Path());
+    // myMaze.setMazeElement( 3*scale ,14 , new Path());
+    // myMaze.setMazeElement( 4 ,3*scale , new Path());
+    // myMaze.setMazeElement( 5 ,3*scale , new Path());    
+    // myMaze.setMazeElement( 13 ,3*scale , new Path());
+    // myMaze.setMazeElement( 14 ,3*scale , new Path());
+    // scale +=1;
+    // myMaze.setMazeElement( 1, 3*scale, new Path());
+    // myMaze.setMazeElement( 2, 3*scale, new Path());
+    // myMaze.setMazeElement( 3*scale ,13 , new Path());
+    // myMaze.setMazeElement( 3*scale ,14 , new Path());
+    // myMaze.setMazeElement( 4 ,3*scale , new Path());
+    // myMaze.setMazeElement( 5 ,3*scale , new Path());
+    // myMaze.setMazeElement( 3*scale ,1 , new Path());
+    // myMaze.setMazeElement( 3*scale ,2 , new Path());
+    // myMaze.setMazeElement( 13 ,3*scale , new Path());
+    // myMaze.setMazeElement( 14 ,3*scale , new Path());
+    // myMaze.setMazeElement( 7 ,3*scale , new Path());
+    // myMaze.setMazeElement( 8 ,3*scale , new Path());   
+    // myMaze.setMazeElement( 10, 3*scale, new Path());
+    // myMaze.setMazeElement( 11, 3*scale, new Path());
+    // scale +=1;
+    // myMaze.setMazeElement( 1, 3*scale, new Path());
+    // myMaze.setMazeElement( 2, 3*scale, new Path());
+    // myMaze.setMazeElement( 3*scale ,13 , new Path());
+    // myMaze.setMazeElement( 3*scale ,14 , new Path());
+    // myMaze.setMazeElement( 4 ,3*scale , new Path());
+    // myMaze.setMazeElement( 5 ,3*scale , new Path());    
+    // myMaze.setMazeElement( 3*scale ,1 , new Path());
+    // myMaze.setMazeElement( 3*scale ,2 , new Path());   
+    // myMaze.setMazeElement( 13 ,3*scale , new Path());
+    // myMaze.setMazeElement( 14 ,3*scale , new Path());
+    // myMaze.setMazeElement( 3*scale ,10 , new Path());
+    // myMaze.setMazeElement( 3*scale ,11 , new Path());
+    // myMaze.setMazeElement( 7 ,3*scale , new Path());
+    // myMaze.setMazeElement( 8 ,3*scale , new Path());
+    // myMaze.setMazeElement( 3*scale ,4 , new Path());
+    // myMaze.setMazeElement( 3*scale ,5 , new Path());
+    // scale +=1;
+    // myMaze.setMazeElement( 1, 3*scale, new Path());
+    // myMaze.setMazeElement( 2, 3*scale, new Path());
+    // myMaze.setMazeElement( 3*scale ,13 , new Path());
+    // myMaze.setMazeElement( 3*scale ,14 , new Path());
+    // myMaze.setMazeElement( 4 ,3*scale , new Path());
+    // myMaze.setMazeElement( 5 ,3*scale , new Path());
+    // myMaze.setMazeElement( 3*scale ,1 , new Path());
+    // myMaze.setMazeElement( 3*scale ,2 , new Path());
+    // myMaze.setMazeElement( 3*scale ,10 , new Path());
+    // myMaze.setMazeElement( 3*scale ,11 , new Path());
 
 // Snail :
 // ⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
