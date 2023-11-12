@@ -47,73 +47,193 @@ Ceyhan:
 class MazeElement 
 {
     public:
-        virtual char getSymbol() const = 0;  // Pure virtual function
-        virtual ~MazeElement() {}  // Virtual destructor
+        // Pure virtual functions that must be implemented by derived classes
+        virtual string getDescription() const = 0; // Returns a string description of the element
+        virtual char getSymbol() const = 0;       // Returns a character symbol representing the element
+
+        virtual ~MazeElement() {} // Virtual destructor to allow proper cleanup of derived types
 };
 
-// Derived classes
+// Derived class representing a wall in the maze
 class Wall : public MazeElement 
 {
     public:
-        char getSymbol() const override { return 'W'; }
+        string getDescription() const override 
+        {
+            return "Wall"; // Description of the Wall element
+        }
+        char getSymbol() const override 
+        { 
+            return 'W';    // Character symbol for Wall
+        }
 };
 
+// Derived class representing a path in the maze
 class Path : public MazeElement 
 {
     public:
-        char getSymbol() const override { return 'P'; }
+        string getDescription() const override 
+        {
+            return "Path"; // Description of the Path element
+        }
+        char getSymbol() const override 
+        { 
+            return 'P';    // Character symbol for Path
+        }
 };
 
+// Derived class representing a checkpoint in the maze
 class Checkpoint : public MazeElement 
 {
     public:
-        char getSymbol() const override { return 'C'; }
+        string getDescription() const override 
+        {
+            return "Checkpoint"; // Description of the Checkpoint element
+        }
+        char getSymbol() const override 
+        { 
+            return 'C';          // Character symbol for Checkpoint
+        }
 };
 
+// Derived class representing the start position in the maze
+class Start : public MazeElement 
+{
+    public:
+        string getDescription() const override 
+        {
+            return "Start"; // Description of the Start element
+        }
+        char getSymbol() const override 
+        { 
+            return 'S';     // Character symbol for Start
+        }
+};
 
+// Derived class representing a wrong path in the maze
+class WrongPath : public MazeElement 
+{
+    public:
+        string getDescription() const override 
+        {
+            return "Wrong path"; // Description of the Wrong Path element
+        }
+        char getSymbol() const override 
+        { 
+            return 'w';          // Character symbol for Wrong Path
+        }
+};
+
+class OutOfBounds : public MazeElement {
+    public:
+        string getDescription() const override {
+            return "Out of Bounds";
+        }
+        char getSymbol() const override { 
+            return 'X';
+        }
+};
 
 void printBlockSymbol(const MazeElement& element);
 
+class Maze {
+    public:
 
-int main() 
-{
-    const int sizeMaze = 4; // sizeMaze x sizeMaze 
-
-    // Using std::vector for the maze
-    vector<vector<MazeElement*>> Maze((sizeMaze * 3) + 1, vector<MazeElement*>((sizeMaze * 3) + 1));
-
-    for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
-    {
-        for (int y = 0; y < (sizeMaze * 3) + 1; y++) 
+        Maze(int size) : sizeMaze(size) 
         {
-            if (y % 3 == 0 || x % 3 == 0) 
+            maze.resize((sizeMaze * 3) + 1, vector<MazeElement*>((sizeMaze * 3) + 1));
+            for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
             {
-                Maze[x][y] = new Wall();
+                for (int y = 0; y < (sizeMaze * 3) + 1; y++) 
+                {
+                    // Set the first and last rows and columns as OutOfBounds
+                    if (x == 0 || x == sizeMaze * 3 || y == 0 || y == sizeMaze * 3) 
+                    {
+                        maze[x][y] = new OutOfBounds();
+                    } 
+                    else if (y % 3 == 0 || x % 3 == 0) 
+                    {
+                        maze[x][y] = new Wall();
+                    } 
+                    else 
+                    {
+                        maze[x][y] = new Path();
+                    }
+                }
+            }
+            //cout << "Maze has been successfully initialized" << endl<<endl; // Works
+        }
+
+        ~Maze() 
+        {       
+            for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
+            {
+                for (int y = 0; y < (sizeMaze * 3) + 1; y++) 
+                {
+                    delete maze[x][y];
+                }
+            }
+            //cout << "Maze is successfully deleted" << endl; // Works
+        }
+        MazeElement* getMazeElement(int x, int y) const 
+        {
+            if (x >= 0 && x < maze.size() && y >= 0 && y < maze[0].size()) 
+            {
+                return maze[x][y];
             } else 
             {
-                Maze[x][y] = new Path();
+                return nullptr; // or handle the error as appropriate
             }
         }
-    }
-
-    // Printing the maze
-    for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
-    {
-        for (int y = 0; y < (sizeMaze * 3) + 1; y++) 
-        {
-            printBlockSymbol(*Maze[x][y]);
+        void printMaze() const {
+            for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
+            {
+                for (int y = 0; y < (sizeMaze * 3) + 1; y++) 
+                {
+                    printBlockSymbol(*maze[x][y]);
+                }
+                cout << endl;
+            }
         }
-        cout << endl;
-    }
-
-    // Deallocating memory
-    for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
-    {
-        for (int y = 0; y < (sizeMaze * 3) + 1; y++) 
+        void setMazeElement(int x, int y, MazeElement* newElement) 
         {
-            delete Maze[x][y];
+            if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
+            {
+                // Check if the current element is OutOfBounds
+                if (dynamic_cast<OutOfBounds*>(maze[x][y]) == nullptr) 
+                {
+                    delete maze[x][y]; // Delete the old element
+                    maze[x][y] = newElement; // Set the new element
+                }
+            } 
         }
-    }
+
+    private:
+        int sizeMaze;
+        vector<vector<MazeElement*>> maze;
+};
+
+int main() {
+    Maze myMaze(5);
+        // myMaze.printMaze();
+
+    // Test Ceck if i can chance cells It works // TODO Test OutOfBounds
+    // cout << endl;
+    // cout << endl;
+    // for (int y = 1; y <= 2; ++y) {
+    //     myMaze.setMazeElement(3, y, new Path());
+    // }
+    // myMaze.printMaze();
+    // cout << endl;
+    // cout << endl;
+    // vector<pair<int, int>> startPositions = {{1, 1}, {1, 2}, {2, 1}, {2, 2}};
+    // for (const auto& pos : startPositions) {
+    //     myMaze.setMazeElement(pos.first, pos.second, new Start());
+    // }
+
+    myMaze.printMaze();
+    cout << endl;
+    cout << endl;
     return 0;
 }
 
@@ -127,6 +247,7 @@ void printBlockSymbol(const MazeElement& element)
         case 'S': cout << "🟩"; break;
         case 'E': cout << "🟥"; break;
         case 'w': cout << "🟨"; break;
+        case 'X': cout << "⬛"; break;
         default:
             cout << "Invalid value\n";
     }
