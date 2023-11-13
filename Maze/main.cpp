@@ -282,8 +282,7 @@ class Maze {
 int main() {
     
     srand(time(0)); 
-    int size = 5;
-    Maze myMaze(size);
+    Maze myMaze(5);
     myMaze.Binary_Tree_Algorithm();
     myMaze.printMaze();
     return 0;
