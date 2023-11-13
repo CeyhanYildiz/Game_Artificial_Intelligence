@@ -240,7 +240,7 @@ class Maze {
 
 int main() {
 
-
+    srand(time(0)); 
 
     int size = 3;
     int RealSize = (size * 3) + 1 ;
@@ -248,10 +248,24 @@ int main() {
 
 
     int Walls = 1;
-    myMaze.setMazeElement( 1, Walls*(RealSize/size), new Path());
-    myMaze.setMazeElement( 2, Walls*(RealSize/size), new Path());
+    myMaze.setMazeElement( Walls*(RealSize/size), 1 , new Path());
+    myMaze.setMazeElement( Walls*(RealSize/size), 2, new Path());
 
-    
+    int randomNumber = rand() % 2 + 1;
+    Walls++;
+    if ( randomNumber == 2)
+    {
+        //Down
+        myMaze.setMazeElement( 4, 1*(RealSize/size),  new Path());
+        myMaze.setMazeElement( 5, 1*(RealSize/size),  new Path()); 
+    }
+    else
+    {
+        // Right 
+        myMaze.setMazeElement( Walls*(RealSize/size), 1, new Path());
+        myMaze.setMazeElement( Walls*(RealSize/size), 2, new Path()); 
+
+    }
 
 
     myMaze.printMaze();
