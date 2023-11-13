@@ -279,8 +279,8 @@ class Maze {
 
 
 
-int main() {
-    
+int main() 
+{
     srand(time(0)); 
     Maze myMaze(5);
     myMaze.Binary_Tree_Algorithm();
