@@ -8,6 +8,10 @@
 
 using namespace std;
 
+ofstream file("output.txt", ios::app);
+
+
+
 /* Idee for a maze
 
  Samy :
@@ -212,14 +216,17 @@ class Maze {
             }
         }
         void printMaze() const {
+            file << endl;
             for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
             {
                 for (int y = 0; y < (sizeMaze * 3) + 1; y++) 
                 {
                     printBlockSymbol(*maze[x][y]);
                 }
+                 file << endl;
                 cout << endl;
             }
+            file << endl;
         }
         void setMazeElement(int y, int x, MazeElement* newElement) 
         {
@@ -239,7 +246,13 @@ class Maze {
         vector<vector<MazeElement*>> maze;
 };
 
+
+
+
 int main() {
+
+
+    
 
     srand(time(0)); 
 
@@ -290,6 +303,7 @@ int main() {
         level += 1;
         row += 3 ; // Works
     }
+    
 
     myMaze.printMaze();
     return 0;
@@ -299,13 +313,20 @@ void printBlockSymbol(const MazeElement& element)
 {
     switch (element.getSymbol()) 
     {
-        case 'P': cout << "⬜"; break;
-        case 'W': cout << "⬛"; break;
-        case 'C': cout << "🟦"; break;
-        case 'S': cout << "🟩"; break;
-        case 'E': cout << "🟥"; break;
-        case 'w': cout << "🟨"; break;
-        case 'X': cout << "⬛"; break;
+        case 'P': cout << "⬜" ; file << "⬜";
+        break;
+        case 'W': cout << "⬛";  file << "⬛";
+        break;
+        case 'C': cout << "🟦";  file << "🟦";
+        break;
+        case 'S': cout << "🟩";  file << "🟩";
+        break;
+        case 'E': cout << "🟥";  file << "🟥";
+        break;
+        case 'w': cout << "🟨";  file << "🟨";
+        break;
+        case 'X': cout << "⬛";  file << "⬛";
+        break;
         default:
             cout << "Invalid value\n";
     }
