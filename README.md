@@ -44,7 +44,7 @@ Contributions to the project are welcome. Please refer to the contribution guide
 - [ ] one complete project that compiles and does not crash
 - [ ] fully working project
 - [ ] sufficient git commits (+/- weekly)
-- [x] Week 1 - 12/11/2023 Print idee
+- [x] Week 1 - 12/11/2023 Print idee + Allows dynamic modification of each cell types
 - [ ] Week 2
 - [ ] Week 3
 - [ ] Week 4
