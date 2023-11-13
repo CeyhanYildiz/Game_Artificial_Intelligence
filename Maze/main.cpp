@@ -225,7 +225,7 @@ class Maze {
             if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
             {
                 // Check if the current element is OutOfBounds
-                if (dynamic_cast<OutOfBounds*>(maze[x][y]) == nullptr) 
+                if (dynamic_cast<OutOfBounds*>(maze[x][y]) == nullptr && dynamic_cast<Start*>(maze[x][y]) == nullptr) 
                 {
                     delete maze[x][y]; // Delete the old element
                     maze[x][y] = newElement; // Set the new element
@@ -242,31 +242,53 @@ int main() {
 
     srand(time(0)); 
 
-    int size = 3;
+    int size = 5;
     int RealSize = (size * 3) + 1 ;
     Maze myMaze(size);
 
-
     int Walls = 1;
-    myMaze.setMazeElement( Walls*(RealSize/size), 1 , new Path());
-    myMaze.setMazeElement( Walls*(RealSize/size), 2, new Path());
-
     int randomNumber = rand() % 2 + 1;
-    Walls++;
-    if ( randomNumber == 2)
-    {
-        //Down
-        myMaze.setMazeElement( 4, 1*(RealSize/size),  new Path());
-        myMaze.setMazeElement( 5, 1*(RealSize/size),  new Path()); 
-    }
-    else
-    {
-        // Right 
-        myMaze.setMazeElement( Walls*(RealSize/size), 1, new Path());
-        myMaze.setMazeElement( Walls*(RealSize/size), 2, new Path()); 
 
-    }
+    int Down = (RealSize/size);
+    int Right = (RealSize/size);
+    int row = 1;
+    int col = 1;
+    int level = 1;
+    //Down
 
+    for (int X = 0; X < size; X++)
+    {
+        for (int Y = 0; Y < size ; Y++)
+        {
+            int randomNumber = rand() % 3 + 1;
+            if ( randomNumber == 1)
+            {
+                //Right
+                myMaze.setMazeElement( Y*Right, row, new Path());
+                myMaze.setMazeElement( Y*Right, row+1, new Path()); 
+            }
+            else if ( randomNumber == 2)
+            {
+                //Down
+                myMaze.setMazeElement( col, level*Down, new Path());
+                myMaze.setMazeElement( col+1, level*Down, new Path());
+            }
+            else
+            { 
+                myMaze.setMazeElement( col, level*Down, new Path());
+                myMaze.setMazeElement( col+1, level*Down, new Path());
+                myMaze.setMazeElement( Y*Right, row, new Path());
+                myMaze.setMazeElement( Y*Right, row+1, new Path()); 
+            }
+
+            
+
+            col += 3;
+        }
+        col = 1;
+        level += 1;
+        row += 3 ; // Works
+    }
 
     myMaze.printMaze();
     return 0;
