@@ -198,30 +198,6 @@ class Maze {
                 setMazeElement( 1 , shift*(((sizeMaze*3)+1/size)/sizeMaze) , new Path());
                 setMazeElement( 2 , shift*(((sizeMaze*3)+1/size)/sizeMaze) , new Path()); 
             }
-
-        /// ALGORITME 
-           for (int Y = 0; Y < sizeMaze; Y++)
-            {
-                for (int  X = 0; X < sizeMaze; X++)
-                {
-                    int randomNumber = rand() % 2 + 1;
-                    if (randomNumber == 2)
-                    {
-                        //Up
-                        setMazeElement( X*(3)+1 , 3*Y , new Path()); 
-                        setMazeElement( X*(3)+2 , 3*Y , new Path()); 
-                    }
-                    else
-                    {
-                        //Left
-                        setMazeElement(  X*3 ,  Y*(3)+1 , new Path()); 
-                        setMazeElement(  X*3 ,  Y*(3)+2 , new Path()); 
-                    }
-                    
-                }
-            }
-            
- 
             //cout << "Maze has been successfully initialized" << endl<<endl; // Works
         }
 
@@ -271,6 +247,29 @@ class Maze {
                 }
             } 
         }
+        void Binary_Tree_Algorithm()
+        {
+            for (int Y = 0; Y < sizeMaze; Y++)
+            {
+                for (int  X = 0; X < sizeMaze; X++)
+                {
+                    int randomNumber = rand() % 2 + 1;
+                    if (randomNumber == 2)
+                    {
+                        //Up
+                        setMazeElement( X*(3)+1 , 3*Y , new Path()); 
+                        setMazeElement( X*(3)+2 , 3*Y , new Path()); 
+                    }
+                    else
+                    {
+                        //Left
+                        setMazeElement(  X*3 ,  Y*(3)+1 , new Path()); 
+                        setMazeElement(  X*3 ,  Y*(3)+2 , new Path()); 
+                    }
+                    
+                }
+            }
+        }
 
     private:
         int sizeMaze;
@@ -285,8 +284,8 @@ int main() {
     srand(time(0)); 
     int size = 5;
     Maze myMaze(size);
+    myMaze.Binary_Tree_Algorithm();
     myMaze.printMaze();
-    
     return 0;
 }
 
