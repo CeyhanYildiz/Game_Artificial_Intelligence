@@ -191,6 +191,37 @@ class Maze {
             {
                 setMazeElement(pos.first, pos.second, new Start());
             }
+            for (int shift = 0; shift < sizeMaze; shift++)
+            {
+                setMazeElement( shift*(((sizeMaze*3)+1/size)/sizeMaze) , 1 , new Path()); 
+                setMazeElement( shift*(((sizeMaze*3)+1/size)/sizeMaze) , 2 , new Path());
+                setMazeElement( 1 , shift*(((sizeMaze*3)+1/size)/sizeMaze) , new Path());
+                setMazeElement( 2 , shift*(((sizeMaze*3)+1/size)/sizeMaze) , new Path()); 
+            }
+
+        /// ALGORITME 
+           for (int Y = 0; Y < sizeMaze; Y++)
+            {
+                for (int  X = 0; X < sizeMaze; X++)
+                {
+                    int randomNumber = rand() % 2 + 1;
+                    if (randomNumber == 2)
+                    {
+                        //Up
+                        setMazeElement( X*(3)+1 , 3*Y , new Path()); 
+                        setMazeElement( X*(3)+2 , 3*Y , new Path()); 
+                    }
+                    else
+                    {
+                        //Left
+                        setMazeElement(  X*3 ,  Y*(3)+1 , new Path()); 
+                        setMazeElement(  X*3 ,  Y*(3)+2 , new Path()); 
+                    }
+                    
+                }
+            }
+            
+ 
             //cout << "Maze has been successfully initialized" << endl<<endl; // Works
         }
 
@@ -250,62 +281,12 @@ class Maze {
 
 
 int main() {
-
-
     
-
     srand(time(0)); 
-
     int size = 5;
-    int RealSize = (size * 3) + 1 ;
     Maze myMaze(size);
-
-    int Walls = 1;
-    int randomNumber = rand() % 2 + 1;
-
-    int Down = (RealSize/size);
-    int Right = (RealSize/size);
-    int row = 1;
-    int col = 1;
-    int level = 1;
-    //Down
-
-    for (int X = 0; X < size; X++)
-    {
-        for (int Y = 0; Y < size ; Y++)
-        {
-            int randomNumber = rand() % 3 + 1;
-            if ( randomNumber == 1)
-            {
-                //Right
-                myMaze.setMazeElement( Y*Right, row, new Path());
-                myMaze.setMazeElement( Y*Right, row+1, new Path()); 
-            }
-            else if ( randomNumber == 2)
-            {
-                //Down
-                myMaze.setMazeElement( col, level*Down, new Path());
-                myMaze.setMazeElement( col+1, level*Down, new Path());
-            }
-            else
-            { 
-                myMaze.setMazeElement( col, level*Down, new Path());
-                myMaze.setMazeElement( col+1, level*Down, new Path());
-                myMaze.setMazeElement( Y*Right, row, new Path());
-                myMaze.setMazeElement( Y*Right, row+1, new Path()); 
-            }
-
-            
-
-            col += 3;
-        }
-        col = 1;
-        level += 1;
-        row += 3 ; // Works
-    }
-    
-
     myMaze.printMaze();
+    
     return 0;
 }
 
