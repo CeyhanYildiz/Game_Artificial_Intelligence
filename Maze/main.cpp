@@ -10,8 +10,6 @@ using namespace std;
 
 ofstream file("output.txt", ios::app);
 
-
-
 /* Idee for a maze
 
  Samy :
@@ -102,7 +100,6 @@ class Checkpoint : public MazeElement
             return 'C';          // Character symbol for Checkpoint
         }
 };
-
 // Derived class representing the start position in the maze
 class Start : public MazeElement 
 {
@@ -116,7 +113,6 @@ class Start : public MazeElement
             return 'S';     // Character symbol for Start
         }
 };
-
 // Derived class representing a wrong path in the maze
 class WrongPath : public MazeElement 
 {
@@ -191,13 +187,7 @@ class Maze {
             {
                 setMazeElement(pos.first, pos.second, new Start());
             }
-            for (int shift = 0; shift < sizeMaze; shift++)
-            {
-                setMazeElement( shift*(((sizeMaze*3)+1/size)/sizeMaze) , 1 , new Path()); 
-                setMazeElement( shift*(((sizeMaze*3)+1/size)/sizeMaze) , 2 , new Path());
-                setMazeElement( 1 , shift*(((sizeMaze*3)+1/size)/sizeMaze) , new Path());
-                setMazeElement( 2 , shift*(((sizeMaze*3)+1/size)/sizeMaze) , new Path()); 
-            }
+ 
             //cout << "Maze has been successfully initialized" << endl<<endl; // Works
         }
 
@@ -249,10 +239,21 @@ class Maze {
         }
         void Binary_Tree_Algorithm()
         {
+
+            for (int shift = 0; shift < sizeMaze; shift++)
+            {
+                setMazeElement( shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , 1 , new Path()); 
+                setMazeElement( shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , 2 , new Path());
+                setMazeElement( 1 , shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , new Path());
+                setMazeElement( 2 , shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , new Path()); 
+            }
+
+            srand(time(0)); 
             for (int Y = 0; Y < sizeMaze; Y++)
             {
                 for (int  X = 0; X < sizeMaze; X++)
                 {
+                    
                     int randomNumber = rand() % 2 + 1;
                     if (randomNumber == 2)
                     {
@@ -270,19 +271,14 @@ class Maze {
                 }
             }
         }
-
     private:
         int sizeMaze;
         vector<vector<MazeElement*>> maze;
 };
 
-
-
-
 int main() 
-{
-    srand(time(0)); 
-    Maze myMaze(5);
+{  
+    Maze myMaze(7);
     myMaze.Binary_Tree_Algorithm();
     myMaze.printMaze();
     return 0;
