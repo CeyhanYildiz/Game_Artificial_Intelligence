@@ -23,16 +23,47 @@ Contributions to the project are welcome. Please refer to the contribution guide
 # Grading
 
 ## Basis
-- [x] useful and correct class (explain why)
-- [x] useful and correct abstraction (explain why)
-- [x] useful and correct encapsulation (explain why)
-- [x] useful and correct inheritance (explain why)
-- [x] useful and correct polymorphism (explain why)
-- [x] useful and correct object composition (explain why) 
-- [x] useful and correct base class
-- [x] useful and correct abstract base class
-- [x] useful and correct virtual function
-- [x] no mistake in object-oriented programming
+
+- [x] **Useful and Correct Class**
+  - **Explanation**: Your code effectively uses classes (`MazeElement`, `Wall`, `Path`, etc.) to represent various concepts in your maze game.
+  - **Why It's Useful and Correct**: Each class encapsulates specific data and behavior related to a maze element, aligning with the OOP principle of modular design.
+
+- [x] **Useful and Correct Abstraction**
+  - **Explanation**: The `MazeElement` class is an abstract base class with pure virtual functions like `getDescription()` and `getSymbol()`.
+  - **Why It's Useful and Correct**: This abstraction allows you to define a general interface for all maze elements without specifying their exact behavior. Derived classes provide specific implementations.
+
+- [x] **Useful and Correct Encapsulation**
+  - **Explanation**: Data members in your classes are private (e.g., `sizeMaze` in `Maze`), with manipulation done through public methods (e.g., `printMaze()`).
+  - **Why It's Useful and Correct**: Encapsulation hides the internal state of an object, exposing only safe and relevant operations to the outside world.
+
+- [x] **Useful and Correct Inheritance**
+  - **Explanation**: Classes such as `Wall`, `Path`, `Start`, etc., inherit from `MazeElement`.
+  - **Why It's Useful and Correct**: Inheritance enables these classes to acquire properties and methods from `MazeElement`, showcasing hierarchical classification and code reuse.
+
+- [x] **Useful and Correct Polymorphism**
+  - **Explanation**: Polymorphism is evident in how derived classes override the virtual functions of `MazeElement`.
+  - **Why It's Useful and Correct**: It allows objects of different classes to be treated uniformly through a common interface, like using `MazeElement` pointers in the `Maze` class.
+
+- [x] **Useful and Correct Object Composition**
+  - **Explanation**: The `Maze` class uses object composition, utilizing objects of type `MazeElement*`.
+  - **Why It's Useful and Correct**: Composition builds complex structures (the maze) from simpler objects (maze elements), illustrating a "has-a" relationship.
+
+- [x] **Useful and Correct Base Class**
+  - **Explanation**: `MazeElement` serves as a base class.
+  - **Why It's Useful and Correct**: It provides a common interface for different maze element types.
+
+- [x] **Useful and Correct Abstract Base Class**
+  - **Explanation**: `MazeElement` is an abstract base class as it contains pure virtual functions.
+  - **Why It's Useful and Correct**: It establishes a contract for derived classes, ensuring they implement specific behaviors.
+
+- [x] **Useful and Correct Virtual Function**
+  - **Explanation**: The `getDescription()` and `getSymbol()` functions are virtual and overridden in derived classes.
+  - **Why It's Useful and Correct**: This is a fundamental aspect of implementing polymorphism, allowing different behaviors for the same function call on objects of various classes.
+
+- [x] **No Mistake in Object-Oriented Programming**
+  - **Explanation**: Your implementation appears to adhere well to OOP principles. However, comprehensive code review and testing are necessary to ensure there are no logical errors or misuse of OOP concepts.
+
+
 
 ## Aanvullend
 ### Algemeen
