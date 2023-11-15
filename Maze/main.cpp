@@ -155,6 +155,7 @@ void printBlockSymbol(const MazeElement& element);
 class Maze {
     public:
 
+        // Makes a Grid for maze
         Maze(int size) : sizeMaze(size) 
         {
             maze.resize((sizeMaze * 3) + 1, vector<MazeElement*>((sizeMaze * 3) + 1));
@@ -190,7 +191,7 @@ class Maze {
  
             //cout << "Maze has been successfully initialized" << endl<<endl; // Works
         }
-
+        // Delets Maze
         ~Maze() 
         {       
             for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
@@ -203,7 +204,7 @@ class Maze {
             //cout << "Maze is successfully deleted" << endl; // Works
         }
 
-        
+        // Prints chossing Cords
         void printMazeElement(int x, int y) const 
         {
             if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
@@ -215,26 +216,18 @@ class Maze {
                 cout << "Invalid coordinates" << endl;
             }
         }
-
+        // Gets Symbool
         char getMazeElementSymbol(int x, int y) const 
         {
-            if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
-            {
-                MazeElement* element = maze[x][y];
-                if (element != nullptr) 
-                {
-                    return element->getSymbol();
-                } else 
-                {
-                    return ' '; // Return a default symbol or handle the null case as needed
-                }
-                }
-            else 
-            {
-                // Handle invalid coordinates, perhaps return a special character or handle the error
-                return '?';
-            }
+            return maze[y][x]->getSymbol();
         }
+        // Gets Description
+        string getMazeElementDescription(int x, int y) const 
+        {
+            return maze[y][x]->getDescription();
+        }
+        
+        // Prints Maze
         void printMaze() const {
             file << endl;
             for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
@@ -248,6 +241,8 @@ class Maze {
             }
             file << endl;
         }
+        
+        // Calls Binary Tree Alogritm 
         void Binary_Tree_Algorithm()
         {
 
@@ -258,13 +253,11 @@ class Maze {
                 setMazeElement( 1 , shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , new Path());
                 setMazeElement( 2 , shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , new Path()); 
             }
-
             srand(time(0)); 
             for (int Y = 0; Y < sizeMaze; Y++)
             {
                 for (int  X = 0; X < sizeMaze; X++)
                 {
-                    
                     int randomNumber = rand() % 2 + 1;
                     if (randomNumber == 2)
                     {
@@ -283,8 +276,11 @@ class Maze {
             }
         }
     private:
+        // Maze Size
         int sizeMaze;
+        // Kinda dubbel linklist
         vector<vector<MazeElement*>> maze;
+        // Set Maze Element
         void setMazeElement(int y, int x, MazeElement* newElement) 
         {
             if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
@@ -304,9 +300,9 @@ int main()
     Maze myMaze(7);
     myMaze.Binary_Tree_Algorithm();
     myMaze.printMaze();
-    //myMaze.printMazeElement(1,1);// Works
-    cout << myMaze.getMazeElementSymbol(1,1); // Works 
-    //cout << myMaze.getMazeElementDescription(1,1); // TODO : Make this work
+    //myMaze.printMazeElement(0,0);// Works
+    //cout << myMaze.getMazeElementSymbol(0,0) << endl; // Works 
+    //cout << myMaze.getMazeElementDescription(0,0) << endl; // Works 
     return 0;
 }
 
