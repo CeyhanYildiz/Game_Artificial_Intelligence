@@ -67,8 +67,8 @@ Contributions to the project are welcome. Please refer to the contribution guide
 
 ## Aanvullend
 ### Algemeen
-- [ ] clean main (i.e. nothing in the main that should be in a class)
-- [ ] no globals, but statics if needed
+- [x] clean main (i.e. nothing in the main that should be in a class)
+- [x] no globals, but statics if needed
 - [ ] correct protections
 - [ ] maintainability by clean uniform code style and good function naming and/or comments everywhere
 - [ ] separate header files
@@ -107,12 +107,12 @@ Contributions to the project are welcome. Please refer to the contribution guide
 - [ ] at least 4 useful const references for variables
 - [ ] at least 4 useful const references for functions
 - [ ] at least 4 useful bool
-- [ ] dynamic memory allocation (new)
-- [ ] dynamic memory removing (delete)
+- [x] dynamic memory allocation (new)
+- [x] dynamic memory removing (delete)
 - [ ] 2 useful (modern) call-by-references
 - [ ] useful string class usage
 - [ ] useful container class
-- [ ] useful usage of nullptr
+- [x] useful usage of nullptr
 - [ ] useful usage of (modern) file-I/O
 - [ ] useful exception handling
 - [ ] useful usage of lambda function
