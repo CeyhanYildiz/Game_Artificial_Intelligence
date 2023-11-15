@@ -1,10 +1,10 @@
 #include <iostream>
-
 #include <vector>
 #include <string>
 #include <fstream>
 #include <cstdlib> // Required for rand() and srand()
 #include <ctime>   // Required for time()
+#include <windows.h>
 
 using namespace std;
 
