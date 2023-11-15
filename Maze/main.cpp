@@ -248,6 +248,7 @@ class Maze {
 
             for (int shift = 0; shift < sizeMaze; shift++)
             {
+                // TODO Clear print maze make eversecen delete a wall ( Looks Cool)
                 setMazeElement( shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , 1 , new Path()); 
                 setMazeElement( shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , 2 , new Path());
                 setMazeElement( 1 , shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , new Path());
@@ -308,6 +309,7 @@ int main()
 
 void printBlockSymbol(const MazeElement& element) 
 {
+    
     switch (element.getSymbol()) 
     {
         case 'P': cout << "⬜" ; file << "⬜";
