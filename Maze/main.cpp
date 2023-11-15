@@ -202,14 +202,37 @@ class Maze {
             }
             //cout << "Maze is successfully deleted" << endl; // Works
         }
-        MazeElement* getMazeElement(int x, int y) const 
+
+        
+        void printMazeElement(int x, int y) const 
         {
-            if (x >= 0 && x < maze.size() && y >= 0 && y < maze[0].size()) 
+            if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
             {
-                return maze[x][y];
+                printBlockSymbol(*maze[x][y]);
+                cout << endl;  // For a new line after printing the symbol
             } else 
             {
-                return nullptr; // or handle the error as appropriate
+                cout << "Invalid coordinates" << endl;
+            }
+        }
+
+        char getMazeElementSymbol(int x, int y) const 
+        {
+            if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
+            {
+                MazeElement* element = maze[x][y];
+                if (element != nullptr) 
+                {
+                    return element->getSymbol();
+                } else 
+                {
+                    return ' '; // Return a default symbol or handle the null case as needed
+                }
+                }
+            else 
+            {
+                // Handle invalid coordinates, perhaps return a special character or handle the error
+                return '?';
             }
         }
         void printMaze() const {
@@ -224,18 +247,6 @@ class Maze {
                 cout << endl;
             }
             file << endl;
-        }
-        void setMazeElement(int y, int x, MazeElement* newElement) 
-        {
-            if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
-            {
-                // Check if the current element is OutOfBounds
-                if (dynamic_cast<OutOfBounds*>(maze[x][y]) == nullptr && dynamic_cast<Start*>(maze[x][y]) == nullptr) 
-                {
-                    delete maze[x][y]; // Delete the old element
-                    maze[x][y] = newElement; // Set the new element
-                }
-            } 
         }
         void Binary_Tree_Algorithm()
         {
@@ -274,6 +285,18 @@ class Maze {
     private:
         int sizeMaze;
         vector<vector<MazeElement*>> maze;
+        void setMazeElement(int y, int x, MazeElement* newElement) 
+        {
+            if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
+            {
+                // Check if the current element is OutOfBounds
+                if (dynamic_cast<OutOfBounds*>(maze[x][y]) == nullptr && dynamic_cast<Start*>(maze[x][y]) == nullptr) 
+                {
+                    delete maze[x][y]; // Delete the old element
+                    maze[x][y] = newElement; // Set the new element
+                }
+            } 
+        }
 };
 
 int main() 
@@ -281,6 +304,9 @@ int main()
     Maze myMaze(7);
     myMaze.Binary_Tree_Algorithm();
     myMaze.printMaze();
+    //myMaze.printMazeElement(1,1);// Works
+    cout << myMaze.getMazeElementSymbol(1,1); // Works 
+    //cout << myMaze.getMazeElementDescription(1,1); // TODO : Make this work
     return 0;
 }
 
