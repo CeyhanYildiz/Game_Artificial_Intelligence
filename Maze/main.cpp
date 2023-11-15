@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <stdlib.h> // system(clear)
 #include <fstream>
 #include <cstdlib> // Required for rand() and srand()
 #include <ctime>   // Required for time()
@@ -151,6 +152,7 @@ class OutOfBounds : public MazeElement {
 };
 
 void printBlockSymbol(const MazeElement& element);
+void printBlockSymbol_CMD(const MazeElement& element);
 
 class Maze {
     public:
@@ -241,6 +243,20 @@ class Maze {
             }
             file << endl;
         }
+
+        void printMaze_CMD() const {
+            file << endl;
+            for (int x = 0; x < (sizeMaze * 3) + 1; x++) 
+            {
+                for (int y = 0; y < (sizeMaze * 3) + 1; y++) 
+                {
+                    printBlockSymbol_CMD(*maze[x][y]);
+                }
+                 file << endl;
+                cout << endl;
+            }
+            file << endl;
+        }
         
         // Calls Binary Tree Alogritm 
         void Binary_Tree_Algorithm()
@@ -254,7 +270,7 @@ class Maze {
                 setMazeElement( 1 , shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , new Path());
                 setMazeElement( 2 , shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , new Path()); 
             }
-            srand(time(0)); 
+            srand(time(NULL));
             for (int Y = 0; Y < sizeMaze; Y++)
             {
                 for (int  X = 0; X < sizeMaze; X++)
@@ -298,12 +314,10 @@ class Maze {
 
 int main() 
 {  
-    Maze myMaze(7);
+    Maze myMaze(6);
     myMaze.Binary_Tree_Algorithm();
     myMaze.printMaze();
-    //myMaze.printMazeElement(0,0);// Works
-    //cout << myMaze.getMazeElementSymbol(0,0) << endl; // Works 
-    //cout << myMaze.getMazeElementDescription(0,0) << endl; // Works 
+    
     return 0;
 }
 
@@ -312,7 +326,7 @@ void printBlockSymbol(const MazeElement& element)
     
     switch (element.getSymbol()) 
     {
-        case 'P': cout << "⬜" ; file << "⬜";
+        case 'P': cout << "⬜"; file << "⬜";
         break;
         case 'W': cout << "⬛";  file << "⬛";
         break;
@@ -324,7 +338,30 @@ void printBlockSymbol(const MazeElement& element)
         break;
         case 'w': cout << "🟨";  file << "🟨";
         break;
-        case 'X': cout << "⬛";  file << "⬛";
+        case 'X': cout << "⬛";;  file << "⬛";
+        break;
+        default:
+            cout << "Invalid value\n";
+    }
+}
+
+void printBlockSymbol_CMD(const MazeElement& element) 
+{
+    switch (element.getSymbol()) 
+    {
+        case 'P': cout << " "; file << "⬜";
+        break;
+        case 'W': cout << " ";  file << "⬛";
+        break;
+        case 'C': cout << " ";  file << "🟦";
+        break;
+        case 'S': cout << " ";  file << "🟩";
+        break;
+        case 'E': cout << " ";  file << "🟥";
+        break;
+        case 'w': cout << " ";  file << "🟨";
+        break;
+        case 'X': cout << ".";;  file << "⬛";
         break;
         default:
             cout << "Invalid value\n";
