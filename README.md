@@ -45,7 +45,7 @@ Contributions to the project are welcome. Please refer to the contribution guide
 - [ ] fully working project
 - [ ] sufficient git commits (+/- weekly)
 - [x] Week 1 - 12/11/2023 Print idee + Allows dynamic modification of each cell types
-- [ ] Week 2
+- [x] Week 2 - 13/11/2023 Maze Generator Works
 - [ ] Week 3
 - [ ] Week 4
 - [ ] Week 5
