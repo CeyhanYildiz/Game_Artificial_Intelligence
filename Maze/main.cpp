@@ -1,11 +1,12 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <stdlib.h> // system(clear)
-#include <fstream>
-#include <cstdlib> // Required for rand() and srand()
-#include <ctime>   // Required for time()
-#include <windows.h>
+#include <iostream> //Standard Input/Output Streams
+#include <vector> // Dynamic Array
+#include <string> //String Class 
+#include <fstream> //File Stream
+#include <cstdlib> // General Purpose Functions
+#include <ctime>   // Time Functions 
+
+//#include <windows.h>
+//#include <stdlib.h> // system(clear)
 
 using namespace std;
 
@@ -61,7 +62,7 @@ class MazeElement
 };
 
 // Derived class representing a wall in the maze
-class Wall : public MazeElement 
+class Wall : public MazeElement //⬛
 {
     public:
         string getDescription() const override 
@@ -75,7 +76,7 @@ class Wall : public MazeElement
 };
 
 // Derived class representing a path in the maze
-class Path : public MazeElement 
+class Path : public MazeElement //⬜
 {
     public:
         string getDescription() const override 
@@ -89,7 +90,7 @@ class Path : public MazeElement
 };
 
 // Derived class representing a checkpoint in the maze
-class Checkpoint : public MazeElement 
+class Checkpoint : public MazeElement //🟦
 {
     public:
         string getDescription() const override 
@@ -101,8 +102,9 @@ class Checkpoint : public MazeElement
             return 'C';          // Character symbol for Checkpoint
         }
 };
+
 // Derived class representing the start position in the maze
-class Start : public MazeElement 
+class Start : public MazeElement //🟩
 {
     public:
         string getDescription() const override 
@@ -114,8 +116,9 @@ class Start : public MazeElement
             return 'S';     // Character symbol for Start
         }
 };
+
 // Derived class representing a wrong path in the maze
-class WrongPath : public MazeElement 
+class WrongPath : public MazeElement //🟨
 {
     public:
         string getDescription() const override 
@@ -128,7 +131,8 @@ class WrongPath : public MazeElement
         }
 };
 
-class End : public MazeElement 
+// Derived class representing the end position in the maze
+class End : public MazeElement //🟥
 {
     public:
         string getDescription() const override 
@@ -141,7 +145,9 @@ class End : public MazeElement
         }
 };
 
-class OutOfBounds : public MazeElement {
+//Derived class representing the OutOfBounds position in the maze
+class OutOfBounds : public MazeElement //⬛
+{ 
     public:
         string getDescription() const override {
             return "Out of Bounds";
@@ -168,27 +174,38 @@ class Maze {
                     // Set the first and last rows and columns as OutOfBounds
                     if (x == 0 || x == sizeMaze * 3 || y == 0 || y == sizeMaze * 3) 
                     {
-                        maze[x][y] = new OutOfBounds();
+                        maze[x][y] = new OutOfBounds(); //⬛
                     } 
                     else if (y % 3 == 0 || x % 3 == 0) 
                     {
-                        maze[x][y] = new Wall();
+                        maze[x][y] = new Wall(); //⬛ 
                     } 
                     else 
                     {
-                        maze[x][y] = new Path();
+                        maze[x][y] = new Path(); //⬜
                     }
                 }
             }
-            vector<pair<int, int>> endPositions = { {(size * 3) + 1 - 2, (size * 3) + 1 - 2}, {(size * 3) + 1 - 2, (size * 3) + 1 - 3}, {(size * 3) + 1 - 3, (size * 3) + 1 - 2}, {(size * 3) + 1 - 3, (size * 3) + 1 - 3} };
+            
+            // The exit positions for the maze
+            // These positions are calculated to be near the bottom-right corner of the maze
+            int Scale = ( size * 3 ) + 1;
+            vector<pair<int, int>> endPositions = {
+                {Scale - 2, Scale - 2}, {Scale - 2, Scale - 3}, //🟥🟥
+                {Scale - 3, Scale - 2}, {Scale - 3, Scale - 3}  //🟥🟥
+            };          
+            
             for (const auto& pos : endPositions)
             {
-                setMazeElement(pos.first, pos.second, new End());
+                setMazeElement(pos.first, pos.second, new End()); //🟥
             }
-            vector<pair<int, int>> startPositions = {{1, 1}, {1, 2}, {2, 1}, {2, 2}};
+            vector<pair<int, int>> startPositions = {
+                {1, 1}, {1, 2}, //🟩🟩
+                {2, 1}, {2, 2}  //🟩🟩
+            };
             for (const auto& pos : startPositions) 
             {
-                setMazeElement(pos.first, pos.second, new Start());
+                setMazeElement(pos.first, pos.second, new Start()); //🟩
             }
  
             //cout << "Maze has been successfully initialized" << endl<<endl; // Works
@@ -258,17 +275,10 @@ class Maze {
             file << endl;
         }
         
-        // Calls Binary Tree Alogritm 
+        // Implements : The Binary Tree Algorithm to generate the maze layout.
+        // Randomly removes either the top wall or the left wall of each cell.
         void Binary_Tree_Algorithm()
         {
-            for (int shift = 0; shift < sizeMaze; shift++)
-            {
-                // TODO Clear print maze make eversecen delete a wall ( Looks Cool)
-                setMazeElement( shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , 1 , new Path()); 
-                setMazeElement( shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , 2 , new Path());
-                setMazeElement( 1 , shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , new Path());
-                setMazeElement( 2 , shift*(((sizeMaze*3)+1/sizeMaze)/sizeMaze) , new Path()); 
-            }
             srand(time(NULL));
             for (int Y = 0; Y < sizeMaze; Y++)
             {
@@ -277,17 +287,35 @@ class Maze {
                     int randomNumber = rand() % 2 + 1;
                     if (randomNumber == 2)
                     {
-                        //Up
-                        setMazeElement( X*(3)+1 , 3*Y , new Path()); 
-                        setMazeElement( X*(3)+2 , 3*Y , new Path()); 
+                        
+                        if ( getMazeElementSymbol (X*(3)+1 , 3*Y ) == 'X' && getMazeElementSymbol (X*(3)+2 , 3*Y ) == 'X')
+                        {
+                            //Left
+                            setMazeElement(  X*3 ,  Y*(3)+1 , new Path()); //⬜
+                            setMazeElement(  X*3 ,  Y*(3)+2 , new Path()); //⬜
+                        }
+                        else
+                        { 
+                             //Up
+                            setMazeElement( X*(3)+1 , 3*Y , new Path()); //⬜
+                            setMazeElement( X*(3)+2 , 3*Y , new Path()); //⬜
+                        } 
                     }
                     else
                     {
-                        //Left
-                        setMazeElement(  X*3 ,  Y*(3)+1 , new Path()); 
-                        setMazeElement(  X*3 ,  Y*(3)+2 , new Path()); 
-                    }
-                    
+                        if ( getMazeElementSymbol ( X*3 ,  Y*(3)+1  ) == 'X' && getMazeElementSymbol ( X*3 ,  Y*(3)+2 ) == 'X')
+                        {
+                            //Up
+                            setMazeElement( X*(3)+1 , 3*Y , new Path()); //⬜
+                            setMazeElement( X*(3)+2 , 3*Y , new Path()); //⬜
+                        }
+                        else
+                        {   
+                            //Left                   
+                            setMazeElement(  X*3 ,  Y*(3)+1 , new Path()); //⬜
+                            setMazeElement(  X*3 ,  Y*(3)+2 , new Path()); //⬜
+                        }
+                    } 
                 }
             }
         }
