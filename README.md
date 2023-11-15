@@ -23,16 +23,16 @@ Contributions to the project are welcome. Please refer to the contribution guide
 # Grading
 
 ## Basis
-- [ ] useful and correct class (explain why)
-- [ ] useful and correct abstraction (explain why)
-- [ ] useful and correct encapsulation (explain why)
-- [ ] useful and correct inheritance (explain why)
-- [ ] useful and correct polymorphism (explain why)
-- [ ] useful and correct object composition (explain why)
-- [ ] useful and correct base class
-- [ ] useful and correct abstract base class
-- [ ] useful and correct virtual function
-- [ ] no mistake in object-oriented programming
+- [x] useful and correct class (explain why)
+- [x] useful and correct abstraction (explain why)
+- [x] useful and correct encapsulation (explain why)
+- [x] useful and correct inheritance (explain why)
+- [x] useful and correct polymorphism (explain why)
+- [x] useful and correct object composition (explain why) 
+- [x] useful and correct base class
+- [x] useful and correct abstract base class
+- [x] useful and correct virtual function
+- [x] no mistake in object-oriented programming
 
 ## Aanvullend
 ### Algemeen
