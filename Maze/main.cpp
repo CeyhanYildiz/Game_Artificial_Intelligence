@@ -261,7 +261,6 @@ class Maze {
         // Calls Binary Tree Alogritm 
         void Binary_Tree_Algorithm()
         {
-
             for (int shift = 0; shift < sizeMaze; shift++)
             {
                 // TODO Clear print maze make eversecen delete a wall ( Looks Cool)
