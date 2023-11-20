@@ -110,8 +110,8 @@ Contributions to the project are welcome. Please refer to the contribution guide
 - [x] dynamic memory allocation (new)
 - [x] dynamic memory removing (delete)
 - [ ] 2 useful (modern) call-by-references
-- [ ] useful string class usage
-- [ ] useful container class
+- [x] useful string class usage
+- [x] useful container class
 - [x] useful usage of nullptr
 - [ ] useful usage of (modern) file-I/O
 - [ ] useful exception handling
