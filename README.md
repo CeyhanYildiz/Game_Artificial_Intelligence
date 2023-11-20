@@ -10,7 +10,8 @@ Welcome to the Game Artificial Intelligence repository! This project is focused 
 
 ## Technologies
 - **Language**: C++
-- **AI Techniques**: The Binary Tree Algorithm
+- **Maze Generator**: The Binary Tree Algorithm
+- **AI Techniques**: UNKNOWN
 
 ## Development Plan
 - **Phase 1**: Design and implement the maze structure.
