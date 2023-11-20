@@ -9,7 +9,7 @@
 //#include <cstdlib> // General Purpose Functions
 using namespace std;
 
-ofstream file("output.txt", ios::app); 
+ofstream file("output.txt", ios::app); // GLOBAL!!!!!
 
 // Base class
 class MazeElement {
@@ -73,8 +73,8 @@ class OutOfBounds : public MazeElement {
 
 
 
-void printBlockSymbol(const MazeElement& element);
-void printBlockSymbol_CMD(const MazeElement& element);
+void printBlockSymbol(const MazeElement& element); //GLOBAL!!!!!
+void printBlockSymbol_CMD(const MazeElement& element); // GLOBAL!!!!!
 
 class Maze {
     public:
