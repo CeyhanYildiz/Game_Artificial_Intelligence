@@ -20,9 +20,9 @@ Welcome to the Game Artificial Intelligence repository! This project is focused 
 ## Contributing
 Contributions to the project are welcome. Please refer to the contribution guidelines for more information.
 
-# Grading
+# Grading 17/60
 
-## Basis
+## Basis 10/10
 
 - [x] **Useful and Correct Class**
   - **Explanation**: Your code effectively uses classes (`MazeElement`, `Wall`, `Path`, etc.) to represent various concepts in your maze game.
@@ -66,7 +66,7 @@ Contributions to the project are welcome. Please refer to the contribution guide
 
 
 ## Aanvullend
-### Algemeen
+### Algemeen 2/10
 - [x] clean main (i.e. nothing in the main that should be in a class)
 - [x] no globals, but statics if needed
 - [ ] correct protections
@@ -84,7 +84,7 @@ Contributions to the project are welcome. Please refer to the contribution guide
 - [ ] correct files on git
 - [ ] working build manual as readme on GitHub (project must be possible to build from scratch on a clean PC)
 
-### OOP
+### OOP /15
 - [ ] at least 2 default constructors
 - [ ] at least 2 parameterized constructors
 - [ ] at least 2 copy constructors
@@ -101,7 +101,7 @@ Contributions to the project are welcome. Please refer to the contribution guide
 - [ ] useful template function or class
 - [ ] useful friend function or class
 
-### C++
+### C++ 5/15
 - [ ] everything in one or more self-made namespace(s)
 - [ ] 2 useful unsigned chars or other better usage of memory efficient type
 - [ ] at least 4 useful const references for variables
@@ -118,7 +118,7 @@ Contributions to the project are welcome. Please refer to the contribution guide
 - [ ] useful usage of lambda function
 - [ ] useful usage of threads
 
-### Uitbreiding
+### Uitbreiding /10
 - [ ] useful Qt class
 - [ ] useful usage of signals/slots
 - [ ] test-driven development (= written test plan or unit tests)
