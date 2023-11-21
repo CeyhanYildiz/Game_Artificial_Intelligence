@@ -9,7 +9,7 @@
 //#include <cstdlib> // General Purpose Functions
 using namespace std;
 
-ofstream file("output.txt", ios::app); 
+ofstream file("output.txt", ios::app); // GLOBAL!!!!!
 
 // Base class
 class MazeElement {
@@ -73,12 +73,11 @@ class OutOfBounds : public MazeElement {
 
 
 
-void printBlockSymbol(const MazeElement& element);
-void printBlockSymbol_CMD(const MazeElement& element);
+void printBlockSymbol(const MazeElement& element); //GLOBAL!!!!!
+void printBlockSymbol_CMD(const MazeElement& element); // GLOBAL!!!!!
 
 class Maze {
     public:
-
         // Makes a Grid for maze
         Maze(int size) : sizeMaze(size) {
             int TrueSize = sizeMaze * 3;
@@ -100,6 +99,8 @@ class Maze {
             vector<pair<int, int>> startPositions = { {1, 1}, {1, 2}, {2, 1}, {2, 2} };
             for (const auto& pos : startPositions)                          { setMazeElement(pos.first, pos.second, new Start());  } // Add Start
             //cout << "Maze has been successfully initialized" << endl<<endl; // Works
+            MazeCellSize = sizeMaze * sizeMaze;
+            TrueMazeSize = (sizeMaze * 3 + 1)*(sizeMaze * 3 + 1);
         }
         // Delets Maze
         ~Maze() {       
@@ -160,10 +161,17 @@ class Maze {
                 }
             }
         }
+        int getSizeMaze()                                                   {       return sizeMaze;                }
+        int getMazeCellSize()                                               {       return MazeCellSize;            }
+        int getTrueMazeSize()                                               {       return TrueMazeSize;            }
 
     private:
         // Maze Size
         int sizeMaze;
+        // How much Cells are in the maze
+        int MazeCellSize;
+        // True maze size 'arrey'
+        int TrueMazeSize;
         // Kinda dubbel linklist
         vector<vector<MazeElement*>> maze;
         // Set Maze Element
@@ -191,13 +199,17 @@ class Maze {
 
 int main() 
 {  
-    Maze myMaze(6);
+    Maze myMaze(5);
+    myMaze.printMaze(); // TEST DELET WHEN DONE 
     myMaze.Binary_Tree_Algorithm();
     myMaze.printMaze();
-
+    
+    cout << "myMaze.getSizeMaze()     " << myMaze.getSizeMaze() << endl << "myMaze.getMazeCellSize() " << myMaze.getMazeCellSize() << endl << "myMaze.getTrueMazeSize() " << myMaze.getTrueMazeSize() << endl;
     return 0;
 }
 
+
+// GLOBAL FIX IT !!!!
 void printBlockSymbol(const MazeElement& element) {
     switch (element.getSymbol()) {
         case 'P': cout << "⬜"; file << "⬜";
