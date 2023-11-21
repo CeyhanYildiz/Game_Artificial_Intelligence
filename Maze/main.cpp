@@ -9,7 +9,7 @@
 //#include <cstdlib> // General Purpose Functions
 using namespace std;
 
-ofstream file("output.txt", ios::app); // GLOBAL!!!!!
+// ofstream file("output.txt", ios::app); // GLOBAL!!!!!
 
 // Base class
 class MazeElement {
@@ -80,10 +80,10 @@ class Maze {
     public:
         // Makes a Grid for maze
         Maze(int size) : sizeMaze(size) {
-            int TrueSize = sizeMaze * 3;
-            maze.resize((sizeMaze * 3) + 1, vector<MazeElement*>((sizeMaze * 3) + 1));
-            for (int x = 0; x < (sizeMaze * 3) + 1; x++) {
-                for (int y = 0; y < (sizeMaze * 3) + 1; y++) {
+            TrueSize = sizeMaze * 3;
+            maze.resize(TrueSize + 1, vector<MazeElement*>(TrueSize+ 1));
+            for (int x = 0; x < TrueSize + 1; x++) {
+                for (int y = 0; y < TrueSize + 1; y++) {
                     if (x == 0 || x == TrueSize || y == 0 || y == TrueSize) {       maze[x][y] = new OutOfBounds(); } // Edge of the maze
                     else if (y % 3 == 0 || x % 3 == 0)                      {       maze[x][y] = new Wall();        } // Wall
                     else                                                    {       maze[x][y] = new Path();        } // Cell Path 
@@ -100,12 +100,12 @@ class Maze {
             for (const auto& pos : startPositions)                          { setMazeElement(pos.first, pos.second, new Start());  } // Add Start
             //cout << "Maze has been successfully initialized" << endl<<endl; // Works
             MazeCellSize = sizeMaze * sizeMaze;
-            TrueMazeSize = (sizeMaze * 3 + 1)*(sizeMaze * 3 + 1);
+            TrueMazeSize = (TrueSize + 1)*(TrueSize + 1);
         }
         // Delets Maze
         ~Maze() {       
-            for (int x = 0; x < (sizeMaze * 3) + 1; x++) {
-                for (int y = 0; y < (sizeMaze * 3) + 1; y++)                {       delete maze[x][y];              }
+            for (int x = 0; x < TrueSize + 1; x++) {
+                for (int y = 0; y < TrueSize + 1; y++)                {       delete maze[x][y];              }
             }
             //cout << "Maze is successfully deleted" << endl; // Works
         }
@@ -121,22 +121,22 @@ class Maze {
         
         // Prints Maze
         void printMaze() const {
-            file << endl;
-            for (int x = 0; x < (sizeMaze * 3) + 1; x++) {
-                for (int y = 0; y < (sizeMaze * 3) + 1; y++)                {       printBlockSymbol(*maze[x][y]);                  } 
-                file << endl;
+            //file << endl;
+            for (int x = 0; x < TrueSize + 1; x++) {
+                for (int y = 0; y < TrueSize + 1; y++)                {       printBlockSymbol(*maze[x][y]);                  } 
+                //file << endl;
                 cout << endl;
             }
-            file << endl;
+            //file << endl;
         }
         void printMaze_CMD() const {
-            file << endl;
-            for (int x = 0; x < (sizeMaze * 3) + 1; x++) {
-                for (int y = 0; y < (sizeMaze * 3) + 1; y++)                {       printBlockSymbol_CMD(*maze[x][y]);              }
-                file << endl;
+            //file << endl;
+            for (int x = 0; x < TrueSize + 1; x++) {
+                for (int y = 0; y < TrueSize + 1; y++)                {       printBlockSymbol_CMD(*maze[x][y]);              }
+                //file << endl;
                 cout << endl;
             }
-            file << endl;
+            //file << endl;
         } 
         // Implements : The Binary Tree Algorithm to generate the maze layout.
         // Randomly removes either the top wall or the left wall of each cell.
@@ -172,6 +172,8 @@ class Maze {
         int MazeCellSize;
         // True maze size 'arrey'
         int TrueMazeSize;
+        // Caculation x * 3
+        int TrueSize;
         // Kinda dubbel linklist
         vector<vector<MazeElement*>> maze;
         // Set Maze Element
@@ -212,19 +214,19 @@ int main()
 // GLOBAL FIX IT !!!!
 void printBlockSymbol(const MazeElement& element) {
     switch (element.getSymbol()) {
-        case 'P': cout << "⬜"; file << "⬜";
+        case 'P': cout << "⬜"; //file << "⬜";
             break;
-        case 'W': cout << "⬛";  file << "⬛";
+        case 'W': cout << "⬛";  //file << "⬛";
             break;
-        case 'C': cout << "🟦";  file << "🟦";
+        case 'C': cout << "🟦";  //file << "🟦";
             break;
-        case 'S': cout << "🟩";  file << "🟩";
+        case 'S': cout << "🟩";  //file << "🟩";
             break;
-        case 'E': cout << "🟥";  file << "🟥";
+        case 'E': cout << "🟥";  //file << "🟥";
             break;
-        case 'w': cout << "🟨";  file << "🟨";
+        case 'w': cout << "🟨";  //file << "🟨";
             break;
-        case 'X': cout << "⬛";;  file << "⬛";
+        case 'X': cout << "⬛";;  //file << "⬛";
             break;
         default:  cout << "Invalid value\n";
             break;
@@ -232,19 +234,19 @@ void printBlockSymbol(const MazeElement& element) {
 }
 void printBlockSymbol_CMD(const MazeElement& element) {
     switch (element.getSymbol()) {
-        case 'P': cout << " "; file << "⬜";
+        case 'P': cout << " "; //file << "⬜";
             break;
-        case 'W': cout << " ";  file << "⬛";
+        case 'W': cout << " ";  //file << "⬛";
             break;
-        case 'C': cout << " ";  file << "🟦";
+        case 'C': cout << " ";  //file << "🟦";
             break;
-        case 'S': cout << " ";  file << "🟩";
+        case 'S': cout << " ";  //file << "🟩";
             break;
-        case 'E': cout << " ";  file << "🟥";
+        case 'E': cout << " ";  //file << "🟥";
             break;
-        case 'w': cout << " ";  file << "🟨";
+        case 'w': cout << " ";  //file << "🟨";
             break;
-        case 'X': cout << ".";;  file << "⬛";
+        case 'X': cout << ".";  //file << "⬛";
             break;
         default:  cout << "Invalid value\n";
             break;
