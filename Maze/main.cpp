@@ -1,15 +1,12 @@
 #include <iostream> //Standard Input/Output Streams
 #include <vector> // Dynamic Array
 #include <string> //String Class 
-#include <fstream> //File Stream
+
 #include <ctime>   // Time Functions 
 #include <random> // Include for modern random number generation
-//#include <windows.h>
-//#include <stdlib.h> // system(clear)
-//#include <cstdlib> // General Purpose Functions
+
 using namespace std;
 
-// ofstream file("output.txt", ios::app); // GLOBAL!!!!!
 
 // Base class
 class MazeElement {
@@ -71,10 +68,7 @@ class OutOfBounds : public MazeElement {
 
 
 
-
-
 void printBlockSymbol(const MazeElement& element); //GLOBAL!!!!!
-void printBlockSymbol_CMD(const MazeElement& element); // GLOBAL!!!!!
 
 class Maze {
     public:
@@ -121,23 +115,12 @@ class Maze {
         
         // Prints Maze
         void printMaze() const {
-            //file << endl;
             for (int x = 0; x < TrueSize + 1; x++) {
                 for (int y = 0; y < TrueSize + 1; y++)                {       printBlockSymbol(*maze[x][y]);                  } 
-                //file << endl;
                 cout << endl;
             }
-            //file << endl;
         }
-        void printMaze_CMD() const {
-            //file << endl;
-            for (int x = 0; x < TrueSize + 1; x++) {
-                for (int y = 0; y < TrueSize + 1; y++)                {       printBlockSymbol_CMD(*maze[x][y]);              }
-                //file << endl;
-                cout << endl;
-            }
-            //file << endl;
-        } 
+
         // Implements : The Binary Tree Algorithm to generate the maze layout.
         // Randomly removes either the top wall or the left wall of each cell.
         void Binary_Tree_Algorithm() {
@@ -201,12 +184,12 @@ class Maze {
 
 int main() 
 {  
-    Maze myMaze(5);
-    myMaze.printMaze(); // TEST DELET WHEN DONE 
+    Maze myMaze(10);
+    //myMaze.printMaze(); // TEST DELET WHEN DONE 
     myMaze.Binary_Tree_Algorithm();
     myMaze.printMaze();
-    
-    cout << "myMaze.getSizeMaze()     " << myMaze.getSizeMaze() << endl << "myMaze.getMazeCellSize() " << myMaze.getMazeCellSize() << endl << "myMaze.getTrueMazeSize() " << myMaze.getTrueMazeSize() << endl;
+
+    //cout << "myMaze.getSizeMaze()     " << myMaze.getSizeMaze() << endl << "myMaze.getMazeCellSize() " << myMaze.getMazeCellSize() << endl << "myMaze.getTrueMazeSize() " << myMaze.getTrueMazeSize() << endl;
     return 0;
 }
 
@@ -214,39 +197,19 @@ int main()
 // GLOBAL FIX IT !!!!
 void printBlockSymbol(const MazeElement& element) {
     switch (element.getSymbol()) {
-        case 'P': cout << "⬜"; //file << "⬜";
+        case 'P': cout << "⬜";
             break;
-        case 'W': cout << "⬛";  //file << "⬛";
+        case 'W': cout << "⬛";  
             break;
-        case 'C': cout << "🟦";  //file << "🟦";
+        case 'C': cout << "🟦";
             break;
-        case 'S': cout << "🟩";  //file << "🟩";
+        case 'S': cout << "🟩"; 
             break;
-        case 'E': cout << "🟥";  //file << "🟥";
+        case 'E': cout << "🟥";
             break;
-        case 'w': cout << "🟨";  //file << "🟨";
+        case 'w': cout << "🟨";  
             break;
-        case 'X': cout << "⬛";;  //file << "⬛";
-            break;
-        default:  cout << "Invalid value\n";
-            break;
-    }
-}
-void printBlockSymbol_CMD(const MazeElement& element) {
-    switch (element.getSymbol()) {
-        case 'P': cout << " "; //file << "⬜";
-            break;
-        case 'W': cout << " ";  //file << "⬛";
-            break;
-        case 'C': cout << " ";  //file << "🟦";
-            break;
-        case 'S': cout << " ";  //file << "🟩";
-            break;
-        case 'E': cout << " ";  //file << "🟥";
-            break;
-        case 'w': cout << " ";  //file << "🟨";
-            break;
-        case 'X': cout << ".";  //file << "⬛";
+        case 'X': cout << "⬛";
             break;
         default:  cout << "Invalid value\n";
             break;
