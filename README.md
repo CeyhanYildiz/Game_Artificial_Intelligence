@@ -21,7 +21,7 @@ Welcome to the Game Artificial Intelligence repository! This project is focused 
 ## Contributing
 Contributions to the project are welcome. Please refer to the contribution guidelines for more information.
 
-# Grading 17/60
+# Grading 16/60
 
 ## Basis 10/10
 
@@ -67,9 +67,9 @@ Contributions to the project are welcome. Please refer to the contribution guide
 
 
 ## Aanvullend
-### Algemeen 2/10
+### Algemeen 1/10
 - [x] clean main (i.e. nothing in the main that should be in a class)
-- [x] no globals, but statics if needed
+- [ ] no globals, but statics if needed
 - [ ] correct protections
 - [ ] maintainability by clean uniform code style and good function naming and/or comments everywhere
 - [ ] separate header files
