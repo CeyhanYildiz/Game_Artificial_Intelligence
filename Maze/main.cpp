@@ -66,8 +66,6 @@ class OutOfBounds : public MazeElement {
         char getSymbol() const override             {       return 'X';             } // Character symbol for Out of Bounds
 };
 
-
-
 void printBlockSymbol(const MazeElement& element); //GLOBAL!!!!!
 
 class Maze {
@@ -120,7 +118,6 @@ class Maze {
                 cout << endl;
             }
         }
-
         // Implements : The Binary Tree Algorithm to generate the maze layout.
         // Randomly removes either the top wall or the left wall of each cell.
         void Binary_Tree_Algorithm() {
@@ -185,11 +182,14 @@ class Maze {
 int main() 
 {  
     Maze myMaze(10);
-    //myMaze.printMaze(); // TEST DELET WHEN DONE 
+    myMaze.printMaze(); // TEST DELET WHEN DONE 
     myMaze.Binary_Tree_Algorithm();
     myMaze.printMaze();
 
-    //cout << "myMaze.getSizeMaze()     " << myMaze.getSizeMaze() << endl << "myMaze.getMazeCellSize() " << myMaze.getMazeCellSize() << endl << "myMaze.getTrueMazeSize() " << myMaze.getTrueMazeSize() << endl;
+    cout << "myMaze.getSizeMaze()     " << myMaze.getSizeMaze() << endl;
+    cout << "myMaze.getMazeCellSize() " << myMaze.getMazeCellSize() << endl;
+    cout << "myMaze.getTrueMazeSize() " << myMaze.getTrueMazeSize() << endl;
+
     return 0;
 }
 
