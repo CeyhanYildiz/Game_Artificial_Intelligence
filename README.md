@@ -23,7 +23,7 @@ Contributions to the project are welcome. Please refer to the contribution guide
 
 # Grading 16/60
 
-## Basis 10/10
+## Expected Basis Points: 10/10 , Earned Points: "Unknown," with a minimum of 5/10
 
 - [x] **Useful and Correct Class**
   - **Explanation**: Your code effectively uses classes (`MazeElement`, `Wall`, `Path`, etc.) to represent various concepts in your maze game.
