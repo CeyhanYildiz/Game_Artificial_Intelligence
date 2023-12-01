@@ -1,2 +1,5 @@
 ﻿*.vsidx
 *.wsuo
+/.vs/slnx.sqlite
+/.vs/slnx.sqlite
+/.vs/ProjectSettings.json
