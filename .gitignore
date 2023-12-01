@@ -398,3 +398,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+dependencies
+MazeBot.vcxproj
+MazeBot.vcxproj.filters
+MazeBot.sln 
