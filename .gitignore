@@ -1,17 +1,24 @@
-﻿*.vsidx
+﻿# File type
+*.vsidx
 *.wsuo
+*.vcxproj
+*.filters
+*.user
+*.sln
+
+# VS Stuff
 /.vs/slnx.sqlite
 /.vs/slnx.sqlite
 /.vs/ProjectSettings.json
 /.vs/VSWorkspaceState.json
+/.vs/Game_Artificial_Intelligence/v17
+
+# Game Files
 /MazeBot/.vs/MazeBot/v17/ipch/AutoPCH
 /MazeBot/.vs/MazeBot/v17
 /MazeBot/.vs
-/MazeBot/dependencies/SFML
 /MazeBot/MazeBot/x64
-*.vcxproj
-*.filters
-*.user
-/MazeBot/x64
-*.sln
-/.vs/Game_Artificial_Intelligence/v17
+/MazeBot/dependencies/SFML
+
+/MazeBot/x64/Debug
+*.pdb
