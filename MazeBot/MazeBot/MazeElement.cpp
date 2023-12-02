@@ -1,1 +1,2 @@
+// Class
 #include "MazeElement.h"

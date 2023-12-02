@@ -1,3 +1,4 @@
+// Class
 #include "Maze.h"
 
 

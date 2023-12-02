@@ -1,8 +1,12 @@
 #pragma once
+
+// SFML
 #include <SFML/Graphics.hpp>
 
-#include <vector> // Dynamic Array
+//C++
 
+
+// BaseClass
 #include "MazeElement.h"
 
 using namespace std;

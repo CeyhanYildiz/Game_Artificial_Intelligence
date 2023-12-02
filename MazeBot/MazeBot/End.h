@@ -1,4 +1,6 @@
 #pragma once
+
+// Class
 #include "MazeElement.h"
 
 using namespace std;

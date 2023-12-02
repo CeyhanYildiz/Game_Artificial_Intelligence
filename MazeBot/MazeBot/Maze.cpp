@@ -1,3 +1,4 @@
+// Game
 #include "Maze.h"
 
 // Sfml
