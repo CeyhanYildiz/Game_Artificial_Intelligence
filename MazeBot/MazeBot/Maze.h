@@ -27,7 +27,7 @@ private:
 
 	RenderWindow window; // Game API
 
-	RectangleShape Cell; // HIER 
+	RectangleShape Cell;
 	 
 	int Height; 
 	int Width;

@@ -9,9 +9,9 @@ using namespace sf;
 Maze::Maze(int Make_Height, int Make_Width, int Make_Cell) : Height(Make_Height), Width(Make_Width), Cell_Size(Make_Cell),
 
     window(sf::VideoMode(Make_Height, Make_Width), "MazeBot"),
-    Cell(Vector2f(Make_Cell, Make_Cell))  // HIER 
+    Cell(Vector2f(Make_Cell, Make_Cell)) 
 {
-    Cell.setFillColor(Color(140,180,255)); // HIER 
+    Cell.setFillColor(Color(140,180,255)); 
 }
 
 Maze::~Maze()
