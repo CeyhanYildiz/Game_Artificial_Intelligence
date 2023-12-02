@@ -5,7 +5,6 @@
 
 //C++
 
-
 // BaseClass
 #include "MazeElement.h"
 
@@ -16,7 +15,7 @@ class Maze
 {
 public:
 	
-	Maze(int Make_Height, int Make_Width, int Make_Cell); // Constructor 
+	Maze(int Make_Height, int Make_Width, int Make_Cell_X, int Make_Cell_Y); // Constructor 
 	~Maze(); // Destructor
 
 	void run();
@@ -35,7 +34,10 @@ private:
 	 
 	int Height; 
 	int Width;
-	int Cell_Size;
+	int Cell_Size_X;
+	int Cell_Size_Y;
 
+	// Kinda dubbel linklist
+	vector<vector<MazeElement*>> maze;
 };
 
