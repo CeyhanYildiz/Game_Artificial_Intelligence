@@ -15,13 +15,25 @@ class Maze
 {
 public:
 	
-	Maze(int Make_Height, int Make_Width, int Make_Cell_X, int Make_Cell_Y); // Constructor 
+	Maze(int size); // Constructor 
 	~Maze(); // Destructor
 
 	void run();
 
 	int getHeight() const;
 	int	getWidth() const;
+
+	// Gets Symbool
+	char getMazeElementSymbol(int x, int y);
+	// Gets Description
+	string getMazeElementDescription(int x, int y);
+
+	void Binary_Tree_Algorithm();
+
+	void printMazeElement(int x, int y);
+
+	void printMaze();
+
 private:
 	
 	void handleEvents();
@@ -34,10 +46,26 @@ private:
 	 
 	int Height; 
 	int Width;
-	int Cell_Size_X;
-	int Cell_Size_Y;
 
+	// Maze Size
+	int sizeMaze;
+	// How much Cells are in the maze
+	int MazeCellSize;
+	// True maze size 'arrey'
+	int TrueMazeSize;
+	// Caculation x * 3
+	int TrueSize;
 	// Kinda dubbel linklist
 	vector<vector<MazeElement*>> maze;
+
+	// Removes the left wall at the specified position
+	void removeLeftWall(int x, int y);
+
+	// Removes the up wall at the specified position
+	void removeUpWall(int x, int y);
+
+	void setMazeElement(int y, int x, MazeElement* newElement);
+
+	void printBlockSymbol(const MazeElement& element);
 };
 

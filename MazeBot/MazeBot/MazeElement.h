@@ -12,6 +12,9 @@ public:
     virtual char getSymbol() const = 0;               // Returns a character symbol representing the element
     virtual ~MazeElement() {}                        // Virtual destructor to allow proper cleanup of derived types
 
+    // Getter and Setter for Visited
+    bool isVisited() const { return Visited; }
+    void setVisited(bool value) { Visited = value; }
 private:
 	bool Visited;
 

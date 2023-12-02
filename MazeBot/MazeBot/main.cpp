@@ -3,8 +3,10 @@
 
 
 int main() {
-    Maze game(1440, 740, 31, 16); // Sweet Spot 1440, 740, 15
+
+    Maze game(15);  // 15 is the limit for now
     game.run();  // WHILE LOOP !!
+    
 
     return 0;
 }

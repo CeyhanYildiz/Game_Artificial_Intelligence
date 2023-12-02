@@ -8,42 +8,51 @@
 
 //C++
 #include <random>
+#include "Start.h"
+#include "End.h"
+#include <iostream>
+#include<windows.h>
+
 
 using namespace sf;
 
 
-Maze::Maze(int Make_Height, int Make_Width, int Make_Cell_X, int Make_Cell_Y) : 
-    Height(Make_Height), 
-    Width(Make_Width), 
-    Cell_Size_X(Make_Cell_X), 
-    Cell_Size_Y(Make_Cell_Y),
-
-    window(sf::VideoMode(Make_Height, Make_Width), "MazeBot"),
-    Cell(Vector2f(20, 20))
-{
-    maze.resize(((Cell_Size_X * 3) + 1), vector<MazeElement*>(((Cell_Size_X * 3) + 1))); // CAN GO WRONG change X and Y
-    for (int x = 0; x < ((Cell_Size_X * 3) + 1) + 1; x++) {
-        for (int y = 0; y < ((Cell_Size_X * 3) + 1) + 1; y++) {
-            if (x == 0 || x == ((Cell_Size_X * 3) + 1) || y == 0 || y == ((Cell_Size_X * 3) + 1)) 
-            { 
-                maze[x][y] = new OutOfBounds(); // Edge of the maze
-            } 
-            else if (y % 3 == 0 || x % 3 == 0) 
-            { 
-                maze[x][y] = new Wall(); // Wall
-            } 
-            else { 
-                maze[x][y] = new Path(); // Cell Path 
-            } 
+Maze::Maze(int size) : sizeMaze(size) , 
+    window(sf::VideoMode(690, 690), "MazeBot"),
+    Cell(Vector2f(15, 15)) {
+    TrueSize = sizeMaze * 3;
+    maze.resize(TrueSize + 1, vector<MazeElement*>(TrueSize + 1));
+    for (int x = 0; x < TrueSize + 1; x++) {
+        for (int y = 0; y < TrueSize + 1; y++) {
+            if (x == 0 || x == TrueSize || y == 0 || y == TrueSize) { maze[x][y] = new OutOfBounds(); } // Edge of the maze
+            else if (y % 3 == 0 || x % 3 == 0) { maze[x][y] = new Wall(); } // Wall
+            else { maze[x][y] = new Path(); } // Cell Path 
         }
     }
+    // The exit positions for the maze
+    // These positions are calculated to be near the bottom-right corner of the maze
+    int quarter = TrueSize + 1;
+    int q2 = quarter - 2;
+    int q3 = quarter - 3;
+    vector<pair<int, int>> endPositions = { {q2, q2}, {q2, q3}, {q3, q2}, {q3, q3} };
+    for (const auto& pos : endPositions) { setMazeElement(pos.first, pos.second, new End()); } // Add End   
+    vector<pair<int, int>> startPositions = { {1, 1}, {1, 2}, {2, 1}, {2, 2} };
+    for (const auto& pos : startPositions) { setMazeElement(pos.first, pos.second, new Start()); } // Add Start
+    //cout << "Maze has been successfully initialized" << endl<<endl; // Works
+    MazeCellSize = sizeMaze * sizeMaze;
+    TrueMazeSize = (TrueSize + 1) * (TrueSize + 1);
+    
 }
 
 Maze::~Maze()
 {
+    for (int x = 0; x < TrueSize + 1; x++) {
+        for (int y = 0; y < TrueSize + 1; y++) { delete maze[x][y]; }
+    }
 }
 
 void Maze::run() {
+    Binary_Tree_Algorithm();
     while (window.isOpen()) {
         handleEvents();
         update();
@@ -61,6 +70,68 @@ int Maze::getWidth() const
 	return Width;
 }
 
+char Maze::getMazeElementSymbol(int x, int y)
+{
+    return maze[y][x]->getSymbol();
+}
+
+string Maze::getMazeElementDescription(int x, int y) 
+{
+    return maze[y][x]->getDescription(); 
+}
+
+void Maze::Binary_Tree_Algorithm()
+{
+    mt19937 rng(time(NULL)); // Create a random number generator, Mersenne primes
+    uniform_int_distribution<int> dist(1, 2); // Distribute between 1 and 2
+    for (int row = 0; row < sizeMaze; row++) {
+        for (int col = 0; col < sizeMaze; col++) {
+            int randomNumber = dist(rng); // Generate a random number (1 or 2)
+            // Calculate common positions
+            int posX = col * 3;
+            int posY = row * 3;
+            if (randomNumber == 2) {
+                // Decision to remove left or up wall based on boundary conditions
+                if (getMazeElementSymbol(posX + 1, posY) == 'X') { removeLeftWall(posX, posY); }
+                else { removeUpWall(posX, posY); }
+            }
+            else {
+                // Similar decision as above
+                if (getMazeElementSymbol(posX, posY + 1) == 'X') { removeUpWall(posX, posY); }
+                else { removeLeftWall(posX, posY); }
+            }
+            Sleep(5);
+            handleEvents();
+            update();
+            render();
+        }
+    }
+}
+
+void Maze::printMazeElement(int x, int y)
+{
+
+    if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
+    { 
+        printBlockSymbol(*maze[x][y]); cout << endl; 
+    }
+    else 
+    { 
+    }
+}
+
+void Maze::printMaze()
+{
+    for (int x = 0; x < TrueSize + 1; x++) {
+        for (int y = 0; y < TrueSize + 1; y++) { 
+            Cell.setPosition((sizeMaze * x), (sizeMaze * y));
+            printBlockSymbol(*maze[x][y]); 
+            //Sleep(2);
+            //window.display();
+        }
+    }
+}
+
 void Maze::handleEvents() {
     Event event;
     while (window.pollEvent(event)) {
@@ -71,35 +142,7 @@ void Maze::handleEvents() {
 
 void Maze::update() {
     
-        // Simple Display Maze Befor Random
-        for (int i = 0; i < ((Cell_Size_X * 3) + 1); i++)
-        {
-            for (int j = 0; j < ((Cell_Size_Y * 3) + 1); j++)
-            {
-                if (i % 3 == 0 || j % 3 == 0)
-                {
-                    Cell.setFillColor(Color(255, 180, 50));
-                }
-                else if ((i == 1 || i == 2) && (j == 1 || j == 2))
-                {
-                    Cell.setFillColor(Color(0, 255, 0));
-                }
-                else if ((i == 91 || i == 92) && (j == 46 || j == 47))
-                {
-                    Cell.setFillColor(Color(255, 0, 0));
-                }
-                else
-                {
-                    Cell.setFillColor(Color(140, 180, 255));
-                }
-                Cell.setPosition((15 + 0) * i, (15 + 0) * j);
-                window.draw(Cell);
-            }
-        }    
-
-        random_device rd; 
-        mt19937 gen(rd()); 
-        uniform_int_distribution<> distribution(0, 1); 
+    printMaze();
 
 }
 
@@ -109,5 +152,55 @@ void Maze::render() {
     window.display();
 }
 
+void Maze::removeLeftWall(int x, int y)
+{
+    setMazeElement(x, y + 1, new Path());
+    setMazeElement(x, y + 2, new Path());
+}
 
 
+
+void Maze::removeUpWall(int x, int y)
+{
+    setMazeElement(x + 1, y, new Path());
+    setMazeElement(x + 2, y, new Path());
+}
+
+void Maze::setMazeElement(int y, int x, MazeElement* newElement)
+{
+     
+    if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
+        // Check if the current element is OutOfBounds or Start
+        if (dynamic_cast<OutOfBounds*>(maze[x][y]) == nullptr &&
+            dynamic_cast<Start*>(maze[x][y]) == nullptr &&
+            dynamic_cast<End*>(maze[x][y]) == nullptr) {
+            delete maze[x][y]; // Delete the old element
+            maze[x][y] = newElement;
+        } // Set the new element
+    }
+    
+}
+
+void Maze::printBlockSymbol(const MazeElement& element)
+{
+    switch (element.getSymbol()) {
+    case 'P': Cell.setFillColor(Color(200, 200, 200));
+        break;
+    case 'W': Cell.setFillColor(Color(110, 110, 110));
+        break;
+    case 'C': Cell.setFillColor(Color(0, 0, 200));
+        break;
+    case 'S': Cell.setFillColor(Color(0, 200, 0));
+        break;
+    case 'E': Cell.setFillColor(Color(200, 0, 0));
+        break;
+    case 'w': Cell.setFillColor(Color(255, 127, 80));
+        break;
+    case 'X': Cell.setFillColor(Color(110, 110, 110));
+        break;
+    default:  Cell.setFillColor(Color(255, 255, 255));
+        break;
+    }
+    window.draw(Cell);
+    window.draw(Cell);
+}
