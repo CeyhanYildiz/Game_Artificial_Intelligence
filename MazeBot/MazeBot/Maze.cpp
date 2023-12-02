@@ -16,10 +16,10 @@
 
 using namespace sf;
 
-
+// Make Maze
 Maze::Maze(int size) : sizeMaze(size) , 
     window(sf::VideoMode(690, 690), "MazeBot"),
-    Cell(Vector2f(15, 15)) {
+    Cell(Vector2f(size, size)) {
     TrueSize = sizeMaze * 3;
     maze.resize(TrueSize + 1, vector<MazeElement*>(TrueSize + 1));
     for (int x = 0; x < TrueSize + 1; x++) {
@@ -44,40 +44,12 @@ Maze::Maze(int size) : sizeMaze(size) ,
     
 }
 
+// Destruckt Maze
 Maze::~Maze()
 {
     for (int x = 0; x < TrueSize + 1; x++) {
         for (int y = 0; y < TrueSize + 1; y++) { delete maze[x][y]; }
     }
-}
-
-void Maze::run() {
-    Binary_Tree_Algorithm();
-    while (window.isOpen()) {
-        handleEvents();
-        update();
-        render();
-    }
-}
-
-int Maze::getHeight() const
-{
-	return Height;
-}
-
-int Maze::getWidth() const
-{
-	return Width;
-}
-
-char Maze::getMazeElementSymbol(int x, int y)
-{
-    return maze[y][x]->getSymbol();
-}
-
-string Maze::getMazeElementDescription(int x, int y) 
-{
-    return maze[y][x]->getDescription(); 
 }
 
 void Maze::Binary_Tree_Algorithm()
@@ -108,18 +80,81 @@ void Maze::Binary_Tree_Algorithm()
     }
 }
 
-void Maze::printMazeElement(int x, int y)
+int Maze::getHeight() const
 {
+	return Height;
+}
+int Maze::getWidth() const
+{
+	return Width;
+}
 
-    if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
-    { 
-        printBlockSymbol(*maze[x][y]); cout << endl; 
+void Maze::handleEvents() {
+    Event event;
+    while (window.pollEvent(event)) {
+        if (event.type == Event::Closed)
+            window.close();
     }
-    else 
-    { 
+}
+void Maze::update() {
+    
+    printMaze();
+
+}
+void Maze::render() {
+    window.clear();
+    update();
+    window.display();
+}
+
+void Maze::run() {
+
+    Binary_Tree_Algorithm();
+
+    while (window.isOpen()) {
+        handleEvents();
+        update();
+        render();
+
     }
 }
 
+
+// Edit MazeElements
+void Maze::setMazeElement(int y, int x, MazeElement* newElement)
+{   
+    if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
+        // Check if the current element is OutOfBounds or Start
+        if (dynamic_cast<OutOfBounds*>(maze[x][y]) == nullptr &&
+            dynamic_cast<Start*>(maze[x][y]) == nullptr &&
+            dynamic_cast<End*>(maze[x][y]) == nullptr) {
+            delete maze[x][y]; // Delete the old element
+            maze[x][y] = newElement;
+        } // Set the new element
+    } 
+}
+void Maze::removeLeftWall(int x, int y)
+{
+    setMazeElement(x, y + 1, new Path());
+    setMazeElement(x, y + 2, new Path());
+}
+void Maze::removeUpWall(int x, int y)
+{
+    setMazeElement(x + 1, y, new Path());
+    setMazeElement(x + 2, y, new Path());
+}
+
+// Get info
+char Maze::getMazeElementSymbol(int x, int y)
+{
+    return maze[y][x]->getSymbol();
+}
+string Maze::getMazeElementDescription(int x, int y)
+{
+    return maze[y][x]->getDescription();
+}
+
+// Pr
 void Maze::printMaze()
 {
     for (int x = 0; x < TrueSize + 1; x++) {
@@ -131,56 +166,17 @@ void Maze::printMaze()
         }
     }
 }
+void Maze::printMazeElement(int x, int y)
+{
 
-void Maze::handleEvents() {
-    Event event;
-    while (window.pollEvent(event)) {
-        if (event.type == Event::Closed)
-            window.close();
+    if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
+    { 
+        printBlockSymbol(*maze[x][y]); cout << endl; 
+    }
+    else 
+    { 
     }
 }
-
-void Maze::update() {
-    
-    printMaze();
-
-}
-
-void Maze::render() {
-    window.clear();
-    update();
-    window.display();
-}
-
-void Maze::removeLeftWall(int x, int y)
-{
-    setMazeElement(x, y + 1, new Path());
-    setMazeElement(x, y + 2, new Path());
-}
-
-
-
-void Maze::removeUpWall(int x, int y)
-{
-    setMazeElement(x + 1, y, new Path());
-    setMazeElement(x + 2, y, new Path());
-}
-
-void Maze::setMazeElement(int y, int x, MazeElement* newElement)
-{
-     
-    if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
-        // Check if the current element is OutOfBounds or Start
-        if (dynamic_cast<OutOfBounds*>(maze[x][y]) == nullptr &&
-            dynamic_cast<Start*>(maze[x][y]) == nullptr &&
-            dynamic_cast<End*>(maze[x][y]) == nullptr) {
-            delete maze[x][y]; // Delete the old element
-            maze[x][y] = newElement;
-        } // Set the new element
-    }
-    
-}
-
 void Maze::printBlockSymbol(const MazeElement& element)
 {
     switch (element.getSymbol()) {
