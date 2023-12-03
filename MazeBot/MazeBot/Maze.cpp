@@ -12,6 +12,7 @@
 #include "End.h"
 #include <iostream>
 #include<windows.h>
+#include <unordered_map>
 
 
 using namespace sf;
@@ -154,15 +155,14 @@ string Maze::getMazeElementDescription(int x, int y)
     return maze[y][x]->getDescription();
 }
 
-// Pr
+// Print
 void Maze::printMaze()
 {
     for (int x = 0; x < TrueSize + 1; x++) {
         for (int y = 0; y < TrueSize + 1; y++) { 
-            Cell.setPosition((sizeMaze * x), (sizeMaze * y));
+            Cell.setPosition((sizeMaze * x), sizeMaze * y) ;
             printBlockSymbol(*maze[x][y]); 
-            //Sleep(2);
-            //window.display();
+
         }
     }
 }
@@ -171,32 +171,29 @@ void Maze::printMazeElement(int x, int y)
 
     if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) 
     { 
-        printBlockSymbol(*maze[x][y]); cout << endl; 
+        printBlockSymbol(*maze[x][y]); 
     }
     else 
     { 
     }
 }
+
 void Maze::printBlockSymbol(const MazeElement& element)
 {
-    switch (element.getSymbol()) {
-    case 'P': Cell.setFillColor(Color(200, 200, 200));
-        break;
-    case 'W': Cell.setFillColor(Color(110, 110, 110));
-        break;
-    case 'C': Cell.setFillColor(Color(0, 0, 200));
-        break;
-    case 'S': Cell.setFillColor(Color(0, 200, 0));
-        break;
-    case 'E': Cell.setFillColor(Color(200, 0, 0));
-        break;
-    case 'w': Cell.setFillColor(Color(255, 127, 80));
-        break;
-    case 'X': Cell.setFillColor(Color(110, 110, 110));
-        break;
-    default:  Cell.setFillColor(Color(255, 255, 255));
-        break;
-    }
+    unordered_map<char, Color> symbolToColor = {
+        {'P', sf::Color(200, 200, 200)},
+        {'W', sf::Color(110, 110, 110)},
+        {'C', sf::Color(0, 0, 200)},
+        {'S', sf::Color(0, 200, 0)},
+        {'E', sf::Color(200, 0, 0)},
+        {'w', sf::Color(255, 127, 80)},
+        {'X', sf::Color(110, 110, 110)}
+    };
+
+    char symbol = element.getSymbol();
+    Color fillColor = symbolToColor.count(symbol) ? symbolToColor[symbol] : Color(255, 255, 255);
+
+    Cell.setFillColor(fillColor);
     window.draw(Cell);
-    window.draw(Cell);
+    Cell.setOutlineThickness(0.f);
 }

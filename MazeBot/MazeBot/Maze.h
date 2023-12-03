@@ -67,5 +67,6 @@ private:
 	void setMazeElement(int y, int x, MazeElement* newElement);
 
 	void printBlockSymbol(const MazeElement& element);
+
 };
 
