@@ -19,12 +19,12 @@ using namespace sf;
 
 // Make Maze
 Maze::Maze(int size) : sizeMaze(size) , 
-    window(sf::VideoMode(690, 690), "MazeBot"),
-    Cell(Vector2f(size, size)) {
+    window(sf::VideoMode(680, 680), "MazeBot"),
+    Cell(Vector2f(43, 43)) { // 5 Sweet spot
     TrueSize = sizeMaze * 3;
     maze.resize(TrueSize + 1, vector<MazeElement*>(TrueSize + 1));
-    for (int x = 0; x < TrueSize + 1; x++) {
-        for (int y = 0; y < TrueSize + 1; y++) {
+    for (int y = 0; y < TrueSize + 1; y++) {
+        for (int x = 0; x < TrueSize + 1; x++) {
             if (x == 0 || x == TrueSize || y == 0 || y == TrueSize) { maze[x][y] = new OutOfBounds(); } // Edge of the maze
             else if (y % 3 == 0 || x % 3 == 0) { maze[x][y] = new Wall(); } // Wall
             else { maze[x][y] = new Path(); } // Cell Path 
@@ -57,8 +57,8 @@ void Maze::Binary_Tree_Algorithm()
 {
     mt19937 rng(time(NULL)); // Create a random number generator, Mersenne primes
     uniform_int_distribution<int> dist(1, 2); // Distribute between 1 and 2
-    for (int row = 0; row < sizeMaze; row++) {
-        for (int col = 0; col < sizeMaze; col++) {
+    for (int col = 0; col < sizeMaze; col++) {
+        for (int row = 0; row < sizeMaze; row++) {
             int randomNumber = dist(rng); // Generate a random number (1 or 2)
             // Calculate common positions
             int posX = col * 3;
@@ -73,11 +73,12 @@ void Maze::Binary_Tree_Algorithm()
                 if (getMazeElementSymbol(posX, posY + 1) == 'X') { removeUpWall(posX, posY); }
                 else { removeLeftWall(posX, posY); }
             }
-            Sleep(5);
-            handleEvents();
-            update();
-            render();
+            
         }
+        // Loading time or AKA wasting time
+        handleEvents();
+        update();
+        render();
     }
 }
 
@@ -158,11 +159,11 @@ string Maze::getMazeElementDescription(int x, int y)
 // Print
 void Maze::printMaze()
 {
-    for (int x = 0; x < TrueSize + 1; x++) {
-        for (int y = 0; y < TrueSize + 1; y++) { 
-            Cell.setPosition((sizeMaze * x), sizeMaze * y) ;
-            printBlockSymbol(*maze[x][y]); 
-
+    for (int y = 0; y < TrueSize + 1; y++) {
+        for (int x = 0; x < TrueSize + 1; x++) { 
+            
+            Cell.setPosition((43 * x), (43 * y)); // 5 sweet spot
+            printBlockSymbol(*maze[x][y]);
         }
     }
 }

@@ -3,7 +3,7 @@
 
 int main() {
 
-    Maze game(15);  // 15 is the limit for now
+    Maze game(5);  // 45 Sweetspot
     game.run();  // WHILE LOOP !!
     
 
