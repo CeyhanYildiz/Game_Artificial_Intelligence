@@ -22,3 +22,4 @@
 
 /MazeBot/x64/Debug
 *.pdb
+/MazeBot/x64/Release/MazeBot.exe

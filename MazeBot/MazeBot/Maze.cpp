@@ -3,18 +3,20 @@
 #include "Path.h"
 #include "Wall.h"
 #include "OutOfBounds.h"
+#include "Start.h"
+#include "End.h"
+
 // Sfml
 #include <SFML/Graphics.hpp> // Window app
 
-//C++
+// C++
 #include <random>
-#include "Start.h"
-#include "End.h"
 #include <iostream>
-#include<windows.h>
-#include <unordered_map>
+#include <windows.h>
+#include <map>
 
 
+// Name Space
 using namespace sf;
 
 // Make Maze
@@ -80,15 +82,6 @@ void Maze::Binary_Tree_Algorithm()
         update();
         render();
     }
-}
-
-int Maze::getHeight() const
-{
-	return Height;
-}
-int Maze::getWidth() const
-{
-	return Width;
 }
 
 void Maze::handleEvents() {
@@ -181,14 +174,14 @@ void Maze::printMazeElement(int x, int y)
 
 void Maze::printBlockSymbol(const MazeElement& element)
 {
-    unordered_map<char, Color> symbolToColor = {
-        {'P', sf::Color(200, 200, 200)},
-        {'W', sf::Color(110, 110, 110)},
-        {'C', sf::Color(0, 0, 200)},
-        {'S', sf::Color(0, 200, 0)},
-        {'E', sf::Color(200, 0, 0)},
-        {'w', sf::Color(255, 127, 80)},
-        {'X', sf::Color(110, 110, 110)}
+    map<char, Color> symbolToColor = {
+        {'P', Color(200, 200, 200)},
+        {'W', Color(110, 110, 110)},
+        {'C', Color(0, 0, 200)},
+        {'S', Color(0, 200, 0)},
+        {'E', Color(200, 0, 0)},
+        {'w', Color(255, 127, 80)},
+        {'X', Color(110, 110, 110)}
     };
 
     char symbol = element.getSymbol();

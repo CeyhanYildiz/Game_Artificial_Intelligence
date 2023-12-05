@@ -20,8 +20,8 @@ public:
 
 	void run();
 
-	int getHeight() const;
-	int	getWidth() const;
+	int getHeight() const { return Height; };
+	int	getWidth() const  { return Width; };
 
 	// Gets Symbool
 	char getMazeElementSymbol(int x, int y);
