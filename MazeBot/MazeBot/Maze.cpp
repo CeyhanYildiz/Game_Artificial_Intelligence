@@ -5,6 +5,8 @@
 #include "OutOfBounds.h"
 #include "Start.h"
 #include "End.h"
+#include "Checkpoint.h"
+#include "WrongPath.h"
 
 // Sfml
 #include <SFML/Graphics.hpp> // Window app
@@ -128,6 +130,31 @@ void Maze::setMazeElement(int y, int x, MazeElement* newElement)
         } // Set the new element
     } 
 }
+
+void Maze::setMazeElement_Visited(int y, int x)
+{
+    if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
+
+        if (dynamic_cast<Path*>(maze[x][y]) != nullptr)
+        {
+            delete maze[x][y];
+            maze[x][y] = new Checkpoint();
+        }
+    }
+}
+
+void Maze::setMazeElement_WrongTurn(int y, int x)
+{
+    if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
+
+        if (dynamic_cast<WrongPath*>(maze[x][y]) != nullptr)
+        {
+            delete maze[x][y];
+            maze[x][y] = new WrongPath();
+        }
+    }
+}
+
 void Maze::removeLeftWall(int x, int y)
 {
     setMazeElement(x, y + 1, new Path());
@@ -191,3 +218,4 @@ void Maze::printBlockSymbol(const MazeElement& element)
     window.draw(Cell);
     Cell.setOutlineThickness(0.f);
 }
+

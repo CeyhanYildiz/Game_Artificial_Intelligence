@@ -68,5 +68,10 @@ private:
 
 	void printBlockSymbol(const MazeElement& element);
 
+protected:
+
+	void setMazeElement_Visited(int y, int x);
+
+	void setMazeElement_WrongTurn(int y, int x);
 };
 
