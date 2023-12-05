@@ -1,2 +1,0 @@
-// Class
-#include "WrongPath.h"
