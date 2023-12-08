@@ -18,5 +18,3 @@ Welcome to the Game Artificial Intelligence repository! This project is focused 
 - **Phase 2**: Develop the AI algorithm to solve the maze.
 - **Phase 3**: Optimize and test the AI for various maze complexities.
 - **Phase 4**: Save Seed and Solve Pattern to remember.
-
-## How to instal
