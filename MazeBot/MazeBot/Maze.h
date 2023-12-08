@@ -15,7 +15,7 @@ class Maze
 {
 public:
 
-	// Construct & Destrict
+	// Construct & Destructor
 	Maze(int size);
 	~Maze();
 
