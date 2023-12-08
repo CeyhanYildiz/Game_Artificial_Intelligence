@@ -8,7 +8,7 @@
 #include "Checkpoint.h"
 #include "WrongPath.h"
 
-// Sfml
+// SFML
 #include <SFML/Graphics.hpp> // Window app
 
 // C++
@@ -29,7 +29,10 @@ Cell(Vector2f(43, 43)) { // 5 Sweet spot
     maze.resize(TrueSize + 1, vector<MazeElement*>(TrueSize + 1));
     for (int y = 0; y < TrueSize + 1; y++) {
         for (int x = 0; x < TrueSize + 1; x++) {
-            if (x == 0 || x == TrueSize || y == 0 || y == TrueSize) { maze[x][y] = new OutOfBounds(); } // Edge of the maze
+            if (x == 0 || x == TrueSize || y == 0 || y == TrueSize) 
+            { 
+                maze[x][y] = new OutOfBounds(); // Edge of the maze
+            } 
             else if (y % 3 == 0 || x % 3 == 0) { maze[x][y] = new Wall(); } // Wall
             else { maze[x][y] = new Path(); } // Cell Path 
         }
@@ -49,7 +52,7 @@ Cell(Vector2f(43, 43)) { // 5 Sweet spot
 
 }
 
-// Destruckt Maze
+// Destructor Maze
 Maze::~Maze()
 {
     for (int x = 0; x < TrueSize + 1; x++) {
@@ -171,6 +174,7 @@ char Maze::getMazeElementSymbol(int x, int y)
 {
     return maze[y][x]->getSymbol();
 }
+
 string Maze::getMazeElementDescription(int x, int y)
 {
     return maze[y][x]->getDescription();
