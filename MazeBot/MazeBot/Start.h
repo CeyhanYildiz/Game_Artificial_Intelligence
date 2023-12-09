@@ -3,7 +3,6 @@
 // Class
 #include "MazeElement.h"
 
-using namespace std;
 
 class Start : public MazeElement {
 public:

@@ -3,8 +3,6 @@
 // Class
 #include "MazeElement.h"
 
-using namespace std;
-
 class OutOfBounds : public MazeElement {
 
 public:
