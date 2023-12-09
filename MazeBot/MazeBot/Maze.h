@@ -8,8 +8,9 @@
 // BaseClass
 #include "MazeElement.h"
 
-using namespace std;
-using namespace sf;
+
+using namespace std; // C++
+using namespace sf; //SFML
 
 class Maze
 {
