@@ -16,7 +16,7 @@ class Maze
 public:
 
 	// Construct & Destructor
-	Maze(int size);
+	Maze(int size, string name = "Mazebot");
 	~Maze();
 
 	// Start Game

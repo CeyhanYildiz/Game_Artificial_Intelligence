@@ -22,8 +22,8 @@
 using namespace sf;
 
 // Make Maze
-Maze::Maze(int size) : sizeMaze(size),
-window(sf::VideoMode(680, 680), "MazeBot"),
+Maze::Maze(int size ,string name) : sizeMaze(size),
+window(sf::VideoMode(680, 680), name),
 Cell(Vector2f(43, 43)) { // 5 Sweet spot
     TrueSize = sizeMaze * 3;
     maze.resize(TrueSize + 1, vector<MazeElement*>(TrueSize + 1));
