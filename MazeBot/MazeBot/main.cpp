@@ -3,8 +3,14 @@
 
 int main() {
 
-    Maze game(5);  // 45 Sweet spot
-    game.run();  // WHILE LOOP !!
+    // Make game
+        Maze game(5);
+
+    // Make AI
+        //Here
+
+    // Solve
+        game.run();  // game.run(); = Its a loop FIX!
 
     return 0;
 }
