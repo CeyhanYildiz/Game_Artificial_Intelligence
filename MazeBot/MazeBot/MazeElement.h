@@ -3,20 +3,32 @@
 // C++
 #include <string>
 
+// namespace
 using namespace std;
 
+// Base Class
 class MazeElement
 {
 public:
-    virtual string getDescription() const = 0;  // Returns a string description of the element
-    virtual char getSymbol() const = 0;               // Returns a character symbol representing the element
-    MazeElement() { Visited = false; };
-    virtual ~MazeElement() {}                        // Virtual destructor to allow proper cleanup of derived types
+    // Construct & Destructor
+        MazeElement() { Visited = false; };
+        virtual ~MazeElement() {}                     
 
-    // Getter and Setter for Visited
-    bool isVisited() const { return Visited; }
-    void setVisited(bool value) { Visited = value; }
+    // Get info
+        virtual string getDescription() const = 0;  
+        virtual char getSymbol() const = 0;              
+        bool isVisited() const { return Visited; }
+
+    // Set info
+        void setVisited() { Visited = true; }
+
 private:
-    bool Visited;
+    //Variable
+        bool Visited;   // True if cell is Visited
+
+        //unsigned char NorthWall; // True if hase Wall North(UP)
+        //unsigned char EastWall;  // Right
+        //unsigned char SouthWall; // Down
+        //unsigned char WestWall;  // Left
 
 };

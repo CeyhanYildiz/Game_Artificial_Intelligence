@@ -17,63 +17,60 @@ class Maze
 public:
 
 	// Construct & Destructor
-	Maze(int size, string name = "Mazebot");
-	~Maze();
-
-	// Start Game
-	void run();
+		Maze(int size, string name = "Maze bot");
+		~Maze();
 
 	// Get info
-	int getHeight() const { return Height; };
-	int	getWidth() const { return Width; };
-	//Gets Symbool
-	char getMazeElementSymbol(int x, int y);
-	// Gets Description
-	string getMazeElementDescription(int x, int y);
+		int getHeight() const { return Height; };
+		int	getWidth() const { return Width; };
+		char getMazeElementSymbol(int x, int y);
+		string getMazeElementDescription(int x, int y);
+
+	// Start Game
+		void run();
 
 private:
 
-	// Called 1 time
-	void Binary_Tree_Algorithm();
+	// Algorithm
+		void Binary_Tree_Algorithm();
 
-	// Only Run can call
-	void printMaze();
-	void printMazeElement(int x, int y);
-	void handleEvents();
-	void update();
-	void render();
-	void printBlockSymbol(const MazeElement& element);
+	// Print Stuff
+		void printMaze();
+		void printMazeElement(int x, int y);
+		void printBlockSymbol(const MazeElement& element);
+
+	// RunStuff
+		void handleEvents();
+		void update();
+		void render();
+		
 
 	// Game API window
-	RenderWindow window;
+		RenderWindow window;
 
-	// For printing API
-	RectangleShape Cell;
+	// For printing Cell API
+		RectangleShape Cell;
 
-	// Info Maze
-	int Height;
-	int Width;
+	// Variable
+		int Height;
+		int Width;
+		int sizeMaze;		// Maze Size
+		int MazeCellSize;	// How much Cells are in the maze
+		int TrueMazeSize;	// True maze size 'sizeMaze * sizeMaze'
+		int TrueSize;		// Calculation x * 3
 
-	// Maze Size
-	int sizeMaze;
-	// How much Cells are in the maze
-	int MazeCellSize;
-	// True maze size ' array '
-	int TrueMazeSize;
-	// Calculation x * 3
-	int TrueSize;
-	// Kind a dubbel linklist
-	vector<vector<MazeElement*>> maze;
+	// A sort of double link list
+		vector<vector<MazeElement*>> maze;
 
 	// Admin level Edit Maze 
-	void removeLeftWall(int x, int y);
-	void removeUpWall(int x, int y);
-	void setMazeElement(int y, int x, MazeElement* newElement);
+		void removeLeftWall(int x, int y);
+		void removeUpWall(int x, int y);
+		void setMazeElement(int y, int x, MazeElement* newElement);
 
 protected:
 
 	// User level Edit Maze
-	void setMazeElement_Visited(int y, int x);
-	void setMazeElement_WrongTurn(int y, int x);
+		void setMazeElement_Visited(int y, int x);
+		void setMazeElement_WrongTurn(int y, int x);
 };
 

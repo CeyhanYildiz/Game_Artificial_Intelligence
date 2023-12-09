@@ -50,6 +50,7 @@ Cell(Vector2f(43, 43)) { // 5 Sweet spot
     MazeCellSize = sizeMaze * sizeMaze;
     TrueMazeSize = (TrueSize + 1) * (TrueSize + 1);
 
+    Binary_Tree_Algorithm();
 }
 
 // Destructor Maze
@@ -80,12 +81,12 @@ void Maze::Binary_Tree_Algorithm()
                 if (getMazeElementSymbol(posX, posY + 1) == 'X') { removeUpWall(posX, posY); }
                 else { removeLeftWall(posX, posY); }
             }
-
+            // Loading time or AKA wasting time
+            //handleEvents();
+            //update();
+            //render();
+            //Sleep(1000);
         }
-        // Loading time or AKA wasting time
-        handleEvents();
-        update();
-        render();
     }
 }
 
@@ -108,8 +109,6 @@ void Maze::render() {
 }
 
 void Maze::run() {
-
-    Binary_Tree_Algorithm();
 
     while (window.isOpen()) {
         handleEvents();

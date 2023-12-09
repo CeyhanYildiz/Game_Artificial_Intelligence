@@ -4,7 +4,7 @@
 int main() {
 
     // Make game
-        Maze game(5);
+        Maze game(5, "Game");
 
     // Make AI
         //Here
