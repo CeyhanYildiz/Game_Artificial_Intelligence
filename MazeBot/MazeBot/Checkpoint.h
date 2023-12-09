@@ -3,8 +3,6 @@
 // Class
 #include "MazeElement.h"
 
-using namespace std;
-
 class Checkpoint : public MazeElement {
 public:
     string getDescription() const override { return "Checkpoint"; } // Description of the Checkpoint element
