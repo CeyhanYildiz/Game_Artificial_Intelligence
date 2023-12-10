@@ -3,11 +3,12 @@
 // Class
 #include "MazeElement.h"
 
-
+// Base Class -> End 
 class End : public MazeElement {
 public:
-    string getDescription() const override { return "End"; } // Description of the End element
-    char getSymbol() const override { return 'E'; }               // Character symbol for End
+    //Get info
+        string getDescription() const override { return "End"; } 
+        char getSymbol() const override { return 'E'; }               
 
 private:
 };

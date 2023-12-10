@@ -30,5 +30,5 @@ private:
         //unsigned char EastWall;  // Right
         //unsigned char SouthWall; // Down
         //unsigned char WestWall;  // Left
-
+        // this 'space'
 };

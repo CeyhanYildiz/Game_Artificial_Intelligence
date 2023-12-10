@@ -3,11 +3,12 @@
 // Class
 #include "MazeElement.h"
 
-
+// Base Class -> WrongPath
 class WrongPath : public MazeElement {
 public:
-    string getDescription() const override { return "Wrong path"; } // Description of the Wrong Path element
-    char getSymbol() const override { return 'w'; }                      // Character symbol for Wrong Path
+    // Get info
+        string getDescription() const override { return "Wrong path"; }
+        char getSymbol() const override { return 'w'; }
 
 private:
 };

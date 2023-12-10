@@ -3,12 +3,13 @@
 // Class
 #include "MazeElement.h"
 
+// Base Class -> Path
 class Path : public MazeElement {
 public:
-    string getDescription() const override { return "Path"; } // Description of the Path element
-    char getSymbol() const override { return 'P'; }                // Character symbol for Path
+    // Get info
+        string getDescription() const override { return "Path"; } 
+        char getSymbol() const override { return 'P'; } 
 
 private:
-
 };
 

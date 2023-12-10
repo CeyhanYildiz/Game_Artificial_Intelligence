@@ -3,11 +3,12 @@
 // Class
 #include "MazeElement.h"
 
-
+// Base Class -> Wall
 class Wall : public MazeElement {
 public:
-    string getDescription() const override { return "Wall"; } // Description of the Wall element
-    char getSymbol() const override { return 'W'; }                // Character symbol for Wall
+    // Get info
+        string getDescription() const override { return "Wall"; }
+        char getSymbol() const override { return 'W'; }
 
 private:
 
