@@ -1,3 +1,12 @@
+// SFML
+#include <SFML/Graphics.hpp> // Window app
+
+// C++
+#include <random>
+#include <iostream>
+#include <windows.h>
+#include <map>
+
 // Game
 #include "Maze.h"
 #include "Path.h"
@@ -8,23 +17,13 @@
 #include "Checkpoint.h"
 #include "WrongPath.h"
 
-// SFML
-#include <SFML/Graphics.hpp> // Window app
-
-// C++
-#include <random>
-#include <iostream>
-#include <windows.h>
-#include <map>
-
-
 // Name Space
 using namespace sf;
 
 // Make Maze
 Maze::Maze(int size ,string name) : sizeMaze(size),
-window(sf::VideoMode(680, 680), name),
-Cell(Vector2f(43, 43)) { // 5 Sweet spot
+window(sf::VideoMode(902, 902), name),
+Cell(Vector2f(2, 2)) { // 5 Sweet spot
     TrueSize = sizeMaze * 3;
     maze.resize(TrueSize + 1, vector<MazeElement*>(TrueSize + 1));
     for (int y = 0; y < TrueSize + 1; y++) {
@@ -185,8 +184,11 @@ void Maze::printMaze()
     for (int y = 0; y < TrueSize + 1; y++) {
         for (int x = 0; x < TrueSize + 1; x++) {
 
-            Cell.setPosition((43 * x), (43 * y)); // 5 sweet spot
-            printBlockSymbol(*maze[x][y]);
+            count = mapping(x + y, 0, TrueSize * 2, 1, 255);
+
+            Cell.setPosition((2 * x), (2 * y)); // 5 sweet spot
+            printBlockSymbol(*maze[x][y]); 
+         
         }
     }
 }
@@ -204,21 +206,51 @@ void Maze::printMazeElement(int x, int y)
 
 void Maze::printBlockSymbol(const MazeElement& element)
 {
+    
     map<char, Color> symbolToColor = {
-        {'P', Color(200, 200, 200)},
-        {'W', Color(110, 110, 110)},
-        {'C', Color(0, 0, 200)},
-        {'S', Color(0, 200, 0)},
-        {'E', Color(200, 0, 0)},
-        {'w', Color(255, 127, 80)},
-        {'X', Color(110, 110, 110)}
+        {'P', Color(125, 0, 125)},
+        {'W', Color(0, 0, 0)},
+        {'C', Color(0, 0, 0)},
+        {'S', Color(50, 255, 50)},
+        {'E', Color(200, 0, 75)},
+        {'w', Color(0, 0, 0)},
+        {'X', Color(0, 0, 0)}
     };
 
     char symbol = element.getSymbol();
     Color fillColor = symbolToColor.count(symbol) ? symbolToColor[symbol] : Color(255, 255, 255);
+    if (fillColor.a > 0 ) {
+        //fillColor.a -= count; // Adjust the rate at which the alpha decreases
+    }
+    if (fillColor.a > 0 && element.getSymbol() == 'P') {
+        fillColor.g -= count; // Adjust the rate at which the alpha decreases
+    }
+
+ 
 
     Cell.setFillColor(fillColor);
     window.draw(Cell);
     Cell.setOutlineThickness(0.f);
+}
+
+int Maze::mapping(int input, int fromLow, int fromHigh, int toLow, int toHigh)
+{
+    // Check for invalid input range
+    if (fromLow >= fromHigh || toLow >= toHigh) {
+        // You can handle this case in any way you prefer, like returning an error code.
+        // For simplicity, let's just return the input value unchanged.
+        return input;
+    }
+
+    // Calculate the percentage of input within the input range
+    float percentage = static_cast<float>(input - fromLow) / (fromHigh - fromLow);
+
+    // Map the percentage to the output range
+    int result = toLow + static_cast<int>(percentage * (toHigh - toLow));
+
+    // Ensure the result is within the output range
+    result = min(max(result, toLow), toHigh);
+
+    return result;
 }
 

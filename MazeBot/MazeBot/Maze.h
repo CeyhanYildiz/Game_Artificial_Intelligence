@@ -38,6 +38,7 @@ private:
 		void printMaze();
 		void printMazeElement(int x, int y);
 		void printBlockSymbol(const MazeElement& element);
+		int mapping(int input, int fromLow, int fromHigh, int toLow, int toHigh);
 
 	// RunStuff
 		void handleEvents();
@@ -58,6 +59,7 @@ private:
 		int MazeCellSize;	// How much Cells are in the maze
 		int TrueMazeSize;	// True maze size 'sizeMaze * sizeMaze'
 		int TrueSize;		// Calculation x * 3
+		int count;
 
 	// A sort of double link list
 		vector<vector<MazeElement*>> maze;

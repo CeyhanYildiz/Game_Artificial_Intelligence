@@ -1,16 +1,24 @@
 // Class
 #include "Maze.h"
 
+// namespace
+using namespace std;
+
 int main() {
 
-    // Make game
-        Maze game(5, "Game");
+    int count = 1;
+    while (count)
+    {
+        // Make game
+        Maze game(150, "MazeBot " + to_string(count));
+        count++;
+        // Make AI
+            //Here
 
-    // Make AI
-        //Here
-
-    // Solve
+        // Solve
         game.run();  // game.run(); = Its a loop FIX!
+    }
+
 
     return 0;
 }
