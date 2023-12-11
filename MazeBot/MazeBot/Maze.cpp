@@ -262,7 +262,7 @@ void Maze::printBlockSymbol(const MazeElement& element)
 }
 
 int Maze::mapping(int input, int fromLow, int fromHigh, int toLow, int toHigh)
-{
+{   // Thx To Kobe Dieryck
     // Check for invalid input range
     if (fromLow >= fromHigh || toLow >= toHigh) {
         // You can handle this case in any way you prefer, like returning an error code.
