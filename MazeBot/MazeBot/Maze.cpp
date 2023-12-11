@@ -89,30 +89,17 @@ void Maze::Binary_Tree_Algorithm()
     }
 }
 
-void Maze::handleEvents() {
-    Event event;
-    while (window.pollEvent(event)) {
-        if (event.type == Event::Closed)
-            window.close();
-    }
-}
-void Maze::update() {
-
-    printMaze();
-
-}
-void Maze::render() {
-    window.clear();
-    update();
-    window.display();
-}
-
 void Maze::run() {
 
     while (window.isOpen()) {
-        handleEvents();
-        update();
-        render();
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::Closed)
+                window.close();
+        }
+        window.clear();
+        printMaze();
+        window.display();
 
     }
 }

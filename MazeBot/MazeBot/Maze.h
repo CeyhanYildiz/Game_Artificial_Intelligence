@@ -41,9 +41,9 @@ private:
 		int mapping(int input, int fromLow, int fromHigh, int toLow, int toHigh);
 
 	// RunStuff
-		void handleEvents();
-		void update();
-		void render();
+		//void handleEvents();
+		//void update();
+		//void render();
 		
 
 	// Game API window
