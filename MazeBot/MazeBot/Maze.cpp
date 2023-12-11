@@ -21,35 +21,41 @@
 using namespace sf;
 
 // Make Maze
-Maze::Maze(int size ,string name) : sizeMaze(size),
-window(sf::VideoMode(902, 902), name),
-Cell(Vector2f(2, 2)) { // 5 Sweet spot
-    TrueSize = sizeMaze * 3;
-    maze.resize(TrueSize + 1, vector<MazeElement*>(TrueSize + 1));
-    for (int y = 0; y < TrueSize + 1; y++) {
-        for (int x = 0; x < TrueSize + 1; x++) {
-            if (x == 0 || x == TrueSize || y == 0 || y == TrueSize) 
-            { 
-                maze[x][y] = new OutOfBounds(); // Edge of the maze
-            } 
-            else if (y % 3 == 0 || x % 3 == 0) { maze[x][y] = new Wall(); } // Wall
-            else { maze[x][y] = new Path(); } // Cell Path 
-        }
-    }
-    // The exit positions for the maze
-    // These positions are calculated to be near the bottom-right corner of the maze
-    int quarter = TrueSize + 1;
-    int q2 = quarter - 2;
-    int q3 = quarter - 3;
-    vector<pair<int, int>> endPositions = { {q2, q2}, {q2, q3}, {q3, q2}, {q3, q3} };
-    for (const auto& pos : endPositions) { setMazeElement(pos.first, pos.second, new End()); } // Add End   
-    vector<pair<int, int>> startPositions = { {1, 1}, {1, 2}, {2, 1}, {2, 2} };
-    for (const auto& pos : startPositions) { setMazeElement(pos.first, pos.second, new Start()); } // Add Start
-    //cout << "Maze has been successfully initialized" << endl<<endl; // Works
-    MazeCellSize = sizeMaze * sizeMaze;
-    TrueMazeSize = (TrueSize + 1) * (TrueSize + 1);
+Maze::Maze(int size ,string name) : 
+    sizeMaze(size),
+    window(sf::VideoMode(902, 902), name),
+    Cell(Vector2f(2, 2))
+{
+    // Calculations
+        TrueSize = sizeMaze * 3;
+        int quarter = TrueSize + 1;
+        int q2 = quarter - 2;
+        int q3 = quarter - 3;
+        MazeCellSize = sizeMaze * sizeMaze;
+        TrueMazeSize = (TrueSize + 1) * (TrueSize + 1);
 
-    Binary_Tree_Algorithm();
+    // Vector
+        maze.resize(TrueSize + 1, vector<MazeElement*>(TrueSize + 1));
+    
+    // Making Grid
+     ConstructMaze();
+
+     // Adding Start
+        vector<pair<int, int>> startPositions = { {1, 1}, {1, 2}, {2, 1}, {2, 2} };
+        for (const auto& pos : startPositions) 
+        { 
+            setMazeElement(pos.first, pos.second, new Start()); 
+        }
+
+     // Adding End
+        vector<pair<int, int>> endPositions = { {q2, q2}, {q2, q3}, {q3, q2}, {q3, q3} };
+         for (const auto& pos : endPositions) 
+         { 
+             setMazeElement(pos.first, pos.second, new End()); 
+         }
+
+    // Grid to Maze
+        Binary_Tree_Algorithm();
 }
 
 // Destructor Maze
@@ -57,6 +63,39 @@ Maze::~Maze()
 {
     for (int x = 0; x < TrueSize + 1; x++) {
         for (int y = 0; y < TrueSize + 1; y++) { delete maze[x][y]; }
+    }
+}
+
+void Maze::ConstructMaze()
+{
+    /* Constructing a Vector
+    * Creating the following pattern:
+    *   O | O | O | O | O | O | O
+    *   O | P | P | W | P | P | O
+    *   O | P | P | W | P | P | O
+    *   O | W | W | W | W | W | O
+    *   O | P | P | W | P | P | O
+    *   O | P | P | W | P | P | O
+    *   O | O | O | O | O | O | O
+    */
+
+    for (int y = 0; y < TrueSize + 1; y++) {
+        for (int x = 0; x < TrueSize + 1; x++) {
+
+            // Assigning 'OutOfBounds' to the maze boundaries
+            if (x == 0 || x == TrueSize || y == 0 || y == TrueSize) {
+                maze[x][y] = new OutOfBounds();
+            }
+            // Placing 'Wall' on specified coordinates within the maze
+            else if (y % 3 == 0 || x % 3 == 0) {
+                maze[x][y] = new Wall();
+            }
+            // Designating 'Path' to the cells within the maze
+            else {
+                maze[x][y] = new Path();
+            }
+
+        }
     }
 }
 

@@ -30,6 +30,8 @@ public:
 		void run();
 
 private:
+	// Maze stuff
+		void ConstructMaze();
 
 	// Algorithm
 		void Binary_Tree_Algorithm();
