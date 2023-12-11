@@ -17,7 +17,7 @@ class Maze
 public:
 
 	// Construct & Destructor
-		Maze(int size, string name = "Maze bot");
+		Maze(int size, int Cell_Size, string name = "Maze bot");
 		~Maze();
 
 	// Get info
@@ -43,9 +43,9 @@ private:
 		int mapping(int input, int fromLow, int fromHigh, int toLow, int toHigh);
 
 	// RunStuff
-		//void handleEvents();
-		//void update();
-		//void render();
+		//void handleEvents(); -- Delete ?
+		//void update(); -- Delete ?
+		//void render(); -- Delete ?
 		
 
 	// Game API window
@@ -61,7 +61,8 @@ private:
 		int MazeCellSize;	// How much Cells are in the maze
 		int TrueMazeSize;	// True maze size 'sizeMaze * sizeMaze'
 		int TrueSize;		// Calculation x * 3
-		int count;
+		int fading;			// Colour fading
+		int Cell_Size;		// Size of Cell ( RectangleShape )
 
 	// A sort of double link list
 		vector<vector<MazeElement*>> maze;

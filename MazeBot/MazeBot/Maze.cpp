@@ -21,11 +21,14 @@
 using namespace sf;
 
 // Make Maze
-Maze::Maze(int size ,string name) : 
+Maze::Maze(int size, int Cell_Size, string name) :
     sizeMaze(size),
+    Cell_Size(Cell_Size),
     window(sf::VideoMode(902, 902), name),
-    Cell(Vector2f(2, 2))
+    Cell(Vector2f(Cell_Size, Cell_Size))
 {
+    // Constructor for the Maze class with initialization list.
+    
     // Calculations
         TrueSize = sizeMaze * 3;
         int quarter = TrueSize + 1;
@@ -38,7 +41,7 @@ Maze::Maze(int size ,string name) :
         maze.resize(TrueSize + 1, vector<MazeElement*>(TrueSize + 1));
     
     // Making Grid
-     ConstructMaze();
+        ConstructMaze();
 
      // Adding Start
         vector<pair<int, int>> startPositions = { {1, 1}, {1, 2},
@@ -61,15 +64,15 @@ Maze::Maze(int size ,string name) :
 }
 
 // Destructor Maze
-Maze::~Maze()
-{
+Maze::~Maze() {
+    // Destructor for the Maze class, responsible for freeing allocated memory.
+
     for (int x = 0; x < TrueSize + 1; x++) {
         for (int y = 0; y < TrueSize + 1; y++) { delete maze[x][y]; }
     }
 }
 
-void Maze::ConstructMaze()
-{
+void Maze::ConstructMaze() {
     /* Constructing a Vector
     * Creating the following pattern:
     *   O | O | O | O | O | O | O
@@ -101,36 +104,38 @@ void Maze::ConstructMaze()
     }
 }
 
-void Maze::Binary_Tree_Algorithm()
-{
+void Maze::Binary_Tree_Algorithm() {
+
+    // Implement the Binary Tree Algorithm to generate a maze.
+    // Utilizes randomization to remove either the West or North wall for each cell. 
+
     mt19937 rng(time(NULL)); // Create a random number generator, Mersenne primes
     uniform_int_distribution<int> dist(1, 2); // Distribute between 1 and 2
     for (int col = 0; col < sizeMaze; col++) {
         for (int row = 0; row < sizeMaze; row++) {
             int randomNumber = dist(rng); // Generate a random number (1 or 2)
+
             // Calculate common positions
             int posX = col * 3;
             int posY = row * 3;
+
+            // Removing either the West wall or the North wall
             if (randomNumber == 2) {
-                // Decision to remove left or up wall based on boundary conditions
                 if (getMazeElementSymbol(posX + 1, posY) == 'X') { removeLeftWall(posX, posY); }
                 else { removeUpWall(posX, posY); }
             }
             else {
-                // Similar decision as above
                 if (getMazeElementSymbol(posX, posY + 1) == 'X') { removeUpWall(posX, posY); }
                 else { removeLeftWall(posX, posY); }
             }
-            // Loading time or AKA wasting time
-            //handleEvents();
-            //update();
-            //render();
-            //Sleep(1000);
         }
     }
 }
 
 void Maze::run() {
+
+    // Run the maze visualization loop.
+    // Handles window events, clears the window, prints the maze, and displays the window.
 
     while (window.isOpen()) {
         Event event;
@@ -147,21 +152,27 @@ void Maze::run() {
 
 
 // Edit MazeElements
-void Maze::setMazeElement(int y, int x, MazeElement* newElement)
-{
+void Maze::setMazeElement(int y, int x, MazeElement* newElement) {
+
+    // Set the maze element at coordinates (y, x) to the specified new element.
+    // Ensures valid indices within the maze boundaries and avoids modifying OutOfBounds, Start, or End elements.
+
     if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
         // Check if the current element is OutOfBounds or Start
         if (dynamic_cast<OutOfBounds*>(maze[x][y]) == nullptr &&
             dynamic_cast<Start*>(maze[x][y]) == nullptr &&
             dynamic_cast<End*>(maze[x][y]) == nullptr) {
             delete maze[x][y]; // Delete the old element
-            maze[x][y] = newElement;
-        } // Set the new element
+            maze[x][y] = newElement; // Set the new element
+        } 
     }
 }
 
-void Maze::setMazeElement_Visited(int y, int x)
-{
+void Maze::setMazeElement_Visited(int y, int x) {
+    // Set the maze element at coordinates (y, x) as visited.
+    // Ensures valid indices within the maze boundaries before updating.
+    // If the element at the specified location is a Path, it is replaced with a Checkpoint.
+
     if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
 
         if (dynamic_cast<Path*>(maze[x][y]) != nullptr)
@@ -172,8 +183,7 @@ void Maze::setMazeElement_Visited(int y, int x)
     }
 }
 
-void Maze::setMazeElement_WrongTurn(int y, int x)
-{
+void Maze::setMazeElement_WrongTurn(int y, int x) {
     if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
 
         if (dynamic_cast<WrongPath*>(maze[x][y]) != nullptr)
@@ -184,44 +194,45 @@ void Maze::setMazeElement_WrongTurn(int y, int x)
     }
 }
 
-void Maze::removeLeftWall(int x, int y)
-{
+
+void Maze::removeLeftWall(int x, int y) {
+    // Remove the left wall at coordinates (x, y) and create paths in the adjacent cells.
     setMazeElement(x, y + 1, new Path());
     setMazeElement(x, y + 2, new Path());
 }
-void Maze::removeUpWall(int x, int y)
-{
+void Maze::removeUpWall(int x, int y) {
+    // Remove the up wall at coordinates (x, y) and create paths in the adjacent cells.
     setMazeElement(x + 1, y, new Path());
     setMazeElement(x + 2, y, new Path());
 }
 
 // Get info
-char Maze::getMazeElementSymbol(int x, int y)
-{
+char Maze::getMazeElementSymbol(int x, int y) {
+    // Get the symbol of the maze element at coordinates (x, y).
     return maze[y][x]->getSymbol();
 }
 
-string Maze::getMazeElementDescription(int x, int y)
-{
+string Maze::getMazeElementDescription(int x, int y) {
+    // Get the description of the maze element at coordinates (x, y).
     return maze[y][x]->getDescription();
 }
 
 // Print
-void Maze::printMaze()
-{
+void Maze::printMaze() {
+    // Print the maze by iterating through each cell and rendering its symbol.
     for (int y = 0; y < TrueSize + 1; y++) {
         for (int x = 0; x < TrueSize + 1; x++) {
 
-            count = mapping(x + y, 0, TrueSize * 2, 1, 255);
+            fading = mapping(x + y, 0, TrueSize * 2, 1, 255);
 
-            Cell.setPosition((2 * x), (2 * y)); // 5 sweet spot
+            Cell.setPosition((Cell_Size * x), (Cell_Size * y)); // 5 sweet spot
             printBlockSymbol(*maze[x][y]); 
          
         }
     }
 }
-void Maze::printMazeElement(int x, int y)
-{
+void Maze::printMazeElement(int x, int y) {
+    // Print the symbol of the maze element at coordinates (x, y).
 
     if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size())
     {
@@ -229,12 +240,15 @@ void Maze::printMazeElement(int x, int y)
     }
     else
     {
+        // Handle out-of-bounds case (e.g., print an error message or log)
+        cout << "Error: Attempted to print out-of-bounds element at coordinates (" << x << ", " << y << ")" << endl;
     }
 }
 
-void Maze::printBlockSymbol(const MazeElement& element)
-{
+void Maze::printBlockSymbol(const MazeElement& element) {
+    // Print the symbol of the provided maze element using a colored rectangle.
     
+    // Mapping of symbols to colors
     map<char, Color> symbolToColor = {
         {'P', Color(125, 0, 125)},
         {'W', Color(0, 0, 0)},
@@ -245,40 +259,47 @@ void Maze::printBlockSymbol(const MazeElement& element)
         {'X', Color(0, 0, 0)}
     };
 
+    // Get the symbol of the maze element
     char symbol = element.getSymbol();
-    Color fillColor = symbolToColor.count(symbol) ? symbolToColor[symbol] : Color(255, 255, 255);
-    if (fillColor.a > 0 ) {
-        //fillColor.a -= count; // Adjust the rate at which the alpha decreases
-    }
-    if (fillColor.a > 0 && element.getSymbol() == 'P') {
-        fillColor.g -= count; // Adjust the rate at which the alpha decreases
-    }
 
- 
+    // Check if the symbol is present in the map
+    if (symbolToColor.count(symbol)) {
+        // Retrieve the color for the symbol
+        Color fillColor = symbolToColor[symbol];
 
-    Cell.setFillColor(fillColor);
-    window.draw(Cell);
-    Cell.setOutlineThickness(0.f);
+        // Adjust alpha for specific symbol ('P' in this case)
+        if (fillColor.a > 0 && symbol == 'P') {
+            fillColor.g -= fading; // Adjust the rate at which the alpha decreases
+        }
+
+        // Set the fill color of the cell and draw it
+        Cell.setFillColor(fillColor);
+        window.draw(Cell);
+
+        // Reset outline thickness (in case it was modified elsewhere)
+        Cell.setOutlineThickness(0.f);
+    }
+    else {
+        // Handle the case where the symbol is not found (e.g., log an error)
+        cout << "Error: Symbol '" << symbol << "' not found in symbolToColor map." << endl;
+    }
 }
 
-int Maze::mapping(int input, int fromLow, int fromHigh, int toLow, int toHigh)
-{   // Thx To Kobe Dieryck
-    // Check for invalid input range
+int Maze::mapping(int input, int fromLow, int fromHigh, int toLow, int toHigh) {
+    // Ensure valid input and output ranges
     if (fromLow >= fromHigh || toLow >= toHigh) {
-        // You can handle this case in any way you prefer, like returning an error code.
-        // For simplicity, let's just return the input value unchanged.
         return input;
     }
-
-    // Calculate the percentage of input within the input range
+    // Calculate the percentage of the input within the input range
     float percentage = static_cast<float>(input - fromLow) / (fromHigh - fromLow);
-
-    // Map the percentage to the output range
+    
+    // Map the percentage to the output range and convert to integer
     int result = toLow + static_cast<int>(percentage * (toHigh - toLow));
-
-    // Ensure the result is within the output range
+    
+    // Ensure the result is within the specified output range
     result = min(max(result, toLow), toHigh);
-
+    
+    // Return the mapped result
     return result;
 }
 
