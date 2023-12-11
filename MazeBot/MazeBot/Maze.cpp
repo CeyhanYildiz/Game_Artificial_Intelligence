@@ -41,14 +41,16 @@ Maze::Maze(int size ,string name) :
      ConstructMaze();
 
      // Adding Start
-        vector<pair<int, int>> startPositions = { {1, 1}, {1, 2}, {2, 1}, {2, 2} };
+        vector<pair<int, int>> startPositions = { {1, 1}, {1, 2},
+                                                  {2, 1}, {2, 2} };
         for (const auto& pos : startPositions) 
         { 
             setMazeElement(pos.first, pos.second, new Start()); 
         }
 
      // Adding End
-        vector<pair<int, int>> endPositions = { {q2, q2}, {q2, q3}, {q3, q2}, {q3, q3} };
+        vector<pair<int, int>> endPositions = { {q2, q2}, {q2, q3}, 
+                                                {q3, q2}, {q3, q3} };
          for (const auto& pos : endPositions) 
          { 
              setMazeElement(pos.first, pos.second, new End()); 
