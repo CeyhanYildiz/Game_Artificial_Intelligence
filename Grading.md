@@ -1,5 +1,5 @@
 
-# 21/50
+# 22/50
 
 ## Algemeen 8/10
 
@@ -32,7 +32,7 @@
 - [ ] useful template function or class
 - [ ] useful friend function or class
 
-## C++ 4/15
+## C++ 5/15
 
 - [ ] everything in one or more self-made namespace(s)
 - [ ] 2 useful unsigned chars or other better usage of memory efficient type
@@ -48,7 +48,7 @@
 - [ ] useful usage of (modern) file-I/O
 - [ ] useful exception handling
 - [ ] useful usage of lambda function
-- [ ] useful usage of threads
+- [x] useful usage of threads
 
 ## Uitbreiding /10
 
