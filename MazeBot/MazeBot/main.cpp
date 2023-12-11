@@ -6,19 +6,14 @@ using namespace std;
 
 int main() {
 
-    int count = 1;
-    while (count)
-    {
-        // Make game
-        Maze game(150, "MazeBot " + to_string(count));
-        count++;
-        // Make AI
-            //Here
+    // Make game
+        Maze game(10,29);
 
-        // Solve
+    // Make AI
+        //Here
+
+    // Running 
         game.run();  // game.run(); = Its a loop FIX!
-    }
-
 
     return 0;
 }
