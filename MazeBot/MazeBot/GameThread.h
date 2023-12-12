@@ -9,25 +9,25 @@
 
 class GameManager {
 public:
-    explicit GameManager(int numGames);
+	explicit GameManager(int numGames);
 
-    void startGames();
+	void startGames();
 
 private:
-    class GameThread {
-    public:
-        explicit GameThread(int id);
+	class GameThread {
+	public:
+		explicit GameThread(int id);
 
-        void run() const;
+		void run() const;
 
-    private:
-        int threadId;
-    };
+	private:
+		int threadId;
+	};
 
-    friend class GameThread;  // Declare GameThread as a friend class 
+	friend class GameThread;  // Declare GameThread as a friend class
 
-    int numberOfGames;
+	int numberOfGames;
 
-    vector<thread> gameThreads;
-    vector<GameThread> games;
+	vector<thread> gameThreads;
+	vector<GameThread> games;
 };

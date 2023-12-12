@@ -4,31 +4,31 @@
 GameManager::GameManager(int numGames) : numberOfGames(numGames) {}
 
 void GameManager::startGames() {
-    // Reserve space to avoid frequent reallocations
-    games.reserve(numberOfGames);
+	// Reserve space to avoid frequent reallocations
+	games.reserve(numberOfGames);
 
-    // Start and run game threads
-    for (int i = 1; i <= numberOfGames; ++i) {
-        games.emplace_back(i);
-        gameThreads.emplace_back(&GameThread::run, &games.back());
-        // Optional: Introduce a delay between starting threads if needed
-        this_thread::sleep_for(chrono::seconds(2));
-    }
+	// Start and run game threads
+	for (int i = 1; i <= numberOfGames; ++i) {
+		games.emplace_back(i);
+		gameThreads.emplace_back(&GameThread::run, &games.back());
+		// Optional: Introduce a delay between starting threads if needed
+		this_thread::sleep_for(chrono::seconds(2));
+	}
 
-    // Join all the game threads after the loop
-    for (auto& thread : gameThreads) {
-        thread.join();
-    }
+	// Join all the game threads after the loop
+	for (auto& thread : gameThreads) {
+		thread.join();
+	}
 }
 
 GameManager::GameThread::GameThread(int id) : threadId(id) {}
 
 void GameManager::GameThread::run() const {
-    // Maze object creation and any additional setup
-    Maze game(10, 29, "MazeBot " + std::to_string(threadId));
+	// Maze object creation and any additional setup
+	Maze game(10, 29, "MazeBot " + std::to_string(threadId));
 
-    // Use threadId to differentiate between threads if needed
-    std::cout << "Thread " << threadId << " started.\n";
+	// Use threadId to differentiate between threads if needed
+	std::cout << "Thread " << threadId << " started.\n";
 
-    game.run();
+	game.run();
 }
