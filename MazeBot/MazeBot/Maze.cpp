@@ -43,21 +43,19 @@ Maze::Maze(int size, int Cell_Size, string name) :
     // Making Grid
         ConstructMaze();
 
-     // Adding Start
-        vector<pair<int, int>> startPositions = { {1, 1}, {1, 2},
-                                                  {2, 1}, {2, 2} };
-        for (const auto& pos : startPositions) 
-        { 
-            setMazeElement(pos.first, pos.second, new Start()); 
-        }
+        // Lambda function to add Start or End elements
+        auto addElements = [this](const vector<pair<int, int>>& positions, MazeElement* element) {
+            for (const auto& pos : positions) {
+                setMazeElement(pos.first, pos.second, element);
+            }
+            };
 
-     // Adding End
-        vector<pair<int, int>> endPositions = { {q2, q2}, {q2, q3}, 
-                                                {q3, q2}, {q3, q3} };
-         for (const auto& pos : endPositions) 
-         { 
-             setMazeElement(pos.first, pos.second, new End()); 
-         }
+        // Adding Start
+        addElements({ {1, 1}, {1, 2}, {2, 1}, {2, 2} }, new Start());
+
+        // Adding End
+        addElements({ {q2, q2}, {q2, q3}, {q3, q2}, {q3, q3} }, new End());
+
 
     // Grid to Maze
         Binary_Tree_Algorithm();

@@ -1,5 +1,5 @@
 
-# 23/50
+# 25/50
 
 ## Algemeen 8/10
 
@@ -14,7 +14,7 @@
 - [x] correct files on git
 - [ ] working build manual as readme on GitHub (project must be possible to build from scratch on a clean PC)
 
-## OOP 10/15
+## OOP 11/15
 
 - [x] at least 2 default constructors
 - [x] at least 2 parameterized constructors    
@@ -30,9 +30,9 @@
 - [x] useful getters and setters for member variables
 - [x] correct usage of inline function
 - [ ] useful template function or class
-- [ ] useful friend function or class
+- [x] useful friend function or class
 
-## C++ 5/15
+## C++ 6/15
 
 - [ ] everything in one or more self-made namespace(s)
 - [ ] 2 useful unsigned chars or other better usage of memory efficient type
@@ -47,7 +47,7 @@
 - [x] useful usage of nullptr
 - [ ] useful usage of (modern) file-I/O
 - [ ] useful exception handling
-- [ ] useful usage of lambda function
+- [x] useful usage of lambda function
 - [x] useful usage of threads
 
 ## Uitbreiding /10
