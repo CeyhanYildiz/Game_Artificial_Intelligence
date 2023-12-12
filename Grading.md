@@ -1,5 +1,5 @@
 
-# 25/50
+# 27/50
 
 ## Algemeen 8/10
 
@@ -10,11 +10,11 @@
 - [x] separate header files
 - [x] one complete project that compiles and does not crash
 - [ ] fully working project
-- [x] sufficient git commits (+/- weekly)       5/6
+- [x] sufficient git commits (+/- weekly)       6/6
 - [x] correct files on git
 - [ ] working build manual as readme on GitHub (project must be possible to build from scratch on a clean PC)
 
-## OOP 11/15
+## OOP 12/15
 
 - [x] at least 2 default constructors
 - [x] at least 2 parameterized constructors    
@@ -23,7 +23,7 @@
 - [x] member initialization in constructors (the stuff behind a colon)
 - [ ] constructor forwarding                    0/1
 - [x] useful proven (dynamic) polymorphism
-- [ ] useful usage of "this" (if the code does not work without it)
+- [x] useful usage of "this" (if the code does not work without it)
 - [x] useful member function
 - [x] default values in function definition
 - [x] useful member variabel
@@ -50,9 +50,9 @@
 - [x] useful usage of lambda function
 - [x] useful usage of threads
 
-## Uitbreiding /10
+## Uitbreiding 1/10
 
-- [ ] useful Qt class --> SFML ok ??
+- [x] useful Qt class --> SFML ok ??
 - [ ] useful usage of signals/slots
 - [ ] test-driven development (= written test plan or unit tests)
 - [ ] solve bug ticket (with pull request or commit message issue link and issue branch)

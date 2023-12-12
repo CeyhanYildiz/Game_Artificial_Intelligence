@@ -48,7 +48,7 @@ Maze::Maze(int size, int Cell_Size, string name) :
             for (const auto& pos : positions) {
                 setMazeElement(pos.first, pos.second, element);
             }
-            };
+        };
 
         // Adding Start
         addElements({ {1, 1}, {1, 2}, {2, 1}, {2, 2} }, new Start());
@@ -56,9 +56,9 @@ Maze::Maze(int size, int Cell_Size, string name) :
         // Adding End
         addElements({ {q2, q2}, {q2, q3}, {q3, q2}, {q3, q3} }, new End());
 
-
     // Grid to Maze
         Binary_Tree_Algorithm();
+        
 }
 
 // Destructor Maze
@@ -101,6 +101,7 @@ void Maze::ConstructMaze() {
         }
     }
 }
+
 
 void Maze::Binary_Tree_Algorithm() {
 
@@ -250,10 +251,10 @@ void Maze::printBlockSymbol(const MazeElement& element) {
     map<char, Color> symbolToColor = {
         {'P', Color(125, 0, 125)},
         {'W', Color(0, 0, 0)},
-        {'C', Color(0, 0, 0)},
+        {'C', Color(60, 60, 225)},
         {'S', Color(50, 255, 50)},
         {'E', Color(200, 0, 75)},
-        {'w', Color(0, 0, 0)},
+        {'w', Color(255, 68, 51)},
         {'X', Color(0, 0, 0)}
     };
 

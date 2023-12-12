@@ -40,13 +40,7 @@ private:
 		void printMaze();
 		void printMazeElement(int x, int y);
 		void printBlockSymbol(const MazeElement& element);
-		int mapping(int input, int fromLow, int fromHigh, int toLow, int toHigh);
-
-	// RunStuff
-		//void handleEvents(); -- Delete ?
-		//void update(); -- Delete ?
-		//void render(); -- Delete ?
-		
+		int mapping(int input, int fromLow, int fromHigh, int toLow, int toHigh);		
 
 	// Game API window
 		RenderWindow window;

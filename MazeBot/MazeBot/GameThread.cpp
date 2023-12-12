@@ -12,7 +12,7 @@ void GameManager::startGames() {
         games.emplace_back(i);
         gameThreads.emplace_back(&GameThread::run, &games.back());
         // Optional: Introduce a delay between starting threads if needed
-        this_thread::sleep_for(chrono::seconds(1));
+        this_thread::sleep_for(chrono::seconds(2));
     }
 
     // Join all the game threads after the loop

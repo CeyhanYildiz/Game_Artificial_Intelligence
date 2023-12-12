@@ -24,7 +24,7 @@ private:
         int threadId;
     };
 
-    friend class GameThread;  // Declare GameThread as a friend class
+    friend class GameThread;  // Declare GameThread as a friend class 
 
     int numberOfGames;
 
