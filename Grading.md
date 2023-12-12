@@ -1,5 +1,5 @@
 
-# 22/50
+# 23/50
 
 ## Algemeen 8/10
 
@@ -14,10 +14,10 @@
 - [x] correct files on git
 - [ ] working build manual as readme on GitHub (project must be possible to build from scratch on a clean PC)
 
-## OOP 9/15
+## OOP 10/15
 
 - [x] at least 2 default constructors
-- [ ] at least 2 parameterized constructors     1/2
+- [x] at least 2 parameterized constructors    
 - [ ] at least 2 copy constructors              0/2
 - [x] at least 2 destructors
 - [x] member initialization in constructors (the stuff behind a colon)

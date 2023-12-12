@@ -1,24 +1,29 @@
 #pragma once
 
-// C++
+// C++ Standard Library
 #include <iostream>
 #include <thread>
+#include <vector>
 
 // Game
 #include "Maze.h"
 
 using namespace std;
 
-
 class GameManager {
 public:
-    GameManager(int numGames) : numberOfGames(numGames) {}
+    explicit GameManager(int numGames) : numberOfGames(numGames) {}
 
     void startGames() {
+        // Reserve space to avoid frequent reallocations
+        games.reserve(numberOfGames);
+
+        // Start and run game threads
         for (int i = 1; i <= numberOfGames; ++i) {
             games.emplace_back(i);
             gameThreads.emplace_back(&GameThread::run, &games.back());
-            //this_thread::sleep_for(chrono::seconds(4));
+            // Optional: Introduce a delay between starting threads if needed
+            this_thread::sleep_for(chrono::seconds(1));
         }
 
         // Join all the game threads after the loop
@@ -27,16 +32,17 @@ public:
         }
     }
 
+
 private:
     class GameThread {
     public:
-        GameThread(int id) : threadId(id) {}
+        explicit GameThread(int id) : threadId(id) {}
 
-        void run() {
+        void run() const {
             // Maze object creation and any additional setup
             Maze game(10, 29, "MazeBot " + to_string(threadId));
 
-            // You can use threadId to differentiate between threads if needed
+            // Use threadId to differentiate between threads if needed
             cout << "Thread " << threadId << " started.\n";
 
             game.run();
@@ -50,4 +56,3 @@ private:
     vector<thread> gameThreads;
     vector<GameThread> games;
 };
-
