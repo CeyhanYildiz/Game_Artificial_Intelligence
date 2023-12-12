@@ -2,7 +2,10 @@
 #include "Gamethread.h"
 
 int main() {
-    GameManager gameManager(30); // FIX bug if more than a few it does not print properly
+    GameManager gameManager(1); 
+    // More than 2 bug : Thread 1885405251 started.
+    // Thread 2 started.
+
     gameManager.startGames();
 
     return 0;
