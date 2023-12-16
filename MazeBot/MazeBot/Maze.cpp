@@ -32,8 +32,8 @@ Maze::Maze(int size, int Cell_Size, string name) :
 	// Calculations
 	TrueSize = sizeMaze * 3;
 	int quarter = TrueSize + 1;
-	int q2 = quarter - 2;
-	int q3 = quarter - 3;
+	int q1 = quarter - 2;
+	int q2 = quarter - 3;
 	MazeCellSize = sizeMaze * sizeMaze;
 	TrueMazeSize = (TrueSize + 1) * (TrueSize + 1);
 
@@ -43,18 +43,31 @@ Maze::Maze(int size, int Cell_Size, string name) :
 	// Making Grid
 	ConstructMaze();
 
-	// Lambda function to add Start or End elements
-	auto addElements = [this](const vector<pair<int, int>>& positions, MazeElement* element) {
-		for (const auto& pos : positions) {
-			setMazeElement(pos.first, pos.second, element);
-		}
-		};
-
 	// Adding Start
-	addElements({ {1, 1}, {1, 2}, {2, 1}, {2, 2} }, new Start());
+	delete maze[1][1];
+	maze[1][1] = new Start(); // Using the copy constructor
 
-	// Adding End
-	addElements({ {q2, q2}, {q2, q3}, {q3, q2}, {q3, q3} }, new End());
+	delete maze[1][2];
+	maze[1][2] = new Start(*dynamic_cast<Start*>(maze[1][1])); // Using the copy constructor
+
+	delete maze[2][1]; // Delete the old element
+	maze[2][1] = new Start(*dynamic_cast<Start*>(maze[1][2])); // Set the new element
+
+	delete maze[2][2]; // Delete the old element
+	maze[2][2] = new Start(*dynamic_cast<Start*>(maze[2][1])); // Set the new element
+
+	// Adding EndStart
+	delete maze[q1][q1]; // Delete the old element
+	maze[q1][q1] = new End(); // Set the new element
+
+	delete maze[q1][q2]; // Delete the old element
+	maze[q1][q2] = new End(*dynamic_cast<End*>(maze[q1][q1])); // Set the new element
+
+	delete maze[q2][q1]; // Delete the old element
+	maze[q2][q1] = new End(*dynamic_cast<End*>(maze[q1][q2])); // Set the new element
+
+	delete maze[q2][q2]; // Delete the old element
+	maze[q2][q2] = new End(*dynamic_cast<End*>(maze[q2][q1])); // Set the new element
 
 	// Grid to Maze
 	Binary_Tree_Algorithm();

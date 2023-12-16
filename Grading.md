@@ -1,5 +1,5 @@
 
-# 27/50
+# 28/50
 
 ## Algemeen 8/10
 
@@ -12,13 +12,13 @@
 - [ ] fully working project
 - [x] sufficient git commits (+/- weekly)       6/6
 - [x] correct files on git
-- [ ] working build manual as readme on GitHub (project must be possible to build from scratch on a clean PC)
+- [ ] working build manual as readme on GitHub (project must be possible to build from scratch on a clean PC) -- Nop to HArd Hard
 
-## OOP 12/15
+## OOP 13/15
 
 - [x] at least 2 default constructors
 - [x] at least 2 parameterized constructors    
-- [ ] at least 2 copy constructors              0/2
+- [x] at least 2 copy constructors  Start & End
 - [x] at least 2 destructors
 - [x] member initialization in constructors (the stuff behind a colon)
 - [ ] constructor forwarding                    0/1

@@ -8,13 +8,10 @@ class End : public MazeElement {
 public:
 
 	End() {
-		isVisited();  // Assuming isVisited is a member function in MazeElement
 	}
 
 	// Copy constructor
 	End(const End& other) : MazeElement(other) {
-		// Assuming isVisited is a member function in MazeElement
-		other.isVisited();
 	}
 
 	// Get info
