@@ -1,5 +1,5 @@
 
-# 28/50
+# 29/50
 
 ## Algemeen 8/10
 
@@ -50,14 +50,14 @@
 - [x] useful usage of lambda function
 - [x] useful usage of threads
 
-## Uitbreiding 1/10
+## Uitbreiding 2/10
 
 - [x] useful Qt class --> SFML ok ??
 - [ ] useful usage of signals/slots
 - [ ] test-driven development (= written test plan or unit tests)
 - [ ] solve bug ticket (with pull request or commit message issue link and issue branch)
 - [ ] report a bug ticket on another project
-- [ ] usage of a GUI
+- [x] usage of a GUI
 - [ ] usage of OpenGL or other 3D engine
 - [ ] useful usage of an external library (not Qt)
 - [ ] project that communicates (e.g. UART, BT) with hardware
