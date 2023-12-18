@@ -25,10 +25,10 @@ GameManager::GameThread::GameThread(int id) : threadId(id) {}
 
 void GameManager::GameThread::run() const {
 	// Maze object creation and any additional setup
-	Maze game(10, 29, "MazeBot " + std::to_string(threadId));
+	Maze game(10, 29, "MazeBot " + to_string(threadId));
 
 	// Use threadId to differentiate between threads if needed
-	std::cout << "Thread " << threadId << " started.\n";
+	cout << "Thread " << threadId << " started.\n";
 
 	game.run();
 }
