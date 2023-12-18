@@ -16,6 +16,7 @@
 #include "End.h"
 #include "Checkpoint.h"
 #include "WrongPath.h"
+#include "GameThread.h"
 
 // Name Space
 using namespace sf;
@@ -24,9 +25,13 @@ using namespace sf;
 Maze::Maze(int size, int Cell_Size, string name) :
 	sizeMaze(size),
 	Cell_Size(Cell_Size),
-	window(sf::VideoMode(902, 902), name),
-	Cell(Vector2f(Cell_Size, Cell_Size))
+	window(sf::VideoMode(899, 899), name),
+	Cell(Vector2f(Cell_Size, Cell_Size)),
+	Player(Vector2f(Cell_Size / 2, Cell_Size / 2))
 {
+	// Player
+	Player.setFillColor(Color::Magenta);
+
 	// Constructor for the Maze class with initialization list.
 
 	// Calculations
@@ -66,6 +71,7 @@ Maze::Maze(int size, int Cell_Size, string name) :
 
 	// Grid to Maze
 	Binary_Tree_Algorithm();
+	Player.move(Cell_Size * 2, Cell_Size * 2);
 }
 
 // Destructor Maze
@@ -144,8 +150,76 @@ void Maze::run() {
 			if (event.type == Event::Closed)
 				window.close();
 		}
-		window.clear();
+		Vector2<float> playerPosition = Player.getPosition();
+
+		// Ensure you are using the correct indices based on the returned type
+		int x = static_cast<int>(playerPosition.x);
+		int y = static_cast<int>(playerPosition.y);
+
+		if (x <= 27 || y <= 27 || x >= 857 || y >= 857)
+		{
+			cout << "Hit OutOfBounds Wall, try again" << endl;
+
+			Player.setPosition(Cell_Size * 2, Cell_Size * 2);
+		}
+
+		if (x >= 810 && y >= 810 && x <= 860 && y <= 860)
+		{
+			texture.create(window.getSize().x, window.getSize().y);
+			printMaze();
+			window.draw(Player);
+			window.display();
+
+			texture.update(window);
+			// Inside the main loop, after rendering and displaying
+			Sleep(4000);
+			screenshot = texture.copyToImage();
+			screenshot.saveToFile("DONE.png");
+			Sleep(4000);
+			//cout << "Hit OutOfBounds Wall, try again" << endl;
+				// Make Game
+			window.close();
+
+			cout << "GG WP play 1 more" << endl;
+			Sleep(4000);
+			GameManager gameManager(1);
+
+			// Run Game's
+			gameManager.startGames();
+			//Player.setPosition(Cell_Size, Cell_Size);
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Key::W))
+		{
+			Player.move(0.0f, -0.2f);
+			cout << x << endl;
+			cout << y << endl;
+			cout << endl;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Key::A))
+		{
+			Player.move(-0.2f, 0.0f);
+			cout << x << endl;
+			cout << y << endl;
+			cout << endl;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Key::S))
+		{
+			Player.move(0.0f, 0.2f);
+			cout << x << endl;
+			cout << y << endl;
+			cout << endl;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Key::D))
+		{
+			Player.move(0.2f, 0.0f);
+			cout << x << endl;
+			cout << y << endl;
+			cout << endl;
+		}
+		//window.clear();
 		printMaze();
+		window.draw(Player);
 		window.display();
 	}
 }

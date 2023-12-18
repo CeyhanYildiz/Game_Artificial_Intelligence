@@ -9,14 +9,14 @@
 
 class GameManager {
 public:
-	explicit GameManager(int numGames);
+	explicit GameManager(const int numGames);
 
 	void startGames();
 
 private:
 	class GameThread {
 	public:
-		explicit GameThread(int id);
+		explicit GameThread(const int id);
 
 		void run() const;
 

@@ -1,5 +1,5 @@
 
-# 29/50
+# 33/50
 
 ## Algemeen 8/10
 
@@ -32,12 +32,12 @@
 - [ ] useful template function or class
 - [x] useful friend function or class
 
-## C++ 6/15
+## C++ 8/15
 
 - [ ] everything in one or more self-made namespace(s)
 - [ ] 2 useful unsigned chars or other better usage of memory efficient type
-- [ ] at least 4 useful const references for variables
-- [ ] at least 4 useful const references for functions
+- [x] at least 4 useful const references for variables 
+- [x] at least 4 useful const references for functions 
 - [ ] at least 4 useful bool
 - [x] dynamic memory allocation (new)
 - [x] dynamic memory removing (delete)
@@ -45,20 +45,20 @@
 - [ ] useful string class usage
 - [x] useful container class
 - [x] useful usage of nullptr
-- [ ] useful usage of (modern) file-I/O
+- [ ] useful usage of (modern) file-I/O   
 - [ ] useful exception handling
 - [x] useful usage of lambda function
 - [x] useful usage of threads
 
-## Uitbreiding 2/10
+## Uitbreiding 4/10
 
-- [x] useful Qt class --> SFML ok ??
+- [ ] useful Qt class --> SFML ok ??
 - [ ] useful usage of signals/slots
 - [ ] test-driven development (= written test plan or unit tests)
 - [ ] solve bug ticket (with pull request or commit message issue link and issue branch)
 - [ ] report a bug ticket on another project
 - [x] usage of a GUI
 - [ ] usage of OpenGL or other 3D engine
-- [ ] useful usage of an external library (not Qt)
-- [ ] project that communicates (e.g. UART, BT) with hardware
-- [ ] a nice extra that you think that should deserve grading (stuff you put time in and is not rewarded by an item above)
+- [x] useful usage of an external library (not Qt)
+- [x] project that communicates (e.g. UART, BT) with hardware
+- [x] a nice extra that you think that should deserve grading (stuff you put time in and is not rewarded by an item above)

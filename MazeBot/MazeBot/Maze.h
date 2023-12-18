@@ -47,6 +47,12 @@ private:
 	// For printing Cell API
 	RectangleShape Cell;
 
+	// Player
+	RectangleShape Player;
+
+	Image screenshot;
+	Texture texture;
+
 	// Variable
 	int Height;
 	int Width;
