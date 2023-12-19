@@ -1,7 +1,7 @@
 
-# 33/50
+# 35/50
 
-## Algemeen 8/10
+## Algemeen 9/10
 
 - [x] clean main (i.e. nothing in the main that should be in a class)
 - [x] no globals, but statics if needed
@@ -9,7 +9,7 @@
 - [x] maintainability by clean uniform code style and good function naming and/or comments everywhere
 - [x] separate header files
 - [x] one complete project that compiles and does not crash
-- [ ] fully working project
+- [x] fully working project  ( yess with feasutes not bugss 100%)
 - [x] sufficient git commits (+/- weekly)       6/6
 - [x] correct files on git
 - [ ] working build manual as readme on GitHub (project must be possible to build from scratch on a clean PC) -- Nop to HArd Hard
@@ -32,7 +32,7 @@
 - [ ] useful template function or class
 - [x] useful friend function or class
 
-## C++ 8/15
+## C++ 9/15
 
 - [ ] everything in one or more self-made namespace(s)
 - [ ] 2 useful unsigned chars or other better usage of memory efficient type
@@ -45,7 +45,7 @@
 - [ ] useful string class usage
 - [x] useful container class
 - [x] useful usage of nullptr
-- [ ] useful usage of (modern) file-I/O   
+- [x] useful usage of (modern) file-I/O   
 - [ ] useful exception handling
 - [x] useful usage of lambda function
 - [x] useful usage of threads
