@@ -66,6 +66,7 @@ private:
 	int TrueSize;		// Calculation x * 3
 	int fading;			// Colour fading
 	int Cell_Size;		// Size of Cell ( RectangleShape )
+	bool Startgame = false;
 
 	// A sort of double link list
 	vector<vector<MazeElement*>> maze;

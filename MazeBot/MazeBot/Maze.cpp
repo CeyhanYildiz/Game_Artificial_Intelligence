@@ -186,6 +186,7 @@ void Maze::handleWindowEvents() {
 
 void Maze::handleOutOfBounds(int x, int y) {
 	if (x <= 27 || y <= 27 || x >= 857 || y >= 857) {
+		Startgame = false;
 		cout << "Hit OutOfBounds Wall, try again" << endl;
 		cout << "Move your Mouse to Start (Green Box)" << endl;
 		cout << "Wait on my Call" << endl;
@@ -248,28 +249,42 @@ void Maze::handlePlayerMovement() {
 		// oops, loading failed, handle it
 		cout << "ERROR Image" << endl;
 	}
-	Color color = track.getPixel(mousePosition.x, mousePosition.y);
-
-	// ERROR: Starting Crash Intended if you have the mouse on the start position; it won't crash (you need to be fast).
-	// When hitting a wall, you need to make the player go back to the start before moving elsewhere.
-	// Note: You can still play after hitting an out-of-bounds area or a wall.
-
-	// Check if the color is black (assuming black is represented as RGB(0, 0, 0))
-	if (color.r == 0 && color.g == 0 && color.b == 0) {
-		// Do something when the color is black
-		// For example, set player position
-
-		cout << "Hit Wall, try again" << endl;
-		cout << "Move your Mouse to Start (Green Box)" << endl;
-		if (color.r == 50 && color.g == 255 && color.b == 50)
-		{
-			Player.setPosition(Cell_Size * 2, Cell_Size * 2);
-			cout << "Ok Good to go" << endl;
-		}
-		cout << "Wait on my Call" << endl;
+	Color color = track.getPixel(mousePosition.x + 10, mousePosition.y + 10);
+	if (mousePosition.x >= 27 && mousePosition.y >= 27 && mousePosition.x <= 80 && mousePosition.y <= 80)
+	{
+		Startgame = true;
 	}
+	if (Mouse::isButtonPressed(Mouse::Left) && Startgame)
+	{
+		// left click...
 
-	Player.setPosition(mousePosition.x, mousePosition.y);
+		// ERROR: Starting Crash Intended if you have the mouse on the start position; it won't crash (you need to be fast).
+		// When hitting a wall, you need to make the player go back to the start before moving elsewhere.
+		// Note: You can still play after hitting an out-of-bounds area or a wall.
+
+		// Check if the color is black (assuming black is represented as RGB(0, 0, 0))
+		if (color.r == 0 && color.g == 0 && color.b == 0) {
+			// Do something when the color is black
+			// For example, set player position
+			Startgame = false;
+			cout << "Hit Wall, try again" << endl;
+			cout << "Move your Mouse to Start (Green Box)" << endl;
+			Sleep(2000);
+			if (color.r == 50 && color.g == 255 && color.b == 50)
+			{
+				Player.setPosition(Cell_Size * 2, Cell_Size * 2);
+				cout << "Ok Good to go" << endl;
+			}
+			cout << "Wait on my Call" << endl;
+		}
+
+		Player.setPosition(mousePosition.x, mousePosition.y);
+	}
+	else
+	{
+		Startgame = false;
+		Player.setPosition(Cell_Size * 2, Cell_Size * 2);
+	}
 }
 
 // Edit MazeElements
