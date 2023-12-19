@@ -21,7 +21,7 @@
 // Name Space
 using namespace sf;
 
-// Make Maze
+// Maze constructor
 Maze::Maze(int size, int Cell_Size, string name) :
 	sizeMaze(size),
 	Cell_Size(Cell_Size),
@@ -29,7 +29,7 @@ Maze::Maze(int size, int Cell_Size, string name) :
 	Cell(Vector2f(Cell_Size, Cell_Size)),
 	Player(Vector2f(Cell_Size / 2, Cell_Size / 2))
 {
-	// Player
+	// Player setup
 	Player.setFillColor(Color::Magenta);
 
 	// Constructor for the Maze class with initialization list.
@@ -58,31 +58,35 @@ Maze::Maze(int size, int Cell_Size, string name) :
 	// Adding Start
 	addElements({ {1, 1}, {1, 2}, {2, 1} }, new Start());
 
-	delete maze[2][2]; // Delete the old element
-	maze[2][2] = new Start(*dynamic_cast<Start*>(maze[2][1])); // Set the new element Copy
+	// Replace existing element at (2, 2) with a copied Start element
+	delete maze[2][2];
+	maze[2][2] = new Start(*dynamic_cast<Start*>(maze[2][1]));
 
 	// Adding End
 	addElements({ {q1, q1}, {q1, q2}, {q2, q1} }, new End());
 
-	maze[q1][q1] = new End(); // Set the new element
+	// Replace existing element at (q2, q2) with a copied End element
+	delete maze[q2][q2];
+	maze[q2][q2] = new End(*dynamic_cast<End*>(maze[q2][q1]));
 
-	delete maze[q2][q2]; // Delete the old element
-	maze[q2][q2] = new End(*dynamic_cast<End*>(maze[q2][q1])); // Set the new element Copy
-
-	// Grid to Maze
+	// Grid to Maze using Binary Tree Algorithm
 	Binary_Tree_Algorithm();
+
+	// Move the player to the starting position
 	Player.move(Cell_Size * 2, Cell_Size * 2);
 }
 
-// Destructor Maze
+// Destructor for the Maze class, responsible for freeing allocated memory.
 Maze::~Maze() {
-	// Destructor for the Maze class, responsible for freeing allocated memory.
-
+	// Loop through each cell in the maze and delete the allocated MazeElement objects.
 	for (int x = 0; x < TrueSize + 1; x++) {
-		for (int y = 0; y < TrueSize + 1; y++) { delete maze[x][y]; }
+		for (int y = 0; y < TrueSize + 1; y++) {
+			delete maze[x][y];
+		}
 	}
 }
 
+// Function to construct the initial maze structure with walls, paths, and boundaries.
 void Maze::ConstructMaze() {
 	/* Constructing a Vector
 	* Creating the following pattern:
@@ -95,6 +99,7 @@ void Maze::ConstructMaze() {
 	*   O | O | O | O | O | O | O
 	*/
 
+	// Loop through each cell in the maze
 	for (int y = 0; y < TrueSize + 1; y++) {
 		for (int x = 0; x < TrueSize + 1; x++) {
 			// Assigning 'OutOfBounds' to the maze boundaries
@@ -113,15 +118,20 @@ void Maze::ConstructMaze() {
 	}
 }
 
+// Function to implement the Binary Tree Algorithm for maze generation.
+// The algorithm uses randomization to remove either the West or North wall for each cell.
 void Maze::Binary_Tree_Algorithm() {
-	// Implement the Binary Tree Algorithm to generate a maze.
-	// Utilizes randomization to remove either the West or North wall for each cell.
+	// Create a random number generator using Mersenne Twister algorithm
+	mt19937 rng(time(NULL));
 
-	mt19937 rng(time(NULL)); // Create a random number generator, Mersenne primes
-	uniform_int_distribution<int> dist(1, 2); // Distribute between 1 and 2
+	// Distribute random numbers between 1 and 2
+	uniform_int_distribution<int> dist(1, 2);
+
+	// Loop through each cell in the maze
 	for (int col = 0; col < sizeMaze; col++) {
 		for (int row = 0; row < sizeMaze; row++) {
-			int randomNumber = dist(rng); // Generate a random number (1 or 2)
+			// Generate a random number (1 or 2)
+			int randomNumber = dist(rng);
 
 			// Calculate common positions
 			int posX = col * 3;
@@ -129,12 +139,22 @@ void Maze::Binary_Tree_Algorithm() {
 
 			// Removing either the West wall or the North wall
 			if (randomNumber == 2) {
-				if (getMazeElementSymbol(posX + 1, posY) == 'X') { removeLeftWall(posX, posY); }
-				else { removeUpWall(posX, posY); }
+				// Check and remove the appropriate wall based on adjacent cell status
+				if (getMazeElementSymbol(posX + 1, posY) == 'X') {
+					removeLeftWall(posX, posY);
+				}
+				else {
+					removeUpWall(posX, posY);
+				}
 			}
 			else {
-				if (getMazeElementSymbol(posX, posY + 1) == 'X') { removeUpWall(posX, posY); }
-				else { removeLeftWall(posX, posY); }
+				// Check and remove the appropriate wall based on adjacent cell status
+				if (getMazeElementSymbol(posX, posY + 1) == 'X') {
+					removeUpWall(posX, posY);
+				}
+				else {
+					removeLeftWall(posX, posY);
+				}
 			}
 		}
 	}
@@ -176,56 +196,88 @@ void Maze::run() {
 	}
 }
 
+// Function to handle window events using a polling mechanism.
+// It checks for and responds to window closure events, closing the window if detected.
 void Maze::handleWindowEvents() {
 	Event event;
+
+	// Poll for events until the event queue is empty
 	while (window.pollEvent(event)) {
+		// Check if the event is a window closure
 		if (event.type == Event::Closed)
 			window.close();
 	}
 }
 
+// Function to handle the scenario when the player's position goes out of bounds.
+// If the player's position exceeds the defined maze boundaries, it sets Startgame to false,
+// provides feedback to the user, resets the player's position, and prompts them to try again.
 void Maze::handleOutOfBounds(int x, int y) {
+	// Check if the player's position is outside the defined maze boundaries
 	if (x <= 27 || y <= 27 || x >= 857 || y >= 857) {
+		// Set Startgame to false to indicate the need to restart
 		Startgame = false;
+
+		// Inform the user about hitting the OutOfBounds wall and provide instructions
 		cout << "Hit OutOfBounds Wall, try again" << endl;
 		cout << "Move your Mouse to Start (Green Box)" << endl;
 		cout << "Wait on my Call" << endl;
+
+		// Introduce a delay for 2000 milliseconds (2 seconds)
 		Sleep(2000);
+
+		// Reset the player's position to the starting point
 		Player.setPosition(Cell_Size * 2, Cell_Size * 2);
+
+		// Provide feedback that the user is good to go
 		cout << "Ok Good to go" << endl;
 	}
 }
 
+// Function to check if the player's position is at the designated end point of the maze.
+// Returns true if the player's position is within the specified end region, otherwise returns false.
 bool Maze::isAtEnd(int x, int y) {
-	if (x >= 810 && y >= 810 && x <= 860 && y <= 860)
-	{
-		return 1;
+	// Check if the player's position is within the specified end region
+	if (x >= 810 && y >= 810 && x <= 860 && y <= 860) {
+		// Return true if the player is at the end
+		return true;
 	}
-	else
-	{
-		return 0;
+	else {
+		// Return false if the player is not at the end
+		return false;
 	}
 }
 
+// Function to handle the scenario when the player reaches the end of the maze.
+// Provides congratulatory messages, captures a screenshot of the completed maze,
+// closes the current window, introduces a delay, and proceeds to the next maze.
 void Maze::handleEndReached() {
+	// Congratulate the player for completing the maze
 	cout << endl << "Good Job! One more maze to solve." << endl;
 
+	// Create a texture, print the maze, draw the player, and display the window
 	texture.create(window.getSize().x, window.getSize().y);
 	printMaze();
 	window.draw(Player);
 	window.display();
 
+	// Update the texture and save a screenshot of the completed maze
 	texture.update(window);
-
 	screenshot = texture.copyToImage();
 	screenshot.saveToFile("DONE.png");
 
+	// Close the current window
 	window.close();
+
+	// Introduce a delay for 2000 milliseconds (2 seconds)
 	Sleep(2000);
+
+	// Create a new GameManager instance and start the next maze
 	GameManager gameManager(1);
 	gameManager.startGames();
 }
 
+// Function to handle player movement based on mouse input.
 void Maze::handlePlayerMovement() {
 	// Get the mouse position in screen coordinates
 	Vector2i mousePosition = Mouse::getPosition(window);
@@ -233,151 +285,171 @@ void Maze::handlePlayerMovement() {
 	// Map the screen coordinates to world coordinates
 	Vector2f worldPosition = window.mapPixelToCoords(mousePosition);
 
+	// Create a texture, print the maze, draw the player, and display the window
 	texture.create(window.getSize().x, window.getSize().y);
 	printMaze();
 	window.draw(Player);
 	window.display();
 
+	// Update the texture and save a screenshot of the current state
 	texture.update(window);
-
 	screenshot = texture.copyToImage();
 	screenshot.saveToFile("DONE.png");
-	Image track;
 
-	if (!track.loadFromFile("DONE.png"))
-	{
-		// oops, loading failed, handle it
+	// Load the screenshot image to track pixel colors
+	Image track;
+	if (!track.loadFromFile("DONE.png")) {
+		// Handle image loading failure
 		cout << "ERROR Image" << endl;
 	}
+
+	// Get the color of the pixel at the current mouse position
 	Color color = track.getPixel(mousePosition.x + 10, mousePosition.y + 10);
-	if (mousePosition.x >= 27 && mousePosition.y >= 27 && mousePosition.x <= 80 && mousePosition.y <= 80)
-	{
+
+	// Check if the mouse is in the start region
+	if (mousePosition.x >= 27 && mousePosition.y >= 27 && mousePosition.x <= 80 && mousePosition.y <= 80) {
 		Startgame = true;
 	}
-	if (Mouse::isButtonPressed(Mouse::Left) && Startgame)
-	{
-		// left click...
 
-		// ERROR: Starting Crash Intended if you have the mouse on the start position; it won't crash (you need to be fast).
-		// When hitting a wall, you need to make the player go back to the start before moving elsewhere.
-		// Note: You can still play after hitting an out-of-bounds area or a wall.
+	// Check for left mouse button press and ensure the game has started
+	if (Mouse::isButtonPressed(Mouse::Left) && Startgame) {
+		// Left click detected
 
 		// Check if the color is black (assuming black is represented as RGB(0, 0, 0))
 		if (color.r == 0 && color.g == 0 && color.b == 0) {
-			// Do something when the color is black
-			// For example, set player position
+			// Handle collision with a wall
 			Startgame = false;
 			cout << "Hit Wall, try again" << endl;
 			cout << "Move your Mouse to Start (Green Box)" << endl;
+
+			// Introduce a delay for 2000 milliseconds (2 seconds)
 			Sleep(2000);
-			if (color.r == 50 && color.g == 255 && color.b == 50)
-			{
+
+			// Check if the color at the new position is the start position (Green Box)
+			if (color.r == 50 && color.g == 255 && color.b == 50) {
+				// Reset the player position to the start
 				Player.setPosition(Cell_Size * 2, Cell_Size * 2);
 				cout << "Ok Good to go" << endl;
 			}
+
 			cout << "Wait on my Call" << endl;
 		}
 
+		// Set the player position to the current mouse position
 		Player.setPosition(mousePosition.x, mousePosition.y);
 	}
-	else
-	{
+	else {
+		// If the left mouse button is not pressed or the game has not started, reset the player position
 		Startgame = false;
 		Player.setPosition(Cell_Size * 2, Cell_Size * 2);
 	}
 }
 
-// Edit MazeElements
+// Function to set the maze element at specified coordinates to the given new element.
+// Ensures valid indices within the maze boundaries and avoids modifying OutOfBounds, Start, or End elements.
 void Maze::setMazeElement(int y, int x, MazeElement* newElement) {
-	// Set the maze element at coordinates (y, x) to the specified new element.
-	// Ensures valid indices within the maze boundaries and avoids modifying OutOfBounds, Start, or End elements.
-
+	// Check if the coordinates (x, y) are within the bounds of the maze
 	if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
-		// Check if the current element is OutOfBounds or Start
+		// Check if the current element is neither OutOfBounds, Start, nor End
 		if (dynamic_cast<OutOfBounds*>(maze[x][y]) == nullptr &&
 			dynamic_cast<Start*>(maze[x][y]) == nullptr &&
 			dynamic_cast<End*>(maze[x][y]) == nullptr) {
-			delete maze[x][y]; // Delete the old element
-			maze[x][y] = newElement; // Set the new element
+			// Delete the old element at the specified coordinates
+			delete maze[x][y];
+			// Set the new element at the specified coordinates
+			maze[x][y] = newElement;
 		}
 	}
 }
 
+// Function to mark the maze element at specified coordinates as visited.
+// Ensures valid indices within the maze boundaries before updating.
+// If the element at the specified location is a Path, it is replaced with a Checkpoint.
 void Maze::setMazeElement_Visited(int y, int x) {
-	// Set the maze element at coordinates (y, x) as visited.
-	// Ensures valid indices within the maze boundaries before updating.
-	// If the element at the specified location is a Path, it is replaced with a Checkpoint.
-
+	// Check if the coordinates (x, y) are within the bounds of the maze
 	if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
-		if (dynamic_cast<Path*>(maze[x][y]) != nullptr)
-		{
+		// Check if the current element is a Path
+		if (dynamic_cast<Path*>(maze[x][y]) != nullptr) {
+			// Delete the old Path element and replace it with a Checkpoint
 			delete maze[x][y];
 			maze[x][y] = new Checkpoint();
 		}
 	}
 }
 
+// Function to mark the maze element at specified coordinates as a wrong turn.
+// Ensures valid indices within the maze boundaries before updating.
+// If the element at the specified location is a WrongPath, it is replaced with a new WrongPath element.
 void Maze::setMazeElement_WrongTurn(int y, int x) {
+	// Check if the coordinates (x, y) are within the bounds of the maze
 	if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
-		if (dynamic_cast<WrongPath*>(maze[x][y]) != nullptr)
-		{
+		// Check if the current element is a WrongPath
+		if (dynamic_cast<WrongPath*>(maze[x][y]) != nullptr) {
+			// Delete the old WrongPath element and replace it with a new WrongPath
 			delete maze[x][y];
 			maze[x][y] = new WrongPath();
 		}
 	}
 }
 
+// Function to remove the left wall at coordinates (x, y) and create paths in the adjacent cells.
 void Maze::removeLeftWall(int x, int y) {
-	// Remove the left wall at coordinates (x, y) and create paths in the adjacent cells.
+	// Create paths in the adjacent cells to the left of the specified coordinates
 	setMazeElement(x, y + 1, new Path());
 	setMazeElement(x, y + 2, new Path());
 }
+
+// Function to remove the up wall at coordinates (x, y) and create paths in the adjacent cells.
 void Maze::removeUpWall(int x, int y) {
-	// Remove the up wall at coordinates (x, y) and create paths in the adjacent cells.
+	// Create paths in the adjacent cells above the specified coordinates
 	setMazeElement(x + 1, y, new Path());
 	setMazeElement(x + 2, y, new Path());
 }
 
-// Get info
+// Function to get the symbol of the maze element at coordinates (x, y).
 char Maze::getMazeElementSymbol(int x, int y) {
-	// Get the symbol of the maze element at coordinates (x, y).
+	// Return the symbol of the maze element at the specified coordinates
 	return maze[y][x]->getSymbol();
 }
 
+// Function to get the description of the maze element at coordinates (x, y).
 string Maze::getMazeElementDescription(int x, int y) {
-	// Get the description of the maze element at coordinates (x, y).
+	// Return the description of the maze element at the specified coordinates
 	return maze[y][x]->getDescription();
 }
 
-// Print
+// Function to print the maze by iterating through each cell and rendering its symbol.
 void Maze::printMaze() {
-	// Print the maze by iterating through each cell and rendering its symbol.
+	// Iterate through each cell in the maze
 	for (int y = 0; y < TrueSize + 1; y++) {
 		for (int x = 0; x < TrueSize + 1; x++) {
+			// Calculate fading effect based on cell position
 			fading = mapping(x + y, 0, TrueSize * 2, 1, 255);
 
-			Cell.setPosition((Cell_Size * x), (Cell_Size * y)); // 5 sweet spot
+			// Set the position of the Cell object based on the current coordinates
+			Cell.setPosition((Cell_Size * x), (Cell_Size * y));
+
+			// Print the symbol of the maze element at the current coordinates
 			printBlockSymbol(*maze[x][y]);
 		}
 	}
 }
-void Maze::printMazeElement(int x, int y) {
-	// Print the symbol of the maze element at coordinates (x, y).
 
-	if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size())
-	{
+// Function to print the symbol of the maze element at coordinates (x, y).
+void Maze::printMazeElement(int x, int y) {
+	// Check if the coordinates (x, y) are within the bounds of the maze
+	if (x >= 0 && x < maze.size() && y >= 0 && y < maze[x].size()) {
+		// Print the symbol of the maze element at the specified coordinates
 		printBlockSymbol(*maze[x][y]);
 	}
-	else
-	{
+	else {
 		// Handle out-of-bounds case (e.g., print an error message or log)
 		cout << "Error: Attempted to print out-of-bounds element at coordinates (" << x << ", " << y << ")" << endl;
 	}
 }
 
+// Function to print the symbol of the provided maze element using a colored rectangle.
 void Maze::printBlockSymbol(const MazeElement& element) {
-	// Print the symbol of the provided maze element using a colored rectangle.
-
 	// Mapping of symbols to colors
 	map<char, Color> symbolToColor = {
 		{'P', Color(125, 0, 125)},
@@ -397,7 +469,7 @@ void Maze::printBlockSymbol(const MazeElement& element) {
 		// Retrieve the color for the symbol
 		Color fillColor = symbolToColor[symbol];
 
-		// Adjust alpha for specific symbol ('P' in this case)
+		// Adjust alpha for a specific symbol ('P' in this case)
 		if (fillColor.a > 0 && symbol == 'P') {
 			fillColor.g -= fading; // Adjust the rate at which the alpha decreases
 		}
@@ -415,11 +487,16 @@ void Maze::printBlockSymbol(const MazeElement& element) {
 	}
 }
 
+// Function to map a value from one range to another.
+// Ensures valid input and output ranges, calculates the percentage of the input within the input range,
+// maps the percentage to the output range, and converts the result to an integer.
 int Maze::mapping(int input, int fromLow, int fromHigh, int toLow, int toHigh) {
 	// Ensure valid input and output ranges
 	if (fromLow >= fromHigh || toLow >= toHigh) {
+		// Return the input if ranges are invalid
 		return input;
 	}
+
 	// Calculate the percentage of the input within the input range
 	float percentage = static_cast<float>(input - fromLow) / (fromHigh - fromLow);
 

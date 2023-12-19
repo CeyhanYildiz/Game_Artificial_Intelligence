@@ -3,25 +3,26 @@
 // SFML
 #include <SFML/Graphics.hpp>
 
-//C++
+// C++
+#include <vector>
 
 // BaseClass
 #include "MazeElement.h"
 
 using namespace std; // C++
-using namespace sf; //SFML
+using namespace sf;  // SFML
 
 class Maze
 {
 public:
 
-	// Construct & Destructor
+	// Constructor & Destructor
 	Maze(int size, int Cell_Size, string name = "Maze bot");
 	~Maze();
 
 	// Get info
 	int getHeight() const { return Height; };
-	int	getWidth() const { return Width; };
+	int getWidth() const { return Width; };
 	char getMazeElementSymbol(int x, int y);
 	string getMazeElementDescription(int x, int y);
 
@@ -29,17 +30,18 @@ public:
 	void run();
 
 private:
-	// Maze stuff
+	// Maze functions
 	void ConstructMaze();
 	void handleWindowEvents();
 	void handleOutOfBounds(int x, int y);
 	bool isAtEnd(int x, int y);
 	void handleEndReached();
 	void handlePlayerMovement();
-	// Algorithm
+
+	// Maze generation algorithm
 	void Binary_Tree_Algorithm();
 
-	// Print Stuff
+	// Print functions
 	void printMaze();
 	void printMazeElement(int x, int y);
 	void printBlockSymbol(const MazeElement& element);
@@ -57,28 +59,27 @@ private:
 	Image screenshot;
 	Texture texture;
 
-	// Variable
+	// Variables
 	int Height;
 	int Width;
-	int sizeMaze;		// Maze Size
-	int MazeCellSize;	// How much Cells are in the maze
-	int TrueMazeSize;	// True maze size 'sizeMaze * sizeMaze'
-	int TrueSize;		// Calculation x * 3
-	int fading;			// Colour fading
-	int Cell_Size;		// Size of Cell ( RectangleShape )
+	int sizeMaze;       // Maze Size
+	int MazeCellSize;   // Number of Cells in the maze
+	int TrueMazeSize;   // True maze size 'sizeMaze * sizeMaze'
+	int TrueSize;       // Calculation x * 3
+	int fading;         // Colour fading
+	int Cell_Size;      // Size of Cell (RectangleShape)
 	bool Startgame = false;
 
 	// A sort of double link list
 	vector<vector<MazeElement*>> maze;
 
-	// Admin level Edit Maze
+	// Admin-level Edit Maze
 	void removeLeftWall(int x, int y);
 	void removeUpWall(int x, int y);
 	void setMazeElement(int y, int x, MazeElement* newElement);
 
 protected:
-
-	// User level Edit Maze
+	// User-level Edit Maze
 	void setMazeElement_Visited(int y, int x);
 	void setMazeElement_WrongTurn(int y, int x);
 };

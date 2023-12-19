@@ -1,7 +1,9 @@
 #pragma once
 
+// Include the MazeElement header for the base class
 #include "MazeElement.h"
 
+// Derived Class -> Start
 class Start : public MazeElement {
 public:
 	// Default constructor
@@ -15,12 +17,13 @@ public:
 		other.isVisited();
 	}
 
-	// Get info
+	// Get information about the maze element
 	string getDescription() const override {
-		return "Start";
+		return "Start";  // Description of the 'Start' maze element
 	}
 
+	// Get the symbol representing the maze element
 	char getSymbol() const override {
-		return 'S';
+		return 'S';  // Symbol representing the 'Start' maze element
 	}
 };

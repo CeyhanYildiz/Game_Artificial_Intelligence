@@ -21,7 +21,7 @@ public:
 		else {
 			// Handle the case where both or neither are set (you may throw an exception or handle it differently)
 			// For simplicity, I'm printing a message to the console
-			std::cerr << "Error: Set either Up_Down or Left_Right, not both or neither." << std::endl;
+			cout << "Error: Set either Up_Down or Left_Right, not both or neither." << endl;
 		}
 	}
 

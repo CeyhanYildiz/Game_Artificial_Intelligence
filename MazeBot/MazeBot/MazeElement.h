@@ -1,34 +1,37 @@
 #pragma once
 
-// C++
+// C++ standard library includes
 #include <string>
 
-// namespace
+// Namespace declaration
 using namespace std;
 
-// Base Class
-class MazeElement
-{
+// Base Class -> MazeElement
+class MazeElement {
 public:
-	// Construct & Destructor
-	MazeElement() { Visited = false; };
-	virtual ~MazeElement() {}
+	// Constructor and Destructor
+	MazeElement() {
+		Visited = false;  // Initialize the Visited variable to false
+	}
+	virtual ~MazeElement() {}  // Virtual destructor for polymorphism
 
-	// Get info
+	// Get information about the maze element (to be implemented by derived classes)
 	virtual string getDescription() const = 0;
-	virtual char getSymbol() const = 0;
-	bool isVisited() const { return Visited; }
 
-	// Set info
-	void setVisited() { Visited = true; }
+	// Get the symbol representing the maze element (to be implemented by derived classes)
+	virtual char getSymbol() const = 0;
+
+	// Check if the cell is visited
+	bool isVisited() const {
+		return Visited;  // Return the value of the Visited variable
+	}
+
+	// Set the cell as visited
+	void setVisited() {
+		Visited = true;  // Set the Visited variable to true
+	}
 
 private:
-	//Variable
-	bool Visited;   // True if cell is Visited
-
-	//unsigned char NorthWall; // True if hase Wall North(UP)
-	//unsigned char EastWall;  // Right
-	//unsigned char SouthWall; // Down
-	//unsigned char WestWall;  // Left
-	// this 'space'
+	// Variable
+	bool Visited;  // True if the cell is visited
 };

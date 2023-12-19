@@ -2,11 +2,12 @@
 #include "Gamethread.h"
 
 int main() {
-	// Make Game
+	// Create GameManager instance with a specified ID (1 in this case)
 	GameManager gameManager(1);
 
-	// Run Game's
+	// Start the game(s) using the GameManager
 	gameManager.startGames();
 
+	// Exit the program with a success status
 	return 0;
 }
