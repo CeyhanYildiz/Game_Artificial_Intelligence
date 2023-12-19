@@ -31,7 +31,11 @@ public:
 private:
 	// Maze stuff
 	void ConstructMaze();
-
+	void handleWindowEvents();
+	void handleOutOfBounds(int x, int y);
+	bool isAtEnd(int x, int y);
+	void handleEndReached();
+	void handlePlayerMovement();
 	// Algorithm
 	void Binary_Tree_Algorithm();
 

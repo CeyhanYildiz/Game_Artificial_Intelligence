@@ -143,85 +143,133 @@ void Maze::Binary_Tree_Algorithm() {
 void Maze::run() {
 	// Run the maze visualization loop.
 	// Handles window events, clears the window, prints the maze, and displays the window.
-
 	while (window.isOpen()) {
-		Event event;
-		while (window.pollEvent(event)) {
-			if (event.type == Event::Closed)
-				window.close();
-		}
+		// if window is still open
+		handleWindowEvents();
+
+		// Reads the location of the mouse ( magenta Box )
 		Vector2<float> playerPosition = Player.getPosition();
 
 		// Ensure you are using the correct indices based on the returned type
 		int x = static_cast<int>(playerPosition.x);
 		int y = static_cast<int>(playerPosition.y);
 
-		if (x <= 27 || y <= 27 || x >= 857 || y >= 857)
-		{
-			cout << "Hit OutOfBounds Wall, try again" << endl;
+		// Makes sure it does not bug out if the mouse is not on the window
+		handleOutOfBounds(x, y);
 
-			Player.setPosition(Cell_Size * 2, Cell_Size * 2);
+		// Exit the loop after reaching the end
+		if (isAtEnd(x, y)) {
+			handleEndReached();
+			break;  // Exit the loop after reaching the end
 		}
 
-		if (x >= 810 && y >= 810 && x <= 860 && y <= 860)
-		{
-			texture.create(window.getSize().x, window.getSize().y);
-			printMaze();
-			window.draw(Player);
-			window.display();
+		// Player ( BOX ) moves to mouse input
+		handlePlayerMovement();
 
-			texture.update(window);
-			// Inside the main loop, after rendering and displaying
-			Sleep(4000);
-			screenshot = texture.copyToImage();
-			screenshot.saveToFile("DONE.png");
-			Sleep(4000);
-			//cout << "Hit OutOfBounds Wall, try again" << endl;
-				// Make Game
-			window.close();
-
-			cout << "GG WP play 1 more" << endl;
-			Sleep(4000);
-			GameManager gameManager(1);
-
-			// Run Game's
-			gameManager.startGames();
-			//Player.setPosition(Cell_Size, Cell_Size);
-		}
-
-		if (Keyboard::isKeyPressed(Keyboard::Key::W))
-		{
-			Player.move(0.0f, -0.2f);
-			cout << x << endl;
-			cout << y << endl;
-			cout << endl;
-		}
-		if (Keyboard::isKeyPressed(Keyboard::Key::A))
-		{
-			Player.move(-0.2f, 0.0f);
-			cout << x << endl;
-			cout << y << endl;
-			cout << endl;
-		}
-		if (Keyboard::isKeyPressed(Keyboard::Key::S))
-		{
-			Player.move(0.0f, 0.2f);
-			cout << x << endl;
-			cout << y << endl;
-			cout << endl;
-		}
-		if (Keyboard::isKeyPressed(Keyboard::Key::D))
-		{
-			Player.move(0.2f, 0.0f);
-			cout << x << endl;
-			cout << y << endl;
-			cout << endl;
-		}
-		//window.clear();
+		// Print maze
 		printMaze();
+		// Print Player
 		window.draw(Player);
+
+		// Display the maze + player
 		window.display();
 	}
+}
+
+void Maze::handleWindowEvents() {
+	Event event;
+	while (window.pollEvent(event)) {
+		if (event.type == Event::Closed)
+			window.close();
+	}
+}
+
+void Maze::handleOutOfBounds(int x, int y) {
+	if (x <= 27 || y <= 27 || x >= 857 || y >= 857) {
+		cout << "Hit OutOfBounds Wall, try again" << endl;
+		cout << "Move your Mouse to Start (Green Box)" << endl;
+		cout << "Wait on my Call" << endl;
+		Sleep(2000);
+		Player.setPosition(Cell_Size * 2, Cell_Size * 2);
+		cout << "Ok Good to go" << endl;
+	}
+}
+
+bool Maze::isAtEnd(int x, int y) {
+	if (x >= 810 && y >= 810 && x <= 860 && y <= 860)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+void Maze::handleEndReached() {
+	cout << endl << "Good Job! One more maze to solve." << endl;
+
+	texture.create(window.getSize().x, window.getSize().y);
+	printMaze();
+	window.draw(Player);
+	window.display();
+
+	texture.update(window);
+
+	screenshot = texture.copyToImage();
+	screenshot.saveToFile("DONE.png");
+
+	window.close();
+	Sleep(2000);
+	GameManager gameManager(1);
+	gameManager.startGames();
+}
+
+void Maze::handlePlayerMovement() {
+	// Get the mouse position in screen coordinates
+	Vector2i mousePosition = Mouse::getPosition(window);
+
+	// Map the screen coordinates to world coordinates
+	Vector2f worldPosition = window.mapPixelToCoords(mousePosition);
+
+	texture.create(window.getSize().x, window.getSize().y);
+	printMaze();
+	window.draw(Player);
+	window.display();
+
+	texture.update(window);
+
+	screenshot = texture.copyToImage();
+	screenshot.saveToFile("DONE.png");
+	Image track;
+
+	if (!track.loadFromFile("DONE.png"))
+	{
+		// oops, loading failed, handle it
+		cout << "ERROR Image" << endl;
+	}
+	Color color = track.getPixel(mousePosition.x, mousePosition.y);
+
+	// ERROR: Starting Crash Intended if you have the mouse on the start position; it won't crash (you need to be fast).
+	// When hitting a wall, you need to make the player go back to the start before moving elsewhere.
+	// Note: You can still play after hitting an out-of-bounds area or a wall.
+
+	// Check if the color is black (assuming black is represented as RGB(0, 0, 0))
+	if (color.r == 0 && color.g == 0 && color.b == 0) {
+		// Do something when the color is black
+		// For example, set player position
+
+		cout << "Hit Wall, try again" << endl;
+		cout << "Move your Mouse to Start (Green Box)" << endl;
+		if (color.r == 50 && color.g == 255 && color.b == 50)
+		{
+			Player.setPosition(Cell_Size * 2, Cell_Size * 2);
+			cout << "Ok Good to go" << endl;
+		}
+		cout << "Wait on my Call" << endl;
+	}
+
+	Player.setPosition(mousePosition.x, mousePosition.y);
 }
 
 // Edit MazeElements
