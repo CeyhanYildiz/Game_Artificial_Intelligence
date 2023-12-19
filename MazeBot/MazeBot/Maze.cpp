@@ -32,6 +32,7 @@ Maze::Maze(int size, int Cell_Size, string name) :
 	// Player setup
 	Player.setFillColor(Color::Magenta);
 
+	cout << "Click Start Fast or i wil close it" << endl;
 	// Constructor for the Maze class with initialization list.
 
 	// Calculations
