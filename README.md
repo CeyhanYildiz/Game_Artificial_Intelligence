@@ -23,4 +23,6 @@ Welcome to the Game Artificial Intelligence repository! This project is focused 
 
 Watch this youtube video : [here](https://www.youtube.com/watch?v=YfMQyOw1zik&ab_channel=SamuliNatri)
 
-and place my code in it to test 
+and place my code in a new project 
+like this :
+![Alt text](image.png)
